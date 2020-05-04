@@ -14,7 +14,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItem from '@material-ui/core/ListItem';
 import { TiTicket } from "react-icons/ti";
 import {MdEvent, MdDashboard,MdPeople, MdAssignment, MdContacts, MdVerifiedUser} from "react-icons/md";
-import useModal from 'react-hooks-use-modal';
 import Api from "../api/Api";
 
 import "../styles/menu.css";
@@ -37,28 +36,6 @@ const useStyles = makeStyles(theme =>({
   },
 }));
 
-const modalStyle = {
-  backgroundColor: 'white',
-  padding: '40px 45px',
-  marginLeft:"30px",
-  marginRight:"40px",
-  borderRadius: '10px',
-  marginTop:"140px",
-};
-
-
-const maskStyle = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
- 
-  bottom: 0,
-  right: 0,
-  backgroundColor: 'gray',
-  zIndex: 100000
-};
-
-
 export default function Menu({children}) {
   const classes = useStyles();
   const [state, setState] = React.useState({
@@ -70,7 +47,6 @@ export default function Menu({children}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [user, setUser] = React.useState(null)
-  const [openM, setOpenModal] = React.useState()
   
   const isMounted = useRef(true)
 
@@ -83,31 +59,6 @@ export default function Menu({children}) {
       isMounted.current = false
     }
   }, [])
-
-  const [Modal, openModal, closeModal, isOpen] = useModal('root', {
-    preventScroll: true,
-    backgroundColor: '#fff',
-    domNode:'cat'
-  });
-
-  const popup = () => (
-    <Modal style={maskStyle}>
-      <div style={maskStyle}>
-        <div style={modalStyle}>
-          <h1>Your Session Is About To Expire</h1>
-          <p>Click OK to stay logged in</p>
-          <input
-            type="submit"
-            value="OK"
-            name="button"
-            className="cardButtons"
-            onClick={closeModal}
-          />
-        </div>
-      </div>
-    </Modal>
-  );
-
 
   useEffect( () => {
 
@@ -183,7 +134,6 @@ export default function Menu({children}) {
           <ListItem> <MdDashboard className="iconStyling"/><Link className="menuText" to="/Dashboard">&nbsp;&nbsp;&nbsp;Dashboard</Link></ListItem>
         </List>
         <Divider/>
-        <ListItem> <MdEvent className="iconStyling"/><Link className="menuText" to="/Events">&nbsp;&nbsp;&nbsp;Events</Link></ListItem>
         <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/People">&nbsp;&nbsp;&nbsp;People</Link></ListItem>
         
         {user ?        
@@ -224,7 +174,7 @@ export default function Menu({children}) {
           <Drawer open={state.left} onClose={toggleDrawer('left', false)} children={sideList('left')}>
           </Drawer>
             <Typography variant="h6" align = "center" className={classes.title}>
-              Ticket Management
+               Burial Society
               </Typography>
               
               <Button onClick={handleMenu} color="inherit">Hi, {user ? user.name : ""}</Button>
