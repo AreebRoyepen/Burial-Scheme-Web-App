@@ -1,0 +1,128 @@
+#dashboard-box-shadow .MuiPaper-elevation1
+{
+  box-shadow: none !important;
+}
+
+.MuiPaper-outlined {
+  border: none !important;
+}
+
+
+.MuiCardContent-root:last-child {
+  padding-bottom: 24px;
+  /* color: green; */
+  /* background: #08533c; */
+  /* color: white; */
+  /* border: solid; */
+  color: #C1A162;
+
+}
+.charts-container {
+  width: 80%;
+  margin: 0 auto;
+  height: 90%;
+  padding: 20px;
+}
+
+
+.dashboardHeader
+{
+  margin-top: 80px;
+  margin-left: 3%;
+}
+
+.h2Dashboard
+{
+  color:#2D6409;
+  font-size: 2em;
+}
+.h1Dashboard
+{
+    color: #C1A162;
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
+.chart-wrapper {
+ 
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+
+  .h3Style{
+      color: gray;
+      text-align: center;
+  }
+  .h4Style
+  {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-top: -15px;
+    text-align: center;
+    margin-top: -150px;
+}
+
+
+  .main.chart-wrapper {
+    width: 96%;
+    height: 400px;
+  }
+  
+  .sub.chart-wrapper {
+    width: 29%;
+    height: 300px;
+  }
+  
+  /* Simple responsivenss example */
+  @media (max-width: 700px) {
+    .sub.chart-wrapper {
+      width: 96%;
+    }
+  }
+
+  .dots-container{
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 100%;
+  }
+  .dots{
+    animation: bounce 1.5s infinite linear;
+    background: #08533C ;
+    color: white;
+    border-radius: 50%;
+    display: inline-block;
+    height: 20px;
+    text-align: center;
+    width: 20px;
+  }
+  
+  .dots:nth-child(1){
+    animation-delay: .2s;
+  }
+  .dots:nth-child(2){
+    animation-delay: .4s;
+  }
+  .dots:nth-child(3){
+    animation-delay: .6s;
+  }
+  .dots:nth-child(4){
+    animation-delay: .8s;
+  }
+  .dots:nth-child(5){
+    animation-delay: 1s;
+  }
+  @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+      15% {
+          transform: translateY(-15px);
+      }
+      30% {
+          transform: translateY(0);
+      }
+  }
+  
