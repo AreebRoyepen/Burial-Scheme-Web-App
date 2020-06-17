@@ -5,8 +5,8 @@ import {createBrowserHistory} from "history";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 
-import PersonPage from "./components/modules/people/PersonPage";
-import People from "./components/modules/people/People";
+import MemberPage from "./components/modules/members/MemberPage";
+import Members from "./components/modules/members/Members";
 
 import Payments from "./components/modules/tickets/Payments";
 import Menu from "./components/Menu";
@@ -14,6 +14,8 @@ import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 
 import Reports from "./components/modules/admin/Reports";
+import DependantPage from "./components/modules/dependants/DependantPage";
+import Dependants from "./components/modules/dependants/Dependants";
 
 const history = createBrowserHistory();
 
@@ -25,11 +27,21 @@ ReactDOM.render(
       
       <Route path="/Dashboard" render={() => (<Menu> <Dashboard /></Menu> )} />
 
-      <Route path="/PersonPage" render={() => ( <Menu> <PersonPage /> </Menu> )}/>
+      <Route path="/MemberPage" render={() => ( <Menu> <MemberPage /> </Menu> )}/>
+
+      <Route path="/Members" render={() => ( <Menu> <Members /> </Menu> )}/>
+
+      <Route path="/DependantPage" render={() => ( <Menu> <DependantPage /> </Menu> )}/>
+
+      <Route path="/Dependants" render={() => ( <Menu> <Dependants /> </Menu> )}/>
+
+
       
       <Route path="/Payments" render={() => (<Menu> <Payments /></Menu> )} />
 
-      <Route path="/People" render={() => ( <Menu> <People /> </Menu> )}/>
+      
+
+
 
       <Route path="/Reports" render={() => ( <Menu> <Reports /> </Menu> )}/>
 
