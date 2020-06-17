@@ -60,49 +60,49 @@ export default function Menu({children}) {
     }
   }, [])
 
-  useEffect( () => {
+  // useEffect( () => {
 
-    //upon setting user to local storage
-    //start calling refresh endpoint so session does expire
-    if(localStorage.user){
+  //   //upon setting user to local storage
+  //   //start calling refresh endpoint so session does expire
+  //   if(localStorage.user){
 
-      setUser(JSON.parse(localStorage.user))
+  //     setUser(JSON.parse(localStorage.user))
       
-      var id = setInterval(() =>{
-        //setOpenModal(openModal);
-        async function fetchData(){
+  //     var id = setInterval(() =>{
+  //       //setOpenModal(openModal);
+  //       async function fetchData(){
                         
-          let x = await Api.refresh("refresh")
-          console.log(x)
+  //         let x = await Api.refresh("refresh")
+  //         console.log(x)
           
-          if(x.message === "success"){
+  //         if(x.message === "SUCCESS"){
 
-            console.log("refreshed")
+  //           console.log("refreshed")
                                     
-          }else if (x.message === "unauthorized"){
-            localStorage.clear();
-            history.push("/")
+  //         }else if (x.message === "unauthorized"){
+  //           localStorage.clear();
+  //           history.push("/")
 
-          }
-      }
+  //         }
+  //     }
           
       
 
-      fetchData() 
-      if(!isMounted.current) return clearInterval(id)
+  //     fetchData() 
+  //     if(!isMounted.current) return clearInterval(id)
       
 
-      }
-      , ((parseInt(localStorage.expiration) -(1/2 * parseInt(localStorage.expiration)))* 1000));      
+  //     }
+  //     , ((parseInt(localStorage.expiration) -(1/2 * parseInt(localStorage.expiration)))* 1000));      
 
       
 
-    }else{
-      return
-    }
+  //   }else{
+  //     return
+  //   }
 
 
-  },[setUser, setOpenModal, isMounted])
+  // },[setUser, isMounted])
 
 
   const handleMenu = event => {
@@ -134,7 +134,8 @@ export default function Menu({children}) {
           <ListItem> <MdDashboard className="iconStyling"/><Link className="menuText" to="/Dashboard">&nbsp;&nbsp;&nbsp;Dashboard</Link></ListItem>
         </List>
         <Divider/>
-        <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/People">&nbsp;&nbsp;&nbsp;People</Link></ListItem>
+        <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/Members">&nbsp;&nbsp;&nbsp;Members</Link></ListItem>
+        <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/Dependants">&nbsp;&nbsp;&nbsp;Dependants</Link></ListItem>
         
         {user ?        
         adminPanel()
@@ -167,14 +168,13 @@ export default function Menu({children}) {
       {localStorage.user ?
 
           <div className={classes.root}>
-          {popup()}
           <AppBar id= "appBarColor" position="fixed">
             <Toolbar>
             <Button onClick={toggleDrawer('left', true)}><DehazeIcon id ="menuIcon"/></Button>
           <Drawer open={state.left} onClose={toggleDrawer('left', false)} children={sideList('left')}>
           </Drawer>
             <Typography variant="h6" align = "center" className={classes.title}>
-               Burial Society
+               Burial Scheme Web App
               </Typography>
               
               <Button onClick={handleMenu} color="inherit">Hi, {user ? user.name : ""}</Button>
