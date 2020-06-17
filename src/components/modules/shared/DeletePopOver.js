@@ -10,7 +10,7 @@ import Api from "../../../api/Api";
 import "../../../styles/eventCard.css";
 
 function Alert(props) {
-  return <MuiAlert elevation={6} {...props} />;
+  return <MuiAlert elevation={10000} style={{zIndex:100000}} {...props} />;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -78,12 +78,12 @@ export default function SimplePopover(props) {
 
       var time =5000
 
-      if(type === "Event"){
+      if(type === "Member"){
 
-        let resp = await Api.deleteRequest("deleteEvent/"+var3.id)
+        let resp = await Api.deleteRequest("v1/members/"+var3.id)
         console.log(resp)
-        if(resp.message === "success"){
-          setOpenSnackbar({severity : "success", message : "Successfully Deleted", open : true, time : time, closeType : close})
+        if(resp.message === "SUCCESS"){
+          setOpenSnackbar({severity : "SUCCESS", message : "Successfully Deleted", open : true, time : time, closeType : close})
           
         }else if (resp.message === "unauthorized"){
           localStorage.clear();
@@ -104,12 +104,12 @@ export default function SimplePopover(props) {
         
 
 
-      }else if(type === "Person"){
+      }else if(type === "Dependant"){
         
-        let resp =await Api.deleteRequest("deletePerson/"+var3.id)
+        let resp =await Api.deleteRequest("v1/dependants/"+var3.id)
         console.log(resp)
-        if(resp.message === "success"){
-          setOpenSnackbar({severity : "success", message : "Successfully Deleted", open : true, time : time, closeType : close})
+        if(resp.message === "SUCCESS"){
+          setOpenSnackbar({severity : "SUCCESS", message : "Successfully Deleted", open : true, time : time, closeType : close})
           
         }else if (resp.message === "unauthorized"){
           localStorage.clear();
