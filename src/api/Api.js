@@ -19,9 +19,9 @@ export default class Api {
 
         if(resp.status === 200){
             localStorage.setItem("token","Bearer " + resp.data.token)
-            localStorage.setItem("user", JSON.stringify(resp.data.user))
+            localStorage.setItem("user", JSON.stringify(resp.data.data))
             localStorage.setItem("expiration", resp.data.expiration)
-            return {"message" : "success"}
+            return {"message" : "SUCCESS"}
         }
    })
    .catch(
@@ -55,7 +55,7 @@ static async refresh(endpoint){
         
         if(resp.status === 200){
             localStorage.setItem("token","Bearer " + resp.data.token)
-            return {"message" : "success"}
+            return {"message" : "SUCCESS"}
         }
    })
    .catch(
@@ -84,10 +84,14 @@ static async refresh(endpoint){
    static async getRequest(endpoint){
 
     const uri = API_BASE_ADDRESS + "/" + endpoint;
+
+    console.log(uri)
     
     return axios.get(uri, {headers : {"Authorization" : localStorage.getItem("token")}})
     .then(resp => {
         if(resp.status === 200){
+
+            console.log(resp.data)
             return resp.data
         }
 
@@ -230,7 +234,7 @@ static async refresh(endpoint){
     })
     .then(response => {
 
-            return {"message" : "success", "data":response.data}
+            return {"message" : "SUCCESS", "data":response.data}
 
 
     })
@@ -266,7 +270,7 @@ static async refresh(endpoint){
     })
     .then(response => {
 
-            return {"message" : "success", "data":response.data}
+            return {"message" : "SUCCESS", "data":response.data}
 
 
     })
