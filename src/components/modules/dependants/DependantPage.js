@@ -5,6 +5,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
 import MuiAlert from '@material-ui/lab/Alert';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Api from "../../../api/Api";
 import "../../../styles/login.css";
@@ -38,7 +41,9 @@ export default function DependantPage() {
       closeType : null
     });
 
-
+    const [open, setOpen] = React.useState(false);
+    const [options, setOptions] = React.useState([]);
+    const loading = open && options.length === 0;
     const [isSending, setIsSending] = useState(false);
     const isMounted = useRef(true)
 
@@ -67,6 +72,37 @@ export default function DependantPage() {
     
     const [close, setClose] = useState(false)
     
+    useEffect(() => {
+      let active = true;
+  
+      if (!loading) {
+        return undefined;
+      }
+  
+      (async () => {
+  
+        let resp = await Api.getRequest("v1/roles");
+  
+        if (resp.message === "SUCCESS") {
+  
+          if (active) {
+            setOptions(resp.data);
+          }
+  
+        } else if (resp.message === "unauthorized") {
+          localStorage.clear();
+          history.push("/", { last: location.pathname })
+  
+        } else {
+          setOpenSnackbar({ severity: "error", message: "Check your internet connection", open: true, time: 6000, closeType: errorClose })
+        }
+      })();
+  
+      return () => {
+        active = false;
+      };
+    }, [loading]);
+
     useEffect(() => {      
 
       if(location.state.edit){
@@ -246,74 +282,11 @@ export default function DependantPage() {
     </div>
 
     <div>
-		<label htmlFor="text" className="form__label ">Address</label>
-		<input required type="text" className="form__input inputValText" name="text" placeholder="Address" pattern="^\D*$"  value = {dependant.address}
-        onChange={ e => setDependant({...dependant,address : e.target.value})} />
-		<div className="form__requirements">
-      Address is required
-    </div>
-    </div>
-
-    <div>
-		<label htmlFor="text" className="form__label ">Area</label>
-		<input required type="text" className="form__input inputValText" name="text" placeholder="Area" pattern="^\D*$"  value = {dependant.area}
-        onChange={ e => setDependant({...dependant,area : e.target.value})} />
-		<div className="form__requirements">
-      Area is required
-    </div>
-    </div>
-
-    <div>
-		<label htmlFor="text" className="form__label ">Postal Code</label>
-		<input required type="text" className="form__input inputValText" name="text" placeholder="Postal Code" pattern="^\D*$"  value = {dependant.postalCode}
-        onChange={ e => setDependant({...dependant,postalCode : e.target.value})} />
-		<div className="form__requirements">
-      Postal Code is required
-    </div>
-    </div>
-
-    <div>
 		<label htmlFor="text" className="form__label ">ID Number</label>
 		<input required type="text" className="form__input inputValText" name="text" placeholder="ID Number" pattern="^\D*$"  value = {dependant.idnumber}
         onChange={ e => setDependant({...dependant,idnumber : e.target.value})} />
 		<div className="form__requirements">
       ID Number is required
-    </div>
-    </div>
-
-    <div>
-		<label htmlFor="text" className="form__label">Cell Number</label>
-		<input required type="tel" className="form__input inputValText" name="text" placeholder="Cell Number"  pattern="[0-9a-zA-Z]{10,}" maxLength="10" value = {dependant.cellNumber}
-        onChange={ e => setDependant({...dependant,cellNumber : e.target.value})} />
-		<div className="form__requirements">
-      Please enter in a valid Cell Number
-    </div>
-    </div>
-
-    <div>
-		<label htmlFor="text" className="form__label">Work Number</label>
-		<input required type="tel" className="form__input inputValText" name="text" placeholder="Work Number"  pattern="[0-9a-zA-Z]{10,}" maxLength="10" value = {dependant.workNumber}
-        onChange={ e => setDependant({...dependant,workNumber : e.target.value})} />
-		<div className="form__requirements">
-      Please enter in a valid Work Number
-    </div>
-    </div>
-
-    <div>
-		<label htmlFor="text" className="form__label">Home Number</label>
-		<input required type="tel" className="form__input inputValText" name="text" placeholder="Home Number"  pattern="[0-9a-zA-Z]{10,}" maxLength="10" value = {dependant.homeNumber}
-        onChange={ e => setDependant({...dependant,homeNumber : e.target.value})} />
-		<div className="form__requirements">
-      Please enter in a valid Home Number
-    </div>
-    </div>
-
-     <div>
-		<label htmlFor="email" className="form__label">Email</label>
-		<input required type="email" className="form__input inputValEmail" name="email" placeholder="example@aol.com"  value = {dependant.email}
-        onChange={ e => setDependant({...dependant,email : e.target.value})} />
-		<div className="form__requirements">
-      Please enter a valid email address
     </div>
     </div>
     
@@ -336,7 +309,7 @@ export default function DependantPage() {
     </div>
     </div>
 
-    Joining Fee
+    Child
           <br />
 
             <FormControlLabel
@@ -347,15 +320,46 @@ export default function DependantPage() {
 
                     <Switch
                       checked={dependant.paidJoiningFee}
-                      onChange={e => setDependant({...dependant,paidJoiningFee : e.target.checked})}
+                      onChange={e => setDependant({...dependant,child : e.target.checked})}
                       //color="#08533C"
                     />
 
                   </Grid>
-                  <Grid item>Paid</Grid>
+                  <Grid item>Child</Grid>
                 </Grid>
               }
             />
+
+
+    <Autocomplete
+      style={{ width: 250, marginBottom: "15px", marginTop: "15px" }
+      }
+      open={open}
+      onOpen={() => { setOpen(true); }}
+      onClose={() => { setOpen(false); }}
+      getOptionSelected={(option, value) => option.name === value.name}
+      getOptionLabel={option => option.name}
+      options={options}
+      loading={loading}
+      value={dependant.relationship}
+      onChange={(event, newValue) => { setDependant({...dependant, relationship : newValue }) } }
+      renderInput={params => (
+        <TextField
+          {...params}
+          label="Relationship Type"
+          variant="outlined"
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <React.Fragment>
+                {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                {params.InputProps.endAdornment}
+              </React.Fragment>
+            ),
+          }}
+        />
+      )}
+    />
 </form>
 <div  className="btn-group">
    
