@@ -66,7 +66,7 @@ export default function Login ()  {
       var time = 6000
       console.log(x)
       
-      if(x.message === "success"){
+      if(x.message === "SUCCESS"){
         
         
         console.log(localStorage.token)
