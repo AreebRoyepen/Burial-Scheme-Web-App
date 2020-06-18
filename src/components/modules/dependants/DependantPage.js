@@ -152,7 +152,7 @@ export default function DependantPage() {
           console.log(resp)
           if(resp.message === "SUCCESS"){
             
-            setOpenSnackbar({severity : "SUCCESS", message : "Successfully edited", open : true, time : time, closeType : successClose})
+            setOpenSnackbar({severity: "success", message : "Successfully edited", open : true, time : time, closeType : successClose})
             
           }else if (resp.message === "unauthorized"){
             localStorage.clear();
@@ -178,7 +178,7 @@ export default function DependantPage() {
           let resp =await Api.postRequest("v1/dependants",dependant)
           console.log(resp)
           if(resp.message === "SUCCESS"){
-            setOpenSnackbar({severity : "SUCCESS", message : "Successfully added", open : true, time : time, closeType : successClose})
+            setOpenSnackbar({severity: "success", message : "Successfully added", open : true, time : time, closeType : successClose})
             
           }else if (resp.message === "unauthorized"){
             localStorage.clear();

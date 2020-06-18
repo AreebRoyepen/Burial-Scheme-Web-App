@@ -84,7 +84,7 @@ export default function Dependants(){
         
             <div>
             <button onClick = {() => {  history.push("/DependantPage",{id:null, edit:false})  }} className="funButton headerButtons">ADD DEPENDANT</button>
-            <CardList content={data} type = "Dependants" page = "/DependantPage"/>
+            <CardList content={data} type = "Dependant" page = "/DependantPage"/>
             </div>
             :
 
