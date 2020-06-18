@@ -52,6 +52,7 @@ export default function Members(){
         async function fetchData(){
 
             let x = await Api.getRequest("v1/members");
+            console.log(x)
             if(x.message === "SUCCESS"){
                 setData(x.data)
                 setConnection(true)
@@ -84,7 +85,7 @@ export default function Members(){
         
             <div>
             <button onClick = {() => {  history.push("/MemberPage",{id:null, edit:false})  }} className="funButton headerButtons">ADD MEMBER</button>
-            <CardList content={data} type = "Members" page = "/MemberPage"/>
+            <CardList content={data} type = "Member" page = "/MemberPage"/>
             </div>
             :
 
