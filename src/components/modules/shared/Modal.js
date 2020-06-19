@@ -1,28 +1,28 @@
-import React, {useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: 800,
     flexGrow: 1,
     minWidth: 300,
-    transform: 'translateZ(0)',
-    '@media all and (-ms-high-contrast: none)': {
-      display: 'none',
+    transform: "translateZ(0)",
+    "@media all and (-ms-high-contrast: none)": {
+      display: "none",
     },
   },
   modal: {
-    display: 'flex',
+    display: "flex",
     padding: theme.spacing(1),
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   paper: {
     width: 400,
-    color:'#08533C',
+    color: "#08533C",
     backgroundColor: theme.palette.background.paper,
-    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
