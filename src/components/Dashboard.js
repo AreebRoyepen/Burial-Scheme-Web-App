@@ -124,56 +124,56 @@ export default function Dashboard() {
 
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    async function fetchData() {
+  //   async function fetchData() {
 
-      let x = await Api.getRequest("dashboard")
+  //     let x = await Api.getRequest("dashboard")
 
-      console.log(x)
+  //     console.log(x)
 
-      if (x.message === "success") {
+  //     if (x.message === "SUCCESS") {
 
-        setData(x.data)
+  //       setData(x.data)
 
-        let z = await Api.getRequest("availableEvents")
-        if (z.message === "success") {
+  //       let z = await Api.getRequest("availableEvents")
+  //       if (z.message === "SUCCESS") {
 
-          console.log(z)
+  //         console.log(z)
 
-          setEvents(z.event)
-          setConnection(true)
+  //         setEvents(z.event)
+  //         setConnection(true)
 
-        } else if (z.message === "unauthorized") {
-          localStorage.clear();
-          history.push("/", { last: location.pathname })
-        } else if (z.message === "error") {
-          console.log("error")
-          setError(true)
-        } else if (z.message === "no connection") {
-          console.log("no connection")
-          setError(true)
-        }
+  //       } else if (z.message === "unauthorized") {
+  //         localStorage.clear();
+  //         history.push("/", { last: location.pathname })
+  //       } else if (z.message === "error") {
+  //         console.log("error")
+  //         setError(true)
+  //       } else if (z.message === "no connection") {
+  //         console.log("no connection")
+  //         setError(true)
+  //       }
 
-      } else if (x.message === "unauthorized") {
-        localStorage.clear();
-        history.push("/", { last: location.pathname })
-      } else if (x.message === "error") {
-        console.log("error")
-        setError(true)
-      } else if (x.message === "no connection") {
-        console.log("no connection")
-        setError(true)
-      }
-
-
+  //     } else if (x.message === "unauthorized") {
+  //       localStorage.clear();
+  //       history.push("/", { last: location.pathname })
+  //     } else if (x.message === "error") {
+  //       console.log("error")
+  //       setError(true)
+  //     } else if (x.message === "no connection") {
+  //       console.log("no connection")
+  //       setError(true)
+  //     }
 
 
-    }
 
-    fetchData()
 
-  }, [history, setData, setEvents])
+  //   }
+
+  //   fetchData()
+
+  // }, [history, setData, setEvents])
 
 
   Chart.pluginService.register({
