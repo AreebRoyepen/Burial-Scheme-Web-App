@@ -8,6 +8,11 @@ let API_BASE_ADDRESS = 'http://localhost:8080';
 // }
 
 export default class Api {
+
+    static PREMIUM = 1;
+    static CLAIM = 2;
+    static INCOME = 3;
+    static EXPENSE = 4;
    
    static async login(endpoint, payload){
 
@@ -84,19 +89,14 @@ static async refresh(endpoint){
    static async getRequest(endpoint){
 
     const uri = API_BASE_ADDRESS + "/" + endpoint;
-
     console.log(uri)
-    
     return axios.get(uri, {headers : {"Authorization" : localStorage.getItem("token")}})
     .then(resp => {
         if(resp.status === 200){
-
             console.log(resp.data)
             return resp.data
         }
-
     })
-
     .catch(
         e =>{
             console.log(e)
@@ -104,7 +104,7 @@ static async refresh(endpoint){
             if(e.response){
     
                 if(e.response.status === 400){
-                    return {"message" : "error"}
+                    return e.response.data
                 }else if(e.response.status === 401){
                     return {"message" : "unauthorized"}
                 }
@@ -128,17 +128,19 @@ static async refresh(endpoint){
     return axios.post(uri,payload, {headers : {"Authorization" : localStorage.token }})
     .then(resp => {
         if(resp.status === 200){
+            console.log(resp)
             return resp.data
         }
    })
    .catch(
     e =>{
         console.log(e)
+        console.log(e.response)
 
         if(e.response){
 
             if(e.response.status === 400){
-                return {"message" : "error"}
+                return e.response.data
             }else if(e.response.status === 401){
                 return {"message" : "unauthorized"}
             }
@@ -171,7 +173,7 @@ static async refresh(endpoint){
         if(e.response){
 
             if(e.response.status === 400){
-                return {"message" : "error"}
+                return e.response.data
             }else if(e.response.status === 401){
                 return {"message" : "unauthorized"}
             }
@@ -206,7 +208,7 @@ static async refresh(endpoint){
         if(e.response){
 
             if(e.response.status === 400){
-                return {"message" : "error"}
+                return e.response.data
             }else if(e.response.status === 401){
                 return {"message" : "unauthorized"}
             }
