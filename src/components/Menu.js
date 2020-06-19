@@ -136,6 +136,9 @@ export default function Menu({children}) {
         <Divider/>
         <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/Members">&nbsp;&nbsp;&nbsp;Members</Link></ListItem>
         <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/Dependants">&nbsp;&nbsp;&nbsp;Dependants</Link></ListItem>
+        <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/AdhocFunds">&nbsp;&nbsp;&nbsp;AdhocFunds</Link></ListItem>
+        <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/Claims">&nbsp;&nbsp;&nbsp;Claims</Link></ListItem>
+        <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/Premiums">&nbsp;&nbsp;&nbsp;Premiums</Link></ListItem>
         
         {user ?        
         adminPanel()
