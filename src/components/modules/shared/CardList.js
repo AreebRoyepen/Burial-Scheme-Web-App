@@ -205,7 +205,7 @@ export default function CardList(props) {
             {snackBar.message}
           </Alert>
         </Snackbar>
-      </div>{" "}
+      </div>
 
       <input
         className="searchBoxStyle"
@@ -220,15 +220,14 @@ export default function CardList(props) {
             <div key={x.id}>
               <div className="container">
                 <div className="card">
-                  <div className="card-body" id={JSON.stringify(x.active)}>
+                  <div className="card-body" id={JSON.stringify(x.paidJoiningFee)}>
                     <div className="card-header event-name">
-                      <p>{x.name + " " + x.surname}</p>
+                      <p>{ type === "Member" ? x.id+ " " + x.name + " " + x.surname : x.name + " " + x.surname}</p>
                     </div>
                     <span className="card-header">
-                      {x.number}
+                      cell number: {x.cellNumber}
                       <span className="card-header u-float-right">
-                        {" "}
-                        {x.email}{" "}
+                        {x.email}
                       </span>
                     </span>
 
@@ -242,7 +241,7 @@ export default function CardList(props) {
                         value="Edit"
                         name="button"
                         className="cardButtons  card-link u-float-right"
-                        id={JSON.stringify(x.active)}
+                        id={JSON.stringify(x.paidJoiningFee)}
                       />
 
                       {user ? (
