@@ -373,7 +373,7 @@ export default function Payments() {
                     <Switch
                       checked={payOption}
                       onChange={e => setPayOption(e.target.checked)}
-                      color="#08533C"
+                      color="primary"
                     />
 
                   </Grid>
@@ -383,6 +383,7 @@ export default function Payments() {
             />
 
             <TextField
+            fullWidth
               style={{ marginTop: "15px" }}
               id="filled-number"
               label={"Amount"}
@@ -410,7 +411,7 @@ export default function Payments() {
                         <Switch
                           checked={bulk}
                           onChange={e => setBulk(e.target.checked)}
-                          color="#"
+                          color="primary"
                         />
 
                       </Grid>
@@ -420,6 +421,7 @@ export default function Payments() {
                 />
 
                 <TextField
+                fullWidth
                   style={{ marginTop: "15px" }}
                   id="filled-number"
                   label={bulk ? "From" : "Ticket Number"}
@@ -433,6 +435,7 @@ export default function Payments() {
 
                 {bulk ?
                   <TextField
+                  fullWidth
                     id="filled-number"
                     label="To"
                     type="number"
@@ -451,7 +454,8 @@ export default function Payments() {
               :
 
               <Autocomplete
-                style={{ width: 250, marginBottom: "15px", marginTop: "15px" }
+              fullWidth
+                style={{marginBottom: "15px", marginTop: "15px" }
                 }
                 open={open}
                 onOpen={() => { setOpen(true); }}
@@ -464,6 +468,7 @@ export default function Payments() {
                 onChange={(event, newValue) => { setPerson(newValue); }}
                 renderInput={params => (
                   <TextField
+                  fullWidth
                     {...params}
                     label="Select Person"
                     variant="outlined"
