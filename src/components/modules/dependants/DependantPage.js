@@ -8,7 +8,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
-import {KeyboardDatePicker} from '@material-ui/pickers';
+import { KeyboardDatePicker } from "@material-ui/pickers";
 import Alert from "../shared/Alert";
 import Api from "../../../api/Api";
 import "../../../styles/login.css";
@@ -60,6 +60,8 @@ export default function DependantPage() {
     // workNumber: ""
   });
 
+  const [member, setMember] = useState();
+  const [loadMember, setLoadMember] = useState()
   const [editedDependant, seteditedDependant] = useState({});
 
   const [close, setClose] = useState(false);
@@ -122,6 +124,68 @@ export default function DependantPage() {
     }
     setOpenSnackbar({ ...openSnackbar, [openSnackbar.open]: false });
   };
+
+  useEffect(() => {
+    // don't send again while we are sending
+    if (loadMember) return;
+
+    // update state
+    setLoadMember(true);
+    // send the actual request
+
+    if (location.state.edit) {
+      getMember();
+    }
+
+    // once the request is sent, update state again
+    if (isMounted.current)
+      // only update if we are still mounted
+      setLoadMember(false);
+
+    async function getMember() {
+      var time = 3000;
+
+      let resp = await Api.getRequest(
+        "v1/dependants/member/" + location.state.x.id
+      );
+
+      if (resp.message === "SUCCESS") {
+        setMember(resp.data);
+      } else if (resp.message === "unauthorized") {
+        localStorage.clear();
+        history.push("/", { last: location.pathname, data: location.state });
+      } else if (resp.message === "error") {
+        time = 6000;
+        setOpenSnackbar({
+          severity: "error",
+          message: "unknown error",
+          open: true,
+          time: time,
+          closeType: errorClose,
+        });
+      } else if (resp.message === "no connection") {
+        time = 6000;
+        setOpenSnackbar({
+          severity: "error",
+          message: "Check your internet connection",
+          open: true,
+          time: time,
+          closeType: errorClose,
+        });
+      } else if (resp.message === "timeout") {
+        time = 6000;
+        setOpenSnackbar({
+          severity: "error",
+          message: "Request timed out. Please Try Again",
+          open: true,
+          time: time,
+          closeType: errorClose,
+        });
+      }
+    }
+
+
+  }, [loadMember, location,history]);
 
   const sendRequest = useCallback(async () => {
     // don't send again while we are sending
@@ -268,7 +332,7 @@ export default function DependantPage() {
   return (
     <div>
       {console.log(dependant)}
-
+      {console.log(member)}
       <div className={classes.root}>
         <Snackbar
           open={openSnackbar.open}
@@ -285,6 +349,7 @@ export default function DependantPage() {
       </div>
 
       <body className="bodyVal htmlVal spanVal">
+        {member ? <h1>This dependants member is: {member.name + " " + member.surname}</h1> : <div />}
         <form className="form ">
           <div>
             <label htmlFor="text" className="form__label">
@@ -340,7 +405,6 @@ export default function DependantPage() {
             />
             <div className="form__requirements">ID Number is required</div>
           </div>
-
           <div>
             <label htmlFor="text" className="form__label ">
               DOB
@@ -356,45 +420,46 @@ export default function DependantPage() {
               
             /> */}
             <KeyboardDatePicker
-                disableToolbar
-                inputVariant="outlined"
-                variant = "inline"
-                autoOk
-                  margin="normal"
-                  id="date-picker-dialog"
-                  //label="Death Date"
-                  format="dd/MM/yyyy"
-                  value={dependant.dob}
-                  onChange={(e) =>
-                    setDependant({ ...dependant, dob: e.target.value })
-                  }
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
+              fullWidth
+              //disableToolbar
+              inputVariant="outlined"
+              //variant="inline"
+              autoOk
+              margin="normal"
+              id="date-picker-dialog"
+              //label="Death Date"
+              format="dd/MM/yyyy"
+              value={dependant.dob}
+              onChange={(e) =>
+                setDependant({ ...dependant, dob: e.target.value })
+              }
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
             />
             <div className="form__requirements">DOB is required</div>
           </div>
-
           <div>
             <label htmlFor="text" className="form__label ">
               DOE
             </label>
             <KeyboardDatePicker
-                disableToolbar
-                inputVariant="outlined"
-                variant = "inline"
-                autoOk
-                  margin="normal"
-                  id="date-picker-dialog"
-                  //label="Death Date"
-                  format="dd/MM/yyyy"
-                  value={dependant.doe}
-                  onChange={(e) =>
-                    setDependant({ ...dependant, doe: e.target.value })
-                  }
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
+              fullWidth
+              //disableToolbar
+              inputVariant="outlined"
+              //variant="inline"
+              autoOk
+              margin="normal"
+              id="date-picker-dialog"
+              //label="Death Date"
+              format="dd/MM/yyyy"
+              value={dependant.doe}
+              onChange={(e) =>
+                setDependant({ ...dependant, doe: e.target.value })
+              }
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
             />
             {/* <input
               required
@@ -408,9 +473,8 @@ export default function DependantPage() {
             /> */}
             <div className="form__requirements">DOE is required</div>
           </div>
-
-          Child
-          <br />
+            <center>
+          
           <FormControlLabel
             control={
               <Grid component="label" container alignItems="center" spacing={1}>
@@ -421,16 +485,17 @@ export default function DependantPage() {
                     onChange={(e) =>
                       setDependant({ ...dependant, child: e.target.checked })
                     }
-                    //color="#08533C"
+                    color= "primary"
                   />
                 </Grid>
                 <Grid item>Child</Grid>
               </Grid>
             }
           />
-
+            </center>
           <Autocomplete
-            style={{ width: 250, marginBottom: "15px", marginTop: "15px" }}
+            style={{ marginBottom: "15px", marginTop: "15px" }}
+            fullWidth
             open={open}
             onOpen={() => {
               setOpen(true);
@@ -448,6 +513,7 @@ export default function DependantPage() {
             }}
             renderInput={(params) => (
               <TextField
+                fullWidth
                 {...params}
                 label="Relationship Type"
                 variant="outlined"
@@ -466,8 +532,8 @@ export default function DependantPage() {
             )}
           />
         </form>
-       
-       <div className="btn-group">
+
+        <div className="btn-group">
           {location.state.edit ? (
             <button
               //id = {validateForm()}
