@@ -5,7 +5,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import Switch from "@material-ui/core/Switch";
 import { makeStyles } from "@material-ui/core/styles";
-import {KeyboardDatePicker} from '@material-ui/pickers';
+import { KeyboardDatePicker } from "@material-ui/pickers";
 import Alert from "../shared/Alert";
 import Api from "../../../api/Api";
 import "../../../styles/login.css";
@@ -48,11 +48,13 @@ export default function MembersPage() {
     // id: null,
     // idnumber: "",
     // name: "",
-    // paidJoiningFee: null,
+    paidJoiningFee: false,
     // postalCode: null,
     // surname: "",
     // workNumber: ""
   });
+  const [dependants, setDependanta] = useState();
+  const [loadDependants, setLoadDependants] = useState()
 
   const [editedMember, setEditedMember] = useState({});
 
@@ -81,6 +83,68 @@ export default function MembersPage() {
     }
     setOpenSnackbar({ ...openSnackbar, [openSnackbar.open]: false });
   };
+
+  useEffect(() => {
+    // don't send again while we are sending
+    if (loadDependants) return;
+
+    // update state
+    setLoadDependants(true);
+    // send the actual request
+
+    if (location.state.edit) {
+      getDependants();
+    }
+
+    // once the request is sent, update state again
+    if (isMounted.current)
+      // only update if we are still mounted
+      setLoadDependants(false);
+
+    async function getDependants() {
+      var time = 3000;
+
+      let resp = await Api.getRequest(
+        "v1/members/dependants/" + location.state.x.id
+      );
+
+      if (resp.message === "SUCCESS") {
+        setDependanta(resp.data);
+      } else if (resp.message === "unauthorized") {
+        localStorage.clear();
+        history.push("/", { last: location.pathname, data: location.state });
+      } else if (resp.message === "error") {
+        time = 6000;
+        setOpenSnackbar({
+          severity: "error",
+          message: "unknown error",
+          open: true,
+          time: time,
+          closeType: errorClose,
+        });
+      } else if (resp.message === "no connection") {
+        time = 6000;
+        setOpenSnackbar({
+          severity: "error",
+          message: "Check your internet connection",
+          open: true,
+          time: time,
+          closeType: errorClose,
+        });
+      } else if (resp.message === "timeout") {
+        time = 6000;
+        setOpenSnackbar({
+          severity: "error",
+          message: "Request timed out. Please Try Again",
+          open: true,
+          time: time,
+          closeType: errorClose,
+        });
+      }
+    }
+
+
+  }, [loadDependants, location,history]);
 
   const sendRequest = useCallback(async () => {
     // don't send again while we are sending
@@ -244,6 +308,7 @@ export default function MembersPage() {
       </div>
 
       <body className="bodyVal htmlVal spanVal">
+      {dependants ? <h1>This members dependants are: (insert list of dependants wwith buttons)</h1> : <div />}
         <form className="form ">
           <div>
             <label htmlFor="text" className="form__label">
@@ -444,19 +509,20 @@ export default function MembersPage() {
               
             /> */}
             <KeyboardDatePicker
-                disableToolbar
-                inputVariant="outlined"
-                variant = "inline"
-                autoOk
-                  margin="normal"
-                  id="date-picker-dialog"
-                  //label="Death Date"
-                  format="dd/MM/yyyy"
-                  value={member.dob}
-                  onChange={(e) => setMember({ ...member, dob: e.target.value })}
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
+              fullWidth
+              //disableToolbar
+              inputVariant="outlined"
+              //variant="inline"
+              autoOk
+              margin="normal"
+              id="date-picker-dialog"
+              //label="Death Date"
+              format="dd/MM/yyyy"
+              value={member.dob}
+              onChange={(e) => setMember({ ...member, dob: e.target.value })}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
             />
             <div className="form__requirements">DOB is required</div>
           </div>
@@ -475,23 +541,28 @@ export default function MembersPage() {
               
             /> */}
             <KeyboardDatePicker
-                disableToolbar
-                inputVariant="outlined"
-                variant = "inline"
-                autoOk
-                  margin="normal"
-                  id="date-picker-dialog"
-                  //label="Death Date"
-                  format="dd/MM/yyyy"
-                  value={member.doe}
-                  onChange={(e) => setMember({ ...member, doe: e.target.value })}
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
+              fullWidth
+              //disableToolbar
+              inputVariant="outlined"
+              //variant="inline"
+              autoOk
+              margin="normal"
+              id="date-picker-dialog"
+              //label="Death Date"
+              format="dd/MM/yyyy"
+              value={member.doe}
+              onChange={(e) => setMember({ ...member, doe: e.target.value })}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
             />
             <div className="form__requirements">DOE is required</div>
-          </div>
+          </div>          
+
+          <center>
+          <label htmlFor="text" className="form__label ">
           Joining Fee
+            </label>
           <br />
           <FormControlLabel
             control={
@@ -503,13 +574,14 @@ export default function MembersPage() {
                     onChange={(e) =>
                       setMember({ ...member, paidJoiningFee: e.target.checked })
                     }
-                    //color="#08533C"
+                    color="primary"
                   />
                 </Grid>
                 <Grid item>Paid</Grid>
               </Grid>
             }
           />
+          </center>
         </form>
         <div className="btn-group">
           {location.state.edit ? (
