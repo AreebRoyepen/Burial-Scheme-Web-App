@@ -86,10 +86,12 @@ export default function Dependants() {
       {connection ? (
         <div>
           <button
-            onClick={() => {
-              history.push("/DependantPage", { id: null, edit: false });
-            }}
+            // onClick={() => {
+            //   history.push("/DependantPage", { id: null, edit: false });
+            // }}
+            style={{opacity:0}}
             className="funButton headerButtons"
+            disabled
           >
             ADD DEPENDANT
           </button>
