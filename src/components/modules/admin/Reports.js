@@ -92,9 +92,9 @@ export default function Reports() {
           <table id="table" class="table table-hover table-mc-light-blue makeRow">
             <thead>
               <tr>
-                <th style={{textAlign:'center', backgroundColor:'#08533C',color:'white', width:'33.33%'}}>Genarated PDF</th>
-                <th style={{textAlign:'center', backgroundColor:'#C1A162',color:'white',width:'33.33%'}}>Download PDF</th>
-                <th style={{textAlign:'center', backgroundColor:'rgb(114, 155, 37)',color:'white',width:'33.33%'}}>Email PDF</th>
+                <th style={{textAlign:'center', backgroundColor:'#08533C',color:'white', width:'33.33%'}}>Genarated Report</th>
+                <th style={{textAlign:'center', backgroundColor:'#C1A162',color:'white',width:'33.33%'}}>Download Report</th>
+                <th style={{textAlign:'center', backgroundColor:'rgb(114, 155, 37)',color:'white',width:'33.33%'}}>Email Report</th>
               </tr>
             </thead>
             <tbody>
