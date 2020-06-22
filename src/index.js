@@ -3,6 +3,9 @@ import ReactDOM from "react-dom";
 import { Router, Route, Switch } from "react-router-dom";
 import {createBrowserHistory} from "history";
 import {MuiPickersUtilsProvider} from '@material-ui/pickers';
+
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import DateFnsUtils from '@date-io/date-fns';
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
@@ -23,7 +26,20 @@ import Premiums from "./components/modules/funds/Premiums";
 
 const history = createBrowserHistory();
 
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#08533C",
+    },
+    secondary: {
+      main: "#08533C",
+    },
+  },
+});
+
 ReactDOM.render(
+  <ThemeProvider theme={theme}>
   <Router history={history}>
     <MuiPickersUtilsProvider utils = {DateFnsUtils}>
     <Switch>
@@ -56,7 +72,8 @@ ReactDOM.render(
      
     </Switch>
     </MuiPickersUtilsProvider>
-  </Router>,
+  </Router>
+  </ThemeProvider>,
   document.getElementById("root")
 );
 
