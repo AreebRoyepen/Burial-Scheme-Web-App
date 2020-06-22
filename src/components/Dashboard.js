@@ -96,84 +96,85 @@ export default function Dashboard() {
 
   /**Formart String */
 
-  const data = {
-    labels: [
-      'Allocated',
-      'Unallocated',
-      'Paid',
-      'Total'
+  // const data = {
+  //   labels: [
+  //     'Allocated',
+  //     'Unallocated',
+  //     'Paid',
+  //     'Total'
 
-    ],
-    datasets: [{
-      data: [dData.allocatedTickets, dData.unallocatedTickets, dData.paidTickets, dData.totalTickets],
-      backgroundColor: [
-        '#2D6409',
-        '#C1A162',
-        '#08533C',
-        '#9c9c9c'
-      ],
-      hoverBackgroundColor: [
-        '#2D6409',
-        '#C1A162',
-        '#08533C',
-        '#9c9c9c'
-      ]
-    }]
-  };
-
-
-
-
-  // useEffect(() => {
-
-  //   async function fetchData() {
-
-  //     let x = await Api.getRequest("dashboard")
-
-  //     console.log(x)
-
-  //     if (x.message === "SUCCESS") {
-
-  //       setData(x.data)
-
-  //       let z = await Api.getRequest("availableEvents")
-  //       if (z.message === "SUCCESS") {
-
-  //         console.log(z)
-
-  //         setEvents(z.event)
-  //         setConnection(true)
-
-  //       } else if (z.message === "unauthorized") {
-  //         localStorage.clear();
-  //         history.push("/", { last: location.pathname })
-  //       } else if (z.message === "error") {
-  //         console.log("error")
-  //         setError(true)
-  //       } else if (z.message === "no connection") {
-  //         console.log("no connection")
-  //         setError(true)
-  //       }
-
-  //     } else if (x.message === "unauthorized") {
-  //       localStorage.clear();
-  //       history.push("/", { last: location.pathname })
-  //     } else if (x.message === "error") {
-  //       console.log("error")
-  //       setError(true)
-  //     } else if (x.message === "no connection") {
-  //       console.log("no connection")
-  //       setError(true)
-  //     }
+  //   ],
+  //   datasets: [{
+  //     data: [dData.allocatedTickets, dData.unallocatedTickets, dData.paidTickets, dData.totalTickets],
+  //     backgroundColor: [
+  //       '#2D6409',
+  //       '#C1A162',
+  //       '#08533C',
+  //       '#9c9c9c'
+  //     ],
+  //     hoverBackgroundColor: [
+  //       '#2D6409',
+  //       '#C1A162',
+  //       '#08533C',
+  //       '#9c9c9c'
+  //     ]
+  //   }]
+  // };
 
 
 
 
-  //   }
+  useEffect(() => {
 
-  //   fetchData()
+    async function fetchData() {
 
-  // }, [history, setData, setEvents])
+      //let x = await Api.getRequest("dashboard")
+      let x = {message :"SUCCESS"}
+      console.log(x)
+
+      if (x.message === "SUCCESS") {
+
+        setData(x.data)
+
+        //let z = await Api.getRequest("availableEvents")
+        let z= {message : "SUCCESS"}
+        if (z.message === "SUCCESS") {
+
+          //console.log(z)
+
+          //setEvents(z.event)
+          setConnection(true)
+
+        } else if (z.message === "unauthorized") {
+          localStorage.clear();
+          history.push("/", { last: location.pathname })
+        } else if (z.message === "error") {
+          console.log("error")
+          setError(true)
+        } else if (z.message === "no connection") {
+          console.log("no connection")
+          setError(true)
+        }
+
+      } else if (x.message === "unauthorized") {
+        localStorage.clear();
+        history.push("/", { last: location.pathname })
+      } else if (x.message === "error") {
+        console.log("error")
+        setError(true)
+      } else if (x.message === "no connection") {
+        console.log("no connection")
+        setError(true)
+      }
+
+
+
+
+    }
+
+    fetchData()
+
+  }, [history, setData, setEvents])
 
 
   Chart.pluginService.register({
@@ -218,14 +219,6 @@ export default function Dashboard() {
 
   return (
     <div>
-      {console.log(dData.funds)}
-      {console.log(dData.totalFunds)}
-      {console.log(dData.totalTickets)}
-      {console.log(dData.allocatedTickets)}
-      {console.log(dData.unallocatedTickets)}
-      {console.log(dData.paidTickets)}
-      {console.log(dData.unpaidTickets)}
-
       {connection ?
 
 
@@ -246,6 +239,7 @@ export default function Dashboard() {
 
           <div id="dashboard-box-shadow">
             <div className={classes.root}>
+              
               <Grid container spacing={2} id="dashboard-box-shadow">
                 <Grid item xs id="dashboard-box-shadow">
                   <Paper className={classes.paper} style={{ backgroundColor: '#ffffff00' }}>
@@ -257,7 +251,7 @@ export default function Dashboard() {
                           style={{ marginTop: '-67px', marginRight: '90%', color: '#2D6409', fontSize: "2em" }}
                           color="textSecondary"
                         >
-                          Collected
+                          Scheme Balance
                         </Typography>
 
                         <Typography
@@ -267,25 +261,8 @@ export default function Dashboard() {
                           color="textSecondary"
 
                         >
-                          R {formatCurrency(parseFloat(dData.funds).toFixed(2))}
+                          R {formatCurrency(parseFloat(1000).toFixed(2))}
                         </Typography>
-                        <Typography
-                          className={classes.title}
-                          style={{ textAlign:'left',color: '#C1A162', fontSize: "1.2em" }}
-                          color="#729B25"
-
-                        >
-                        of
-                         </Typography>
-                        <Typography
-                         
-                         className={classes.title}
-                         style={{textAlign:'left',color: '#C1A162', fontSize: "1.2em" }}
-                         color="textSecondary"
-
-                       >
-                        R {formatCurrency(parseFloat(dData.totalFunds).toFixed(2))}
-                       </Typography>
                         <Typography className={classes.pos} color="textSecondary" style={{ marginLeft: '70%', marginTop: '-45px', color: '#C1A162', fontSize: "0.9em" }}>
                           from current  active  events
                         </Typography>
@@ -302,7 +279,7 @@ export default function Dashboard() {
                           style={{ marginTop: '-67px', marginRight: '90%', color: '#2D6409', fontSize: "2em" }}
                           color="textSecondary"
                         >
-                          Collected
+                          Premiums Paid
                         </Typography>
 
                         <Typography
@@ -311,8 +288,7 @@ export default function Dashboard() {
                           component="h2"
 
                         >
-                          R {formatCurrency(parseFloat(dData.fundsThisYear).toFixed(2))}
-
+                          R {formatCurrency(parseFloat(100000).toFixed(2))}
                         </Typography>
       
                         <Typography className={classes.pos} color="textSecondary" style={{ marginLeft: '70%', marginTop: '5px', color: '#C1A162', fontSize: "0.9em" }}>
@@ -322,6 +298,37 @@ export default function Dashboard() {
                       </CardContent>
                     </Card></Paper>
                 </Grid>
+
+                <Grid item xs id="dashboard-box-shadow">
+                  <Paper className={classes.paper} style={{ backgroundColor: '#ffffff00' }} >
+                    <Card className={classes.card} style={{ boxShadow: '0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048),0 12.5px 10px rgba(0, 0, 0, 0.06),0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),0 100px 80px rgba(0, 0, 0, 0.12)' }} variant="outlined">
+                      <CardContent style={{ borderLeft: 'solid 15px #729B25' }}>
+                        <MdAttachMoney size={60} color=" #729B25" style={{ marginLeft: '70%' }} />
+                        <Typography
+                          className={classes.title}
+                          style={{ marginTop: '-67px', marginRight: '90%', color: '#2D6409', fontSize: "2em" }}
+                          color="textSecondary"
+                        >
+                          Claims Paid
+                        </Typography>
+
+                        <Typography
+                          style={{textAlign:'left',color: '#C1A162', fontSize: "1.2em" }}
+                          variant="h5"
+                          component="h2"
+
+                        >
+                          R {formatCurrency(parseFloat(100000).toFixed(2))}
+                        </Typography>
+      
+                        <Typography className={classes.pos} color="textSecondary" style={{ marginLeft: '70%', marginTop: '5px', color: '#C1A162', fontSize: "0.9em" }}>
+                         total funds for this year
+                        </Typography>
+                        
+                      </CardContent>
+                    </Card></Paper>
+                </Grid>
+                
                 <Grid item xs id="dashboard-box-shadow">
                   <Paper className={classes.paper} style={{ backgroundColor: '#ffffff00' }}>
                     <Card className={classes.card} style={{ boxShadow: '0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048),0 12.5px 10px rgba(0, 0, 0, 0.06),0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),0 100px 80px rgba(0, 0, 0, 0.12)' }} variant="outlined">
@@ -332,7 +339,7 @@ export default function Dashboard() {
                           style={{ marginTop: '-67px', marginRight: '90%', color: '#2D6409', fontSize: "2em" }}
                           color="textSecondary"
                         >
-                          People
+                          Total Members
                         </Typography>
 
                         <Typography
@@ -341,7 +348,7 @@ export default function Dashboard() {
                           component="h2"
 
                         >
-                          {dData.people}
+                          {12}
                          </Typography>
                         <Typography className={classes.pos} color="textSecondary" style={{ marginLeft: '70%', marginTop: '5px', color: '#C1A162', fontSize: "0.9em" }}>
                           number of fundraisers
@@ -349,8 +356,6 @@ export default function Dashboard() {
                       </CardContent>
                     </Card></Paper>
                 </Grid>
-
-
               </Grid>
 
             </div>
@@ -362,7 +367,7 @@ export default function Dashboard() {
             <div className={classes.root}>
               <Grid container spacing={2} id="dashboard-box-shadow">
 
-                <Grid item  xs={12} sm={6} id="dashboard-box-shadow" style={{ backgroundColor: '#ffffff00' }}>
+                {/* <Grid item  xs={12} sm={6} id="dashboard-box-shadow" style={{ backgroundColor: '#ffffff00' }}>
                   <Paper className={classes.paper} style={{ backgroundColor: '#ffffff00' }}>
                     <Card className={classes.card} style={{ boxShadow: '0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048),0 12.5px 10px rgba(0, 0, 0, 0.06),0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),0 100px 80px rgba(0, 0, 0, 0.12)' }} variant="outlined">
                       <CardContent>
@@ -418,7 +423,7 @@ export default function Dashboard() {
                       </Table>
                     </TableContainer>
                   </Paper>
-                </Grid>
+                </Grid> */}
                
                 {user.role.id == 1 ? (
                 <Grid item xs id="dashboard-box-shadow">
