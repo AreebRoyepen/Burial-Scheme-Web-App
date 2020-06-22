@@ -8,7 +8,6 @@ import Switch from "@material-ui/core/Switch";
 import Grid from "@material-ui/core/Grid";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import {KeyboardDatePicker} from '@material-ui/pickers';
 import 'date-fns';
 import Alert from "../shared/Alert";
 import Api from "../../../api/Api";
@@ -230,8 +229,9 @@ export default function Premiums() {
               <br />
             </h4>
             <Autocomplete
-              style={{ width: 250, marginBottom: "15px", marginTop: "15px" }}
+              style={{marginBottom: "15px", marginTop: "15px" }}
               open={open}
+              fullWidth
               onOpen={() => {
                 setOpen(true);
               }}
@@ -248,6 +248,7 @@ export default function Premiums() {
               }}
               renderInput={(params) => (
                 <TextField
+                fullWidth
                   {...params}
                   label= "Select Member"
                   variant="outlined"
@@ -266,6 +267,7 @@ export default function Premiums() {
               )}
             />
             <TextField
+            fullWidth
               style={{ marginTop: "15px" }}
               id="filled-number"
               label={"Amount"}
