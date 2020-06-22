@@ -8,8 +8,8 @@ import Switch from "@material-ui/core/Switch";
 import Grid from "@material-ui/core/Grid";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import {KeyboardDatePicker} from '@material-ui/pickers';
-import 'date-fns';
+import { KeyboardDatePicker } from "@material-ui/pickers";
+import "date-fns";
 import Alert from "../shared/Alert";
 import Api from "../../../api/Api";
 import "../../../styles/login.css";
@@ -44,13 +44,11 @@ export default function Claims() {
   const [isSending, setIsSending] = useState(false);
   const isMounted = useRef(true);
 
-  const [data, setData] = useState(
-    { 
-      transactionType: Api.CLAIM,
-      buriedDate : new Date(),
-      deathDate: new Date()
-    }
-    );
+  const [data, setData] = useState({
+    transactionType: Api.CLAIM,
+    buriedDate: new Date(),
+    deathDate: new Date(),
+  });
 
   const [type, setType] = useState(false);
 
@@ -132,7 +130,7 @@ export default function Claims() {
       } else {
         resp = await Api.postRequest("v1/claims/dependantClaim", data);
       }
-      console.log(resp)
+      console.log(resp);
       if (resp.message === "SUCCESS") {
         var message = "Payment Successful";
         setData({ transactionType: Api.CLAIM });
@@ -239,18 +237,13 @@ export default function Claims() {
             <br />
             <FormControlLabel
               control={
-                <Grid
-                  component="label"
-                  container
-                  alignItems="center"
-                  spacing={1}
-                >
+                <Grid component="label" container alignItems="center" spacing={1} >
                   <Grid item>dependant</Grid>
                   <Grid item>
                     <Switch
                       checked={type}
                       onChange={(e) => setType(e.target.checked)}
-                      color="#08533C"
+                      color="primary"
                     />
                   </Grid>
                   <Grid item>member</Grid>
@@ -258,8 +251,9 @@ export default function Claims() {
               }
             />
             <Autocomplete
-              style={{ width: 250, marginBottom: "15px", marginTop: "15px" }}
+              style={{ marginBottom: "15px", marginTop: "15px" }}
               open={open}
+              fullWidth
               onOpen={() => {
                 setOpen(true);
               }}
@@ -276,6 +270,7 @@ export default function Claims() {
               }}
               renderInput={(params) => (
                 <TextField
+                  fullWidth
                   {...params}
                   label={type ? "Select Member" : "Select Dependant"}
                   variant="outlined"
@@ -294,6 +289,7 @@ export default function Claims() {
               )}
             />
             <TextField
+              fullWidth
               style={{ marginTop: "15px" }}
               id="filled-number"
               label={"Amount"}
@@ -308,6 +304,7 @@ export default function Claims() {
               variant="outlined"
             />
             <TextField
+              fullWidth
               id="filled-number"
               label="Burial Place"
               rowsMax={10}
@@ -320,42 +317,42 @@ export default function Claims() {
               }}
               variant="outlined"
             />
-       
-        <KeyboardDatePicker
-        disableToolbar
-        inputVariant="outlined"
-        variant = "inline"
-        autoOk
-          margin="normal"
-          id="date-picker-dialog"
-          label="Death Date"
-          format="dd/MM/yyyy"
-          value={data.deathDate}
-          onChange={(e) => {
-            setData({ ...data, deathDate: e });
-          }}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
-
-<KeyboardDatePicker
-disableToolbar
-inputVariant="outlined"
-variant = "inline"
-autoOk
-          margin="normal"
-          id="date-picker-dialog"
-          label="Burial Date"
-          format="dd/MM/yyyy"
-          value={data.buriedDate}
-          onChange={(e) => {
-            setData({ ...data, buriedDate: e });
-          }}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
+            <KeyboardDatePicker
+              fullWidth
+              //disableToolbar
+              inputVariant="outlined"
+              //variant="inline"
+              autoOk
+              margin="normal"
+              id="date-picker-dialog"
+              label="Death Date"
+              format="dd/MM/yyyy"
+              value={data.deathDate}
+              onChange={(e) => {
+                setData({ ...data, deathDate: e });
+              }}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+            />
+            <KeyboardDatePicker
+              fullWidth
+              //disableToolbar
+              inputVariant="outlined"
+              //variant="inline"
+              autoOk
+              margin="normal"
+              id="date-picker-dialog"
+              label="Burial Date"
+              format="dd/MM/yyyy"
+              value={data.buriedDate}
+              onChange={(e) => {
+                setData({ ...data, buriedDate: e });
+              }}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+            />
             {/* <TextField
               id="filled-number"
               
