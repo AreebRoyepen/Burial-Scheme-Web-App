@@ -40,7 +40,7 @@ export default function AdhocFunds() {
   const [amount, setAmount] = useState();
   const [reason, setReason] = useState();
 
-  const [type, setType] = useState(null);
+  const [type, setType] = useState(false);
 
   const successClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -295,7 +295,7 @@ export default function AdhocFunds() {
                     <Switch
                       checked={type}
                       onChange={(e) => setType(e.target.checked)}
-                      color="#08533C"
+                      color="primary"
                     />
                   </Grid>
                   <Grid item>income</Grid>
@@ -304,6 +304,7 @@ export default function AdhocFunds() {
             />
             
             <TextField
+            fullWidth
               style={{ marginTop: "15px" }}
               id="filled-number"
               label={"Amount"}
@@ -320,9 +321,11 @@ export default function AdhocFunds() {
               <div>
                 {!type ? (
                   <TextField
+                  fullWidth
                     id="filled-number"
                     label="Reason"
                     rowsMax={10}
+                    multiline
                     value = {reason}
                     onChange={(e) => {
                       setReason(e.target.value);
