@@ -30,7 +30,7 @@ export default function Premiums() {
 
   const classes = useStyles();
   const [openSnackbar, setOpenSnackbar] = useState({
-    severity: "",
+    
     message: "",
     open: false,
     time: 0,
@@ -177,7 +177,7 @@ export default function Premiums() {
   }, [isSending, history, location, successClose, errorClose]); // update the callback if the state changes
 
   const back = () => {
-
+      history.push("/Dashboard");
   };
 
   // const validateForm = () => {
@@ -306,7 +306,7 @@ export default function Premiums() {
             onClick={back}
             style={{ marginTop: "10px" }}
           >
-            Clear
+            Back
           </button>
         </div>
       </body>

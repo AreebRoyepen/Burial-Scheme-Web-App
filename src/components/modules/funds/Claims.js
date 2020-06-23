@@ -31,7 +31,7 @@ export default function Claims() {
 
   const classes = useStyles();
   const [openSnackbar, setOpenSnackbar] = useState({
-    severity: "",
+    
     message: "",
     open: false,
     time: 0,
@@ -43,6 +43,7 @@ export default function Claims() {
   const loading = open && options.length === 0;
   const [isSending, setIsSending] = useState(false);
   const isMounted = useRef(true);
+  const [person, setPerson] = useState()
 
   const [data, setData] = useState({
     transactionType: Api.CLAIM,
@@ -125,10 +126,11 @@ export default function Claims() {
     async function fetchData() {
       var time = 3000;
       let resp;
+
       if (type) {
-        resp = await Api.postRequest("v1/claims", data);
+        resp = await Api.postRequest("v1/claims", {...data, id : person.id});
       } else {
-        resp = await Api.postRequest("v1/claims/dependantClaim", data);
+        resp = await Api.postRequest("v1/claims/dependantClaim", {...data, id : person.id});
       }
       console.log(resp);
       if (resp.message === "SUCCESS") {
@@ -183,7 +185,7 @@ export default function Claims() {
   }, [isSending, history, type, location, successClose, errorClose]); // update the callback if the state changes
 
   const back = () => {
-    setData({ transactionType: Api.CLAIM });
+      history.push("/Dashboard");    
   };
 
   // const validateForm = () => {
@@ -264,9 +266,9 @@ export default function Claims() {
               getOptionLabel={(option) => option.name + " " + option.surname}
               options={options}
               loading={loading}
-              value={data.id}
+              value={person}
               onChange={(event, newValue) => {
-                setData({ ...data, id: newValue.id });
+                setPerson(newValue)
               }}
               renderInput={(params) => (
                 <TextField
@@ -353,17 +355,7 @@ export default function Claims() {
                 "aria-label": "change date",
               }}
             />
-            {/* <TextField
-              id="filled-number"
-              
-              rowsMax={10}
-              
-              
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="outlined"
-            /> */}
+
           </div>
         </form>
         <div className="btn-group">
@@ -388,7 +380,7 @@ export default function Claims() {
             onClick={back}
             style={{ marginTop: "10px" }}
           >
-            Clear
+            Back
           </button>
         </div>
       </body>

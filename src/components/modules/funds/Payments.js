@@ -5,17 +5,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import Alert from "../shared/Alert";
 import { makeStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
 import Grid from '@material-ui/core/Grid';
 import Api from "../../../api/Api";
 import "../../../styles/login.css";
 import "../../../styles/validationForm.css";
-
-function Alert(props) {
-  return <MuiAlert elevation={6} {...props} />;
-}
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,7 +29,7 @@ export default function Payments() {
 
   const classes = useStyles();
   const [openSnackbar, setOpenSnackbar] = useState({
-    severity: "",
+    
     message: "",
     open: false,
     time: 0,

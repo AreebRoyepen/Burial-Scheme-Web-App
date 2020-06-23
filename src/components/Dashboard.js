@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: '#08533C',
+    backgroundColor: '#1A2819',
     color: theme.palette.common.white,
   },
   body: {
@@ -109,13 +109,13 @@ export default function Dashboard() {
   //     backgroundColor: [
   //       '#2D6409',
   //       '#C1A162',
-  //       '#08533C',
+  //       '#1A2819',
   //       '#9c9c9c'
   //     ],
   //     hoverBackgroundColor: [
   //       '#2D6409',
   //       '#C1A162',
-  //       '#08533C',
+  //       '#1A2819',
   //       '#9c9c9c'
   //     ]
   //   }]
@@ -245,7 +245,7 @@ export default function Dashboard() {
                   <Paper className={classes.paper} style={{ backgroundColor: '#ffffff00' }}>
                     <Card className={classes.card} style={{ boxShadow: '0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048),0 12.5px 10px rgba(0, 0, 0, 0.06),0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),0 100px 80px rgba(0, 0, 0, 0.12)' }} variant="outlined">
                       <CardContent style={{ borderLeft: 'solid 15px #C1A162' }}>
-                        <MdAccountBalance size={60} color="#08533C" style={{ marginLeft: '70%' }} />
+                        <MdAccountBalance size={60} color="#1A2819" style={{ marginLeft: '70%' }} />
                         <Typography
                           className={classes.title}
                           style={{ marginTop: '-67px', marginRight: '90%', color: '#2D6409', fontSize: "2em" }}

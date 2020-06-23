@@ -20,7 +20,7 @@ input[type=search] {
 }
 /********************************************************************/
 .dropbtn {
-  background-color: #08533C;
+  background-color: #1A2819;
   color: white;
   font-weight: bold;
   border: 3px solid white;
@@ -40,7 +40,7 @@ input[type=search] {
   display: none;
   margin-left: -90px;
   position: absolute;
-  background-color: #08533C;
+  background-color: #1A2819;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -76,7 +76,7 @@ input[type=search] {
 
 
 .dropbtn2 {
-  background-color: #08533C;
+  background-color: #1A2819;
   color: white;
   float: right;
   font-weight: bold;
@@ -95,7 +95,7 @@ input[type=search] {
   display: none;
   margin-left: -60px;
   position: absolute;
-  background-color: #08533C;
+  background-color: #1A2819;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -136,7 +136,7 @@ input[type=search]:focus{
   background-image: url('');
 }
 ::placeholder {
-  color: #08533C;
+  color: #1A2819;
   opacity: 1; 
 }
 
@@ -144,7 +144,7 @@ input[type=search]:focus{
   font-size: 13px;
   margin-right: 3%;
   padding-left: 10px;
-  color: #08533C;
+  color: #1A2819;
   position: absolute;
   right: 0;
   top: 0;
@@ -173,7 +173,7 @@ input[type=search]:focus{
 .headerButtons
 {
   color: white !important;
-  background-color: #08533C !important;
+  background-color: #1A2819 !important;
   border-radius: 5px !important;
   border-color: #C1A162 !important;
   border: solid 1.5px;
@@ -208,7 +208,7 @@ input[type=search]:focus{
 }
 
 .cardButtons {
-  background-color:#08533C !important;
+  background-color:#1A2819 !important;
   color: white !important;
   font-weight: bold !important;
   border: 3px solid white !important;
@@ -229,7 +229,7 @@ input[type=search]:focus{
 }
 
 .cardButtons {
-  background-color:#08533C !important;
+  background-color:#1A2819 !important;
   color: white !important;
   font-weight: bold !important;
   border: 3px solid white !important;
@@ -264,7 +264,7 @@ input[type=search]:focus{
 }
 
 .card-lable {
-  color: #08533C;
+  color: #1A2819;
   font-size: 12px;
 }
 
@@ -280,14 +280,14 @@ input[type=search]:focus{
 
 .container .card-body#true:hover {
   box-shadow: 0 5px 14px rgba(0, 0, 0, .2);
-  background-color: #08533C;
+  background-color: #1A2819;
   color: white;
   
 }
 
 .card .card-body#true:hover {
   box-shadow: 0 5px 14px rgba(0, 0, 0, .2);
-  background-color: #08533C;
+  background-color: #1A2819;
   color: white;
   
 }
@@ -307,7 +307,7 @@ input[type=search]:focus{
 
 .container .container #true:hover {
   box-shadow: 0 5px 14px rgba(0, 0, 0, .2);
-  background-color: #08533C;
+  background-color: #1A2819;
   color: white;
   
 }
@@ -315,7 +315,7 @@ input[type=search]:focus{
 
 .card .container #true:hover {
   box-shadow: 0 5px 14px rgba(0, 0, 0, .2);
-  background-color: #08533C;
+  background-color: #1A2819;
   color: white;
   
 }
@@ -453,7 +453,7 @@ input[type=search]:focus{
 }
 
 .card-link {
-  color: #08533C;
+  color: #1A2819;
   text-decoration: none;
   margin-left: 2px;
 }
@@ -465,7 +465,7 @@ input[type=search]:focus{
   margin-top: 90px;
   margin-left: 3%;
   border-style: solid;
-  color: #08533C;
+  color: #1A2819;
   border-radius: 15px;
 }
 
@@ -482,7 +482,7 @@ input[type=search]:focus{
 
 .card-body {
   background-color: white;
-  color: #08533C;
+  color: #1A2819;
   float: left;
   border-style: solid;
   border-radius: 10px;
@@ -545,7 +545,7 @@ html {
 }
 
 .MuiButton-containedPrimary {
-  background-color: #08533C !important;
+  background-color: #1A2819 !important;
 }
 
 @media screen and (min-height: 50px) and (max-height: 450px) {
