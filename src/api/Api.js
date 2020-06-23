@@ -224,9 +224,9 @@ static async refresh(endpoint){
 
    }
 
-   static async reportDownloadRequest(endpoint, option1, option2){
+   static async reportDownloadRequest(endpoint){
     
-    const uri = API_BASE_ADDRESS + "/" + endpoint+"/" + option1 +"/" + option2 +"/null";
+    const uri = API_BASE_ADDRESS + "/" + endpoint;
 
     return axios(uri, {
         method: 'GET',
@@ -261,41 +261,38 @@ static async refresh(endpoint){
     }
 )
    }
-   static async reportEmailRequest(endpoint, option1, option2,option3){
+
+   static async reportDownloadAllRequest(list){
+
+    list.forEach(function (part, index) {
+        
+        this[index] = 
+        axios(API_BASE_ADDRESS + "/" + part, {
+            method: 'GET',
+            responseType: "blob",
+            timeout : 100000,
+            headers : {"Authorization" : localStorage.getItem("token")}
+        })
+
+      }, list);
+
+      return axios.all(list).then(axios.spread((...responses) => {
+        
+        console.log(responses)
+
+        return {"message" : "SUCCESS", "data":responses}
+
+        // use/access the results 
+      })).catch(errors => {
+        
+        console.log(errors)
+        
+      })
     
-    const uri = API_BASE_ADDRESS + "/" + endpoint+"/" + option1 +"/" + option2 +"/" + option3;
+    
+    
+    
 
-    return axios(uri, {
-        method: 'GET',
-        timeout : 100000,
-        headers : {"Authorization" : localStorage.getItem("token")}
-    })
-    .then(response => {
-
-            return {"message" : "SUCCESS", "data":response.data}
-
-
-    })
-   .catch(
-    e =>{
-        console.log(e)
-
-        if(e.response){
-
-            if(e.response.status === 400){
-                return {"message" : "error"}
-            }else if(e.response.status === 401){
-                return {"message" : "unauthorized"}
-            }
-
-        }else{
-            if (e.code === 'ECONNABORTED'){
-                return {"message" : "timeout"}
-            }
-            return {"message" : "no connection"}
-        }
-    }
-)
    }
 
 }
