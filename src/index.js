@@ -12,6 +12,7 @@ import * as serviceWorker from "./serviceWorker";
 
 import MemberPage from "./components/modules/members/MemberPage";
 import Members from "./components/modules/members/Members";
+import MembersV2 from "./components/modules/members/MembersV2";
 
 import Menu from "./components/Menu";
 import Login from "./components/Login";
@@ -23,6 +24,7 @@ import Dependants from "./components/modules/dependants/Dependants";
 import AdhocFunds from "./components/modules/funds/AdhocFunds";
 import Claims from "./components/modules/funds/Claims";
 import Premiums from "./components/modules/funds/Premiums";
+import Statements from "./components/modules/admin/Statements"
 
 const history = createBrowserHistory();
 
@@ -30,10 +32,10 @@ const history = createBrowserHistory();
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#08533C",
+      main: "#1A2819",
     },
     secondary: {
-      main: "#08533C",
+      main: "#866F3E",
     },
   },
 });
@@ -52,6 +54,8 @@ ReactDOM.render(
 
       <Route path="/Members" render={() => ( <Menu> <Members /> </Menu> )}/>
 
+      <Route path="/MembersV2" render={() => ( <Menu> <MembersV2 /> </Menu> )}/>
+
       <Route path="/DependantPage" render={() => ( <Menu> <DependantPage /> </Menu> )}/>
 
       <Route path="/Dependants" render={() => ( <Menu> <Dependants /> </Menu> )}/>
@@ -67,6 +71,8 @@ ReactDOM.render(
 
 
       <Route path="/Reports" render={() => ( <Menu> <Reports /> </Menu> )}/>
+
+      <Route path="/Statements" render={() => ( <Menu> <Statements /> </Menu> )}/>
 
 
      
