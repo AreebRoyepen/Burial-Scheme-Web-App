@@ -29,7 +29,7 @@ export default function DependantPage() {
 
   const classes = useStyles();
   const [openSnackbar, setOpenSnackbar] = useState({
-    severity: "",
+    
     message: "",
     open: false,
     time: 0,

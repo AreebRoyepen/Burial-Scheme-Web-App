@@ -33,7 +33,7 @@ export default function CardList(props) {
   let location = useLocation();
 
   const [snackBar, openSnackbar] = useState({
-    severity: "",
+    
     message: "",
     open: false,
     time: 0,

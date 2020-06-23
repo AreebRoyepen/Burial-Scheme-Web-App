@@ -20,7 +20,7 @@ import "../styles/menu.css";
 
 const useStyles = makeStyles(theme =>({
   list: {
-    width: 250,
+    width: 300,
   },
   fullList: {
     width: 'auto',
@@ -60,49 +60,49 @@ export default function Menu({children}) {
     }
   }, [])
 
-  // useEffect( () => {
+  useEffect( () => {
 
-  //   //upon setting user to local storage
-  //   //start calling refresh endpoint so session does expire
-  //   if(localStorage.user){
+    //upon setting user to local storage
+    //start calling refresh endpoint so session does expire
+    if(localStorage.user){
 
-  //     setUser(JSON.parse(localStorage.user))
+      setUser(JSON.parse(localStorage.user))
       
-  //     var id = setInterval(() =>{
-  //       //setOpenModal(openModal);
-  //       async function fetchData(){
+      // var id = setInterval(() =>{
+      //   //setOpenModal(openModal);
+      //   async function fetchData(){
                         
-  //         let x = await Api.refresh("refresh")
-  //         console.log(x)
+      //     let x = await Api.refresh("refresh")
+      //     console.log(x)
           
-  //         if(x.message === "SUCCESS"){
+      //     if(x.message === "SUCCESS"){
 
-  //           console.log("refreshed")
+      //       console.log("refreshed")
                                     
-  //         }else if (x.message === "unauthorized"){
-  //           localStorage.clear();
-  //           history.push("/")
+      //     }else if (x.message === "unauthorized"){
+      //       localStorage.clear();
+      //       history.push("/")
 
-  //         }
-  //     }
+      //     }
+      // }
           
       
 
-  //     fetchData() 
-  //     if(!isMounted.current) return clearInterval(id)
+      // fetchData() 
+      // if(!isMounted.current) return clearInterval(id)
       
 
-  //     }
-  //     , ((parseInt(localStorage.expiration) -(1/2 * parseInt(localStorage.expiration)))* 1000));      
+      // }
+      // , ((parseInt(localStorage.expiration) -(1/2 * parseInt(localStorage.expiration)))* 1000));      
 
       
 
-  //   }else{
-  //     return
-  //   }
+    }else{
+      return
+    }
 
 
-  // },[setUser, isMounted])
+  },[setUser, isMounted])
 
 
   const handleMenu = event => {
@@ -135,16 +135,19 @@ export default function Menu({children}) {
         </List>
         <Divider/>
         <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/Members">&nbsp;&nbsp;&nbsp;Members</Link></ListItem>
+
+        <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/MembersV2">&nbsp;&nbsp;&nbsp;MembersV2</Link></ListItem>
+
         <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/Dependants">&nbsp;&nbsp;&nbsp;Dependants</Link></ListItem>
         <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/AdhocFunds">&nbsp;&nbsp;&nbsp;AdhocFunds</Link></ListItem>
         <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/Claims">&nbsp;&nbsp;&nbsp;Claims</Link></ListItem>
         <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/Premiums">&nbsp;&nbsp;&nbsp;Premiums</Link></ListItem>
         
-        {user ?        
+        {/* {user ?        
         adminPanel()
         :
         <div/>
-        }
+        } */}
 
       </List>
     </div>
@@ -155,7 +158,7 @@ export default function Menu({children}) {
     if(user.role.id === 1)
     return (
       <div>
-        <hr style={{height: '14px',boxShadow: 'inset 0 12px 12px -12px  #08533C'}}/>
+        <hr style={{height: '14px',boxShadow: 'inset 0 12px 12px -12px  #1A2819'}}/>
         <ListItem className="menuHeader" style={{marginBottom:'12px'}}><MdVerifiedUser/>&nbsp;Admin</ListItem>
       <ListItem style={{marginLeft:'20px'}}> 
       <MdContacts  className="iconStyling"/>

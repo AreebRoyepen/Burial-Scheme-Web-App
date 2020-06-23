@@ -22,13 +22,13 @@
     margin-top: 40px;
   display: -webkit-box;
   display: flex;
-  width: 350px;
+  width: 400px;
   padding: 2rem 3rem;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-direction: column;
   background-color: #fff;
-  color: #08533C;
+  color: #1A2819;
   margin-bottom: 30px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -47,7 +47,7 @@
   font-weight: 600;
   font-family: 'Avenir Book', 'Arial Book', sans-serif;
   letter-spacing: 0.5px;
-  color:#08533C;
+  color:#1A2819;
 }
 .form__input {
   font-weight: 600;
@@ -55,7 +55,7 @@
   border: 2px solid#C1A162;
     border-radius: 4px;
   width: 100%;
-  color:#08533C;
+  color:#1A2819;
   padding: .825rem 0 .825rem 1rem;
   background-color: #f5f5f5;
 }

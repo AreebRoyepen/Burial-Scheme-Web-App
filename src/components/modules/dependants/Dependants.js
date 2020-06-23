@@ -28,7 +28,7 @@ export default function Dependants() {
 
   const classes = useStyles();
   const [openSnackbar, setOpenSnackbar] = useState({
-    severity: "",
+    
     message: "",
     open: false,
     time: 0,

@@ -19,7 +19,7 @@
 
 .MuiSvgIcon-root {
 
-  color: #08533C;
+  color: #1A2819;
 
 }
 
@@ -42,7 +42,7 @@
   background-color: #ffffff00 !important;
 }
 .profile-card {
-  background:  #08533C;
+  background:  #1A2819;
   width: 56px;
   height: 56px;
   position: absolute;
@@ -79,7 +79,7 @@
 }
 
 .profile-card  {
-  color:  #08533C;
+  color:  #1A2819;
 }
 
 .profile-card header a {
@@ -99,8 +99,8 @@
   border: 4px solid #FFFFFF;
   -webkit-transform: scale(0);
   transform: scale(0);
-  background: -webkit-linear-gradient(top,  #08533C 0%,  #08533C 50%,  #08533C 50%,  #08533C 100%);
-  background: linear-gradient( #08533C 0%,  #08533C 50%,  #08533C 50%,  #08533C 100%);
+  background: -webkit-linear-gradient(top,  #1A2819 0%,  #1A2819 50%,  #1A2819 50%,  #1A2819 100%);
+  background: linear-gradient( #1A2819 0%,  #1A2819 50%,  #1A2819 50%,  #1A2819 100%);
   -webkit-border-radius: 50%;
   border-radius: 50%;
   -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
@@ -245,7 +245,7 @@
 
 @-webkit-keyframes moveUp {
   0% {
-    background:  #08533C;
+    background:  #1A2819;
     top: 100%;
   }
   50% {
@@ -259,7 +259,7 @@
 
 @keyframes moveUp {
   0% {
-    background:  #08533C;
+    background:  #1A2819;
     top: 100%;
   }
   50% {
@@ -496,7 +496,7 @@
   
   .sign-up-input {
     width: 100%;
-    color: #08533C;
+    color: #1A2819;
     text-align: center;
     height: 50px;
     margin-bottom: 25px;
@@ -525,7 +525,7 @@
     text-align: center;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
    
-    background:  #08533C;
+    background:  #1A2819;
     cursor: pointer;
     -webkit-box-shadow: inset 0 -2px rgb(133, 199, 255);
     box-shadow: inset 0 -2px rgb(133, 199, 255);
@@ -588,7 +588,7 @@
   color:  white;
   width: 9.8em;
   border: 1.5px solid  #C1A162;
-  background-color: #08533C;
+  background-color: #1A2819;
   border-radius: 5px;
   padding: 10px 20px;
   font-size: 1em;
@@ -614,7 +614,7 @@
   width: 50px;
   height: 50px;
   border: 1.5px solid  #C1A162;
-  background-color: #08533C;
+  background-color: #1A2819;
   border-radius: 5px;
   padding: 1px 1px;
   font-size: 1em;
@@ -659,7 +659,7 @@
   line-height: 3.2rem;
   letter-spacing: 0;
   font-weight: 300;
-  color: #08533C;
+  color: #1A2819;
   text-transform: inherit;
   margin-bottom: 1rem;
   text-align: center;
@@ -669,7 +669,7 @@
   line-height: 2.8rem;
   letter-spacing: 0.01rem;
   font-weight: 400;
-  color: #08533C;
+  color: #1A2819;
   text-align: center;
 }
 
@@ -735,7 +735,7 @@
 .table-bordered > tbody > tr > td,
 .table-bordered > tfoot > tr > td {
   border: 1;
-  border-bottom: 1px solid #08533C;
+  border-bottom: 1px solid #1A2819;
 }
 .table-bordered > thead > tr > th,
 .table-bordered > thead > tr > td {
