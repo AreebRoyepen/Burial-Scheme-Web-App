@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Alert from "../shared/Alert"
 import Api from "../../../api/Api";
 import "../../../styles/validationForm.css";
-import "../../../styles/login.css";
 
 const useStyles = makeStyles(theme => ({
   root: {

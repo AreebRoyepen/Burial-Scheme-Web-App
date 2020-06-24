@@ -12,8 +12,6 @@ import { KeyboardDatePicker } from "@material-ui/pickers";
 import "date-fns";
 import Alert from "../shared/Alert";
 import Api from "../../../api/Api";
-import "../../../styles/login.css";
-import "../../../styles/login.css";
 import "../../../styles/validationForm.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -223,7 +221,7 @@ export default function Claims() {
         </Snackbar>
       </div>
 
-      <body className="bodyVal htmlVal spanVal">
+      <div className="bodyVal htmlVal spanVal">
         <form className="form">
           <h1 className="h1Dashboard">Claims</h1>
           <div>
@@ -307,6 +305,7 @@ export default function Claims() {
             />
             <TextField
               fullWidth
+              style={{ marginTop: "15px" }}
               id="filled-number"
               label="Burial Place"
               rowsMax={10}
@@ -383,7 +382,7 @@ export default function Claims() {
             Back
           </button>
         </div>
-      </body>
+      </div>
     </div>
   );
 }

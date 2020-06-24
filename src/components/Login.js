@@ -3,13 +3,10 @@ import { useLocation, useHistory } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
+import Alert from "./modules/shared/Alert";
 import { purple } from "@material-ui/core/colors";
 import Api from "../api/Api";
 import "../styles/login.css";
-
-function Alert(props) {
-  return <MuiAlert elevation={6} {...props} />;
-}
 
 const useStyles = makeStyles(theme => ({
   root: {

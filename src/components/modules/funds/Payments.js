@@ -10,7 +10,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
 import Grid from '@material-ui/core/Grid';
 import Api from "../../../api/Api";
-import "../../../styles/login.css";
 import "../../../styles/validationForm.css";
 
 const useStyles = makeStyles(theme => ({

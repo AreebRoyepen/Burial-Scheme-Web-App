@@ -4,17 +4,13 @@ import Snackbar from "@material-ui/core/Snackbar";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import Switch from "@material-ui/core/Switch";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import Alert from "../shared/Alert";
 import Api from "../../../api/Api";
-import "../../../styles/login.css";
 import "../../../styles/validationForm.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -512,7 +508,7 @@ export default function DependantPage() {
             >
               {options.map((x) => {
                 console.log(x)
-                return <option value={x.id}>{x.name}</option>;
+                return <option key={x.id} value={x.id}>{x.name}</option>;
               })}
             </Select>
           </FormControl>

@@ -8,8 +8,6 @@ import Switch from "@material-ui/core/Switch";
 import Grid from "@material-ui/core/Grid";
 import Alert from "../shared/Alert";
 import Api from "../../../api/Api";
-import "../../../styles/login.css";
-import "../../../styles/login.css";
 import "../../../styles/validationForm.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -322,6 +320,7 @@ export default function AdhocFunds() {
                 {!type ? (
                   <TextField
                   fullWidth
+                  style={{ marginTop: "15px" }}
                     id="filled-number"
                     label="Reason"
                     rowsMax={10}
