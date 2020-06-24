@@ -14,7 +14,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Reports from "./modules/admin/Reports"
-import { LoadingIcon } from "./modules/shared/LoadingIcon";
+import LoadingIcon from "./modules/shared/LoadingIcon";
 import { MdAccountBalance, MdAttachMoney, MdSupervisorAccount } from "react-icons/md";
 import { ErrorPage } from "./modules/shared/ErrorPage";
 import Api from "../api/Api"
@@ -131,7 +131,9 @@ export default function Dashboard() {
       //let x = await Api.getRequest("dashboard")
       let x = {message :"SUCCESS"}
       console.log(x)
+      console.log("bob")
 
+      
       if (x.message === "SUCCESS") {
 
         setData(x.data)
