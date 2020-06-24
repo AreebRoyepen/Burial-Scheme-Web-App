@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import ReportEndpoints from "./ReportEndpoints";
 import { MdFileDownload, MdEmail } from "react-icons/md";
 import "../../../styles/validationForm.css";
-import "../../../styles/login.css";
 
 export default function Reports() {
 

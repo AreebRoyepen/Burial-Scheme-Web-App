@@ -53,9 +53,9 @@ ReactDOM.render(
 
       <Route path="/MemberPage" render={() => ( <Menu> <MemberPage /> </Menu> )}/>
 
-      <Route path="/Members" render={() => ( <Menu> <MembersV2 /> </Menu> )}/>
+      <Route path="/Members" render={() => ( <Menu> <Members /> </Menu> )}/>
 
-      {/* <Route path="/MembersV2" render={() => ( <Menu> <MembersV2 /> </Menu> )}/> */}
+      <Route path="/MembersV2" render={() => ( <Menu> <MembersV2 /> </Menu> )}/>
 
       <Route path="/DependantPage" render={() => ( <Menu> <DependantPage /> </Menu> )}/>
 

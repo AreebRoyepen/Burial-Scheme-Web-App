@@ -11,8 +11,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import 'date-fns';
 import Alert from "../shared/Alert";
 import Api from "../../../api/Api";
-import "../../../styles/login.css";
-import "../../../styles/login.css";
 import "../../../styles/validationForm.css";
 
 const useStyles = makeStyles((theme) => ({
