@@ -3,7 +3,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory, useLocation } from "react-router-dom";
 import CardList from "../shared/CardList";
-import { LoadingIcon } from "../shared/LoadingIcon";
+import LoadingIcon from "../shared/LoadingIcon";
 import { ErrorPage } from "../shared/ErrorPage";
 import Alert from "../shared/Alert";
 import Api from "../../../api/Api";
