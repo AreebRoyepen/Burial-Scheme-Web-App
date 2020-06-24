@@ -1,16 +1,25 @@
 import React from "react";
+import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from "@material-ui/core/CircularProgress"
 import "../../../styles/eventCard.css";
 
-export const LoadingIcon =  () =>(
+const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      '& > * + *': {
+        marginLeft: theme.spacing(2),
+      },
+    },
+  }));
 
-            <div className="dots-container">
-            <div className="dots">L</div>
-            <div className="dots">o</div>
-            <div className="dots">a</div>
-            <div className="dots">d</div>
-            <div className="dots">i</div>
-            <div className="dots">n</div>
-            <div className="dots">g</div>
-            </div>
-)
+ export default function LoadingIcon () {
+
+    const classes = useStyles();
+ 
+ return (
+    <div className={classes.root}>
+      <center><CircularProgress size={50}/></center>
+    </div>
+ )
+}
 
