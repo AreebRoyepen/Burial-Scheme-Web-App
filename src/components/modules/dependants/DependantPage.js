@@ -5,6 +5,9 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import Switch from "@material-ui/core/Switch";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
@@ -29,7 +32,6 @@ export default function DependantPage() {
 
   const classes = useStyles();
   const [openSnackbar, setOpenSnackbar] = useState({
-    
     message: "",
     open: false,
     time: 0,
@@ -43,43 +45,32 @@ export default function DependantPage() {
   const isMounted = useRef(true);
 
   const [dependant, setDependant] = useState({
-    // address: "",
-    // area: "",
-    // cellNumber: "",
-    // claimed: null,
-    // dob: "",
-    // doe: "",
-    // email: "",
-    // homeNumber: "",
-    // id: null,
-    // idnumber: "",
-    // name: "",
-    // paidJoiningFee: null,
-    // postalCode: null,
-    // surname: "",
-    // workNumber: ""
+    child: false,
+    // claimed: false,
+    // dob: null,
+    // doe: null,
+    // id: 1,
+    // idnumber: "11111111111",
+    // name: "Nabeel",
+    // relationship: {name: "child", id: 1},
+    // surname: "Roy"
   });
 
   const [member, setMember] = useState();
-  const [loadMember, setLoadMember] = useState()
+  const [loadMember, setLoadMember] = useState();
   const [editedDependant, seteditedDependant] = useState({});
 
   const [close, setClose] = useState(false);
 
   useEffect(() => {
-    let active = true;
-
-    if (!loading) {
-      return undefined;
-    }
 
     (async () => {
-      let resp = await Api.getRequest("v1/roles");
+      let resp = await Api.getRequest("v1/relationships");
 
       if (resp.message === "SUCCESS") {
-        if (active) {
+
           setOptions(resp.data);
-        }
+
       } else if (resp.message === "unauthorized") {
         localStorage.clear();
         history.push("/", { last: location.pathname });
@@ -94,9 +85,6 @@ export default function DependantPage() {
       }
     })();
 
-    return () => {
-      active = false;
-    };
   }, [loading]);
 
   useEffect(() => {
@@ -183,9 +171,7 @@ export default function DependantPage() {
         });
       }
     }
-
-
-  }, [loadMember, location,history]);
+  }, [loadMember, location, history]);
 
   const sendRequest = useCallback(async () => {
     // don't send again while we are sending
@@ -195,13 +181,14 @@ export default function DependantPage() {
     setIsSending(true);
     // send the actual request
 
+    console.log(dependant)
     async function updatedependant() {
       var time = 3000;
 
       if (location.state.edit) {
         let resp = await Api.putRequest(
           "v1/dependants/" + location.state.x.id,
-          dependant
+          {...dependant, relationship : dependant.relationship.id}
         );
         console.log(resp);
         if (resp.message === "SUCCESS") {
@@ -332,7 +319,7 @@ export default function DependantPage() {
   return (
     <div>
       {console.log(dependant)}
-      {console.log(member)}
+      {console.log(dependant.relationship)}
       <div className={classes.root}>
         <Snackbar
           open={openSnackbar.open}
@@ -349,7 +336,13 @@ export default function DependantPage() {
       </div>
 
       <body className="bodyVal htmlVal spanVal">
-        {member ? <h1>This dependants member is: {member.name + " " + member.surname}</h1> : <div />}
+        {member ? (
+          <h1>
+            This dependants member is: {member.name + " " + member.surname}
+          </h1>
+        ) : (
+          <div />
+        )}
         <form className="form ">
           <div>
             <label htmlFor="text" className="form__label">
@@ -431,7 +424,7 @@ export default function DependantPage() {
               format="dd/MM/yyyy"
               value={dependant.dob}
               onChange={(e) =>
-                setDependant({ ...dependant, dob: e.target.value })
+                setDependant({ ...dependant, dob: e })
               }
               KeyboardButtonProps={{
                 "aria-label": "change date",
@@ -455,7 +448,7 @@ export default function DependantPage() {
               format="dd/MM/yyyy"
               value={dependant.doe}
               onChange={(e) =>
-                setDependant({ ...dependant, doe: e.target.value })
+                setDependant({ ...dependant, doe: e })
               }
               KeyboardButtonProps={{
                 "aria-label": "change date",
@@ -473,64 +466,56 @@ export default function DependantPage() {
             /> */}
             <div className="form__requirements">DOE is required</div>
           </div>
-            <center>
-          
-          <FormControlLabel
-            control={
-              <Grid component="label" container alignItems="center" spacing={1}>
-                <Grid item></Grid>
-                <Grid item>
-                  <Switch
-                    checked={dependant.paidJoiningFee}
-                    onChange={(e) =>
-                      setDependant({ ...dependant, child: e.target.checked })
-                    }
-                    color= "primary"
-                  />
+          <center>
+            <FormControlLabel
+              control={
+                <Grid
+                  component="label"
+                  container
+                  alignItems="center"
+                  spacing={1}
+                >
+                  <Grid item></Grid>
+                  <Grid item>
+                    <Switch
+                      checked={dependant.child}
+                      onChange={(e) =>
+                        setDependant({ ...dependant, child: e.target.checked })
+                      }
+                      color="primary"
+                    />
+                  </Grid>
+                  <Grid item>Child</Grid>
                 </Grid>
-                <Grid item>Child</Grid>
-              </Grid>
-            }
-          />
-            </center>
-          <Autocomplete
-            style={{ marginBottom: "15px", marginTop: "15px" }}
-            fullWidth
-            open={open}
-            onOpen={() => {
-              setOpen(true);
-            }}
-            onClose={() => {
-              setOpen(false);
-            }}
-            getOptionSelected={(option, value) => option.name === value.name}
-            getOptionLabel={(option) => option.name}
-            options={options}
-            loading={loading}
-            value={dependant.relationship}
-            onChange={(event, newValue) => {
-              setDependant({ ...dependant, relationship: newValue });
-            }}
-            renderInput={(params) => (
-              <TextField
-                fullWidth
-                {...params}
-                label="Relationship Type"
-                variant="outlined"
-                InputProps={{
-                  ...params.InputProps,
-                  endAdornment: (
-                    <React.Fragment>
-                      {loading ? (
-                        <CircularProgress color="inherit" size={20} />
-                      ) : null}
-                      {params.InputProps.endAdornment}
-                    </React.Fragment>
-                  ),
-                }}
-              />
-            )}
-          />
+              }
+            />
+          </center>
+
+          <label htmlFor="text" className="form__label ">
+              Relationship
+            </label>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <Select
+              native
+              value={dependant.relationship}
+              variant = "outlined"
+              onChange={(e) =>{
+
+                console.log(e.target)
+                setDependant({ ...dependant, relationship: e.target.value })
+              }
+              }
+              inputProps={{
+                name: "Relationship",
+                id: "filled-age-native-simple",
+              }}
+            >
+              {options.map((x) => {
+                console.log(x)
+                return <option value={x.id}>{x.name}</option>;
+              })}
+            </Select>
+          </FormControl>
         </form>
 
         <div className="btn-group">

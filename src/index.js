@@ -25,6 +25,7 @@ import AdhocFunds from "./components/modules/funds/AdhocFunds";
 import Claims from "./components/modules/funds/Claims";
 import Premiums from "./components/modules/funds/Premiums";
 import Statements from "./components/modules/admin/Statements"
+import DependantsV2 from "./components/modules/dependants/DependantsV2";
 
 const history = createBrowserHistory();
 
@@ -52,15 +53,15 @@ ReactDOM.render(
 
       <Route path="/MemberPage" render={() => ( <Menu> <MemberPage /> </Menu> )}/>
 
-      <Route path="/Members" render={() => ( <Menu> <Members /> </Menu> )}/>
+      <Route path="/Members" render={() => ( <Menu> <MembersV2 /> </Menu> )}/>
 
-      <Route path="/MembersV2" render={() => ( <Menu> <MembersV2 /> </Menu> )}/>
+      {/* <Route path="/MembersV2" render={() => ( <Menu> <MembersV2 /> </Menu> )}/> */}
 
       <Route path="/DependantPage" render={() => ( <Menu> <DependantPage /> </Menu> )}/>
 
-      <Route path="/Dependants" render={() => ( <Menu> <Dependants /> </Menu> )}/>
+      <Route path="/Dependants" render={() => ( <Menu> <DependantsV2 /> </Menu> )}/>
 
-
+      {/* <Route path="/DependantsV2" render={() => ( <Menu> <DependantsV2 /> </Menu> )}/> */}
       
       <Route path="/AdhocFunds" render={() => (<Menu> <AdhocFunds /></Menu> )} />
 
