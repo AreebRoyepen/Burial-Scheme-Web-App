@@ -519,7 +519,7 @@ export default function MembersPage() {
               //label="Death Date"
               format="dd/MM/yyyy"
               value={member.dob}
-              onChange={(e) => setMember({ ...member, dob: e.target.value })}
+              onChange={(e) => setMember({ ...member, dob: e })}
               KeyboardButtonProps={{
                 "aria-label": "change date",
               }}
@@ -551,7 +551,7 @@ export default function MembersPage() {
               //label="Death Date"
               format="dd/MM/yyyy"
               value={member.doe}
-              onChange={(e) => setMember({ ...member, doe: e.target.value })}
+              onChange={(e) => setMember({ ...member, doe: e })}
               KeyboardButtonProps={{
                 "aria-label": "change date",
               }}
