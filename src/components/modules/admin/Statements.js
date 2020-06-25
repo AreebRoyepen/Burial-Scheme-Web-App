@@ -2,7 +2,9 @@ import React, { useEffect, useState, useCallback, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory, useLocation } from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
+import LoadingIcon from "../shared/LoadingIcon";
 import Alert from "../shared/Alert";
+import { ErrorPage } from "../shared/ErrorPage";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -25,6 +27,7 @@ export default function Statements() {
   const [checked, setChecked] = useState([]);
   const [data, setData] = useState([]);
   const [connection, setConnection] = useState(false);
+  const [error, setError] = useState(false);
 
   const [isSending, setIsSending] = useState(false);
   const isMounted = useRef(true);
@@ -34,7 +37,6 @@ export default function Statements() {
 
   const classes = useStyles();
   const [openSnackbar, setOpenSnackbar] = useState({
-    
     message: "",
     open: false,
     time: 0,
@@ -79,7 +81,7 @@ export default function Statements() {
           time: 6000,
           closeType: close,
         });
-        //setError(true);
+        setError(true);
       }
     }
 
@@ -185,12 +187,10 @@ export default function Statements() {
       setIsSending(true);
       // send the actual request
 
-
-      
       var list = Object.assign([], x);
-      
+
       var list2 = Object.assign([], x);
-      
+
       async function getStatements() {
         var time = 3000;
 
@@ -206,37 +206,29 @@ export default function Statements() {
 
         console.log(list);
 
-        resp = await Api.reportDownloadAllRequest(
-            list
-          );
+        resp = await Api.reportDownloadAllRequest(list);
 
-        
-          resp.data.forEach(function (part, index) {
-            console.log(part);
-            const url = window.URL.createObjectURL(new Blob([part.data]));
-            const link = document.createElement("a");
-            link.href = url;
-            let date = new Date();
-            let filename =
-              "GIS Burial Scheme Statement: " +
-              list2[index].name +
-              " " +
-              list2[index].surname +
-              " " +
-              date.toDateString() +
-              ".pdf";
-            link.setAttribute("download", filename);
-            document.body.appendChild(link);
-            link.click();
-          }, resp.data);
-  
-
-        
+        resp.data.forEach(function (part, index) {
+          console.log(part);
+          const url = window.URL.createObjectURL(new Blob([part.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          let date = new Date();
+          let filename =
+            "GIS Burial Scheme Statement: " +
+            list2[index].name +
+            " " +
+            list2[index].surname +
+            " " +
+            date.toDateString() +
+            ".pdf";
+          link.setAttribute("download", filename);
+          document.body.appendChild(link);
+          link.click();
+        }, resp.data);
 
         console.log(resp);
         if (resp.message === "SUCCESS") {
-
-
           setOpenSnackbar({
             severity: "success",
             message: "Successfully edited",
@@ -286,109 +278,116 @@ export default function Statements() {
     },
     [isSending, location, history]
   ); // update the callback if the state changes
+
   return (
     <div>
-      {console.log(checked)}
-      <div className={classes.root}>
-        <Snackbar
-          open={openSnackbar.open}
-          autoHideDuration={openSnackbar.time}
-          onClose={openSnackbar.closeType}
-        >
-          <Alert
-            onClose={openSnackbar.closeType}
-            severity={openSnackbar.severity}
+      {connection ? (
+        <div>
+          {console.log(checked)}
+          <div className={classes.root}>
+            <Snackbar
+              open={openSnackbar.open}
+              autoHideDuration={openSnackbar.time}
+              onClose={openSnackbar.closeType}
+            >
+              <Alert
+                onClose={openSnackbar.closeType}
+                severity={openSnackbar.severity}
+              >
+                {openSnackbar.message}
+              </Alert>
+            </Snackbar>
+          </div>
+          <button
+            onClick={() => {
+              setChecked([]);
+            }}
+            //style={{ opacity: 0 }}
+            className="funButton headerButtons"
+            //disabled
           >
-            {openSnackbar.message}
-          </Alert>
-        </Snackbar>
-      </div>
-      <button
-        onClick={() => {
-          setChecked([]);
-        }}
-        //style={{ opacity: 0 }}
-        className="funButton headerButtons"
-        //disabled
-      >
-        Clear Selection
-      </button>
+            Clear Selection
+          </button>
 
-      <button
-        onClick={() => downloadStatements(checked)}
-        //style={{ opacity: 0 }}
-        className="funButton headerButtons"
-        //disabled
-      >
-        {checked.length > 1 ? "Download Statements" : "Download Statement"}
-      </button>
+          <button
+            onClick={() => downloadStatements(checked)}
+            //style={{ opacity: 0 }}
+            className="funButton headerButtons"
+            //disabled
+          >
+            {checked.length > 1 ? "Download Statements" : "Download Statement"}
+          </button>
 
-      <button
-        onClick={() => downloadAllStatements(data)}
-        //style={{ opacity: 0 }}
-        className="funButton headerButtons"
-        //disabled
-      >
-        {"Download All"}
-      </button>
+          <button
+            onClick={() => downloadAllStatements(data)}
+            //style={{ opacity: 0 }}
+            className="funButton headerButtons"
+            //disabled
+          >
+            {"Download All"}
+          </button>
 
-      <List className={classes.root}>
-        <ListItem
-          key="all"
-          role={undefined}
-          dense
-          button
-          onClick={handleToggle("all")}
-        >
-          <ListItemIcon>
-            <Checkbox
-              edge="start"
-              checked={checked.indexOf("all") !== -1}
-              tabIndex={-1}
-              disableRipple
-              //inputProps={{ "aria-labelledby": labelId }}
-            />
-          </ListItemIcon>
-          <ListItemText id="all" primary="All" />
-          {/* <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="comments">
-                <CommentIcon />
-              </IconButton>
-            </ListItemSecondaryAction> */}
-        </ListItem>
-        {data.map((value) => {
-          //const labelId = `checkbox-list-label-${value}`;
-
-          return (
+          <List className={classes.root}>
             <ListItem
-              key={value.id}
+              key="all"
               role={undefined}
               dense
               button
-              onClick={handleToggle(value)}
+              onClick={handleToggle("all")}
             >
               <ListItemIcon>
                 <Checkbox
                   edge="start"
-                  checked={checked.indexOf(value) !== -1}
+                  checked={checked.indexOf("all") !== -1}
                   tabIndex={-1}
                   disableRipple
                   //inputProps={{ "aria-labelledby": labelId }}
                 />
               </ListItemIcon>
-              <ListItemText
-                id={value.id}
-                primary={value.name + " " + value.surname}
-              />
+              <ListItemText id="all" primary="All" />
               {/* <ListItemSecondaryAction>
               <IconButton edge="end" aria-label="comments">
                 <CommentIcon />
               </IconButton>
             </ListItemSecondaryAction> */}
             </ListItem>
-          );
-        })}
-      </List>
+            {data.map((value) => {
+              //const labelId = `checkbox-list-label-${value}`;
+
+              return (
+                <ListItem
+                  key={value.id}
+                  role={undefined}
+                  dense
+                  button
+                  onClick={handleToggle(value)}
+                >
+                  <ListItemIcon>
+                    <Checkbox
+                      edge="start"
+                      checked={checked.indexOf(value) !== -1}
+                      tabIndex={-1}
+                      disableRipple
+                      //inputProps={{ "aria-labelledby": labelId }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText
+                    id={value.id}
+                    primary={value.name + " " + value.surname}
+                  />
+                  {/* <ListItemSecondaryAction>
+              <IconButton edge="end" aria-label="comments">
+                <CommentIcon />
+              </IconButton>
+            </ListItemSecondaryAction> */}
+                </ListItem>
+              );
+            })}
+          </List>
+        </div>
+      ) : (
+        <div>{error ? <ErrorPage /> : <LoadingIcon />}</div>
+      )}
     </div>
   );
 }
