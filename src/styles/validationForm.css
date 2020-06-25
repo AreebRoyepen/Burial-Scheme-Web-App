@@ -95,7 +95,7 @@ justify-content: center;
   -webkit-box-direction: normal;
 flex-direction: column;
  
-height: 100vh;
+/* height: 100vh; */
   font-family: 'Avenir Book', 'Arial Book', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
