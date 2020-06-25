@@ -118,7 +118,7 @@ export default function MembersV2() {
         <div>
           <button
             onClick={() => {
-              history.push("/MemberPage", { id: null, edit: false });
+              history.push("/MemberPage", { id: null});
             }}
             className="funButton headerButtons"
           >

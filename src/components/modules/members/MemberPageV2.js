@@ -308,6 +308,7 @@ export default function MemberPageV2() {
   return (
     <div>
       {console.log(member)}
+    {console.log(location.state)}
 
       <div className={classes.root}>
         <Snackbar
@@ -589,27 +590,28 @@ export default function MemberPageV2() {
 
   </section>
 
+{location.state.edit ?
   <section>
-    <h3></h3>
+<h3></h3>
 
-    { dependants ?
-    
-      <DependantsTable last = "/MemberPage" data = {dependants} tableHeaders = {tableHeaders}/>
-    
-      :
-      <div/>
-  }
+{ dependants ?    
+  <DependantsTable last = "/MemberPage" data = {dependants} tableHeaders = {tableHeaders}/>    
+  :
+  <div/>
+}
+<div role="row-sections">
+  <button type="button" className="button" 
+    onClick= {() =>
+    history.push("/DependantPage", { member , last: "/MemberPage"})}
+  >
+    Add New
+  </button>
+</div>
+</section>
+:
+<div/>
+}
 
-
-    <div role="row-sections">
-      <button type="button" className="button" 
-        onClick= {() =>
-        history.push("/DependantPage", { member , last: "/MemberPage"})}
-      >
-        Add New
-      </button>
-    </div>
-  </section>
 </form>
 </body>
 
