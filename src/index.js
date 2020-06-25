@@ -11,6 +11,7 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 
 import MemberPage from "./components/modules/members/MemberPage";
+import MemberPageV2 from "./components/modules/members/MemberPageV2";
 import Members from "./components/modules/members/Members";
 import MembersV2 from "./components/modules/members/MembersV2";
 
@@ -51,11 +52,13 @@ ReactDOM.render(
       
       <Route path="/Dashboard" render={() => (<Menu> <Dashboard /></Menu> )} />
 
-      <Route path="/MemberPage" render={() => ( <Menu> <MemberPage /> </Menu> )}/>
+      {/* <Route path="/MemberPage" render={() => ( <Menu> <MemberPage /> </Menu> )}/> */}
 
-      <Route path="/Members" render={() => ( <Menu> <Members /> </Menu> )}/>
+      <Route path="/MemberPage" render={() => ( <Menu> <MemberPageV2 /> </Menu> )}/>
 
-      <Route path="/MembersV2" render={() => ( <Menu> <MembersV2 /> </Menu> )}/>
+      {/* <Route path="/Members" render={() => ( <Menu> <Members /> </Menu> )}/> */}
+
+      <Route path="/Members" render={() => ( <Menu> <MembersV2 /> </Menu> )}/>
 
       <Route path="/DependantPage" render={() => ( <Menu> <DependantPage /> </Menu> )}/>
 
