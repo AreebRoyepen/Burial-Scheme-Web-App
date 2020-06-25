@@ -497,16 +497,6 @@ export default function MembersPage() {
             <label htmlFor="text" className="form__label ">
               DOB
             </label>
-            {/* <input
-              required
-              type="text"
-              className="form__input inputValText"
-              name="text"
-              placeholder=""
-              pattern="^\D*$"
-              
-              
-            /> */}
             <KeyboardDatePicker
               fullWidth
               //disableToolbar
@@ -529,16 +519,6 @@ export default function MembersPage() {
             <label htmlFor="text" className="form__label ">
               DOE
             </label>
-            {/* <input
-              required
-              type="text"
-              className="form__input inputValText"
-              name="text"
-              placeholder=""
-              pattern="^\D*$"
-              
-              
-            /> */}
             <KeyboardDatePicker
               fullWidth
               //disableToolbar
@@ -582,6 +562,7 @@ export default function MembersPage() {
           />
           </center>
         </form>
+        
         <div className="btn-group">
           {location.state.edit ? (
             <button
