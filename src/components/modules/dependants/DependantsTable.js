@@ -200,6 +200,7 @@ export default function DependantsTable(props) {
             backgroundColor: "#1A2819",
             color: "#FFF",
           },
+          actionsColumnIndex: -1
         }}
         detailPanel={[
           {
@@ -214,7 +215,15 @@ export default function DependantsTable(props) {
                     backgroundColor: "#43A047",
                   }}
                 >
-                  Member: {rowData.member.id}
+                  <ul>Member: {rowData.member.name + " " + rowData.member.surname}</ul>
+                  <ul>Membership No: {rowData.member.id}</ul>
+                  <ul>Address:x </ul>
+                  <ul>Contact Details: </ul>
+                  <ul>Address: </ul>
+                  <ul></ul>
+                  <ul></ul>
+                  <ul></ul>
+                  
 
                 </div>
               );

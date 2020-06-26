@@ -15,7 +15,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Reports from "./modules/admin/Reports"
 import LoadingIcon from "./modules/shared/LoadingIcon";
-import { MdAccountBalance, MdAttachMoney, MdSupervisorAccount } from "react-icons/md";
+import { MdAccountBalance, MdAttachMoney, MdSupervisorAccount, MdArrowUpward, MdArrowDownward } from "react-icons/md";
 import { ErrorPage } from "./modules/shared/ErrorPage";
 import Api from "../api/Api"
 import "../styles/dashboard.css";
@@ -128,35 +128,14 @@ export default function Dashboard() {
 
     async function fetchData() {
 
-      //let x = await Api.getRequest("dashboard")
-      let x = {message :"SUCCESS"}
+      let x = await Api.getRequest("v1/dashboard")
       console.log(x)
-      console.log("bob")
 
       
       if (x.message === "SUCCESS") {
 
         setData(x.data)
-
-        //let z = await Api.getRequest("availableEvents")
-        let z= {message : "SUCCESS"}
-        if (z.message === "SUCCESS") {
-
-          //console.log(z)
-
-          //setEvents(z.event)
-          setConnection(true)
-
-        } else if (z.message === "unauthorized") {
-          localStorage.clear();
-          history.push("/", { last: location.pathname })
-        } else if (z.message === "error") {
-          console.log("error")
-          setError(true)
-        } else if (z.message === "no connection") {
-          console.log("no connection")
-          setError(true)
-        }
+        setConnection(true)
 
       } else if (x.message === "unauthorized") {
         localStorage.clear();
@@ -246,14 +225,14 @@ export default function Dashboard() {
                 <Grid item xs id="dashboard-box-shadow">
                   <Paper className={classes.paper} style={{ backgroundColor: '#ffffff00' }}>
                     <Card className={classes.card} style={{ boxShadow: '0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048),0 12.5px 10px rgba(0, 0, 0, 0.06),0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),0 100px 80px rgba(0, 0, 0, 0.12)' }} variant="outlined">
-                      <CardContent style={{ borderLeft: 'solid 15px #C1A162' }}>
+                      <CardContent style={{ borderLeft: 'solid 15px #1A2819' }}>
                         <MdAccountBalance size={60} color="#1A2819" style={{ marginLeft: '70%' }} />
                         <Typography
                           className={classes.title}
                           style={{ marginTop: '-67px', marginRight: '90%', color: '#2D6409', fontSize: "2em" }}
                           color="textSecondary"
                         >
-                          Scheme Balance
+                          Our Balance
                         </Typography>
 
                         <Typography
@@ -263,10 +242,10 @@ export default function Dashboard() {
                           color="textSecondary"
 
                         >
-                          R {formatCurrency(parseFloat(1000).toFixed(2))}
+                          R {formatCurrency(parseFloat(dData.premiums + dData.incomes - dData.claims - dData.expenses).toFixed(2))}
                         </Typography>
-                        <Typography className={classes.pos} color="textSecondary" style={{ marginLeft: '70%', marginTop: '-45px', color: '#C1A162', fontSize: "0.9em" }}>
-                          from current  active  events
+                        <Typography className={classes.pos} color="textSecondary" style={{ marginLeft: '70%', marginTop: '5px', color: '#C1A162', fontSize: "0.9em" }}>
+                          The Schemes Balance
                         </Typography>
                       </CardContent>
                     </Card></Paper>
@@ -281,7 +260,7 @@ export default function Dashboard() {
                           style={{ marginTop: '-67px', marginRight: '90%', color: '#2D6409', fontSize: "2em" }}
                           color="textSecondary"
                         >
-                          Premiums Paid
+                          Premiums Received
                         </Typography>
 
                         <Typography
@@ -290,11 +269,11 @@ export default function Dashboard() {
                           component="h2"
 
                         >
-                          R {formatCurrency(parseFloat(100000).toFixed(2))}
+                          R {formatCurrency(parseFloat(dData.premiums).toFixed(2))}
                         </Typography>
       
                         <Typography className={classes.pos} color="textSecondary" style={{ marginLeft: '70%', marginTop: '5px', color: '#C1A162', fontSize: "0.9em" }}>
-                         total funds for this year
+                         total Premiums Received
                         </Typography>
                         
                       </CardContent>
@@ -304,7 +283,7 @@ export default function Dashboard() {
                 <Grid item xs id="dashboard-box-shadow">
                   <Paper className={classes.paper} style={{ backgroundColor: '#ffffff00' }} >
                     <Card className={classes.card} style={{ boxShadow: '0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048),0 12.5px 10px rgba(0, 0, 0, 0.06),0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),0 100px 80px rgba(0, 0, 0, 0.12)' }} variant="outlined">
-                      <CardContent style={{ borderLeft: 'solid 15px #729B25' }}>
+                      <CardContent style={{ borderLeft: 'solid 15px #C1A162' }}>
                         <MdAttachMoney size={60} color=" #729B25" style={{ marginLeft: '70%' }} />
                         <Typography
                           className={classes.title}
@@ -320,11 +299,72 @@ export default function Dashboard() {
                           component="h2"
 
                         >
-                          R {formatCurrency(parseFloat(100000).toFixed(2))}
+                          R {formatCurrency(parseFloat(dData.claims).toFixed(2))}
                         </Typography>
       
                         <Typography className={classes.pos} color="textSecondary" style={{ marginLeft: '70%', marginTop: '5px', color: '#C1A162', fontSize: "0.9em" }}>
-                         total funds for this year
+                         Total Claims Paid Out
+                        </Typography>
+                        
+                      </CardContent>
+                    </Card></Paper>
+                </Grid>
+                
+              </Grid>
+
+              <Grid container spacing={2} id="dashboard-box-shadow">
+                <Grid item xs id="dashboard-box-shadow">
+                  <Paper className={classes.paper} style={{ backgroundColor: '#ffffff00' }}>
+                    <Card className={classes.card} style={{ boxShadow: '0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048),0 12.5px 10px rgba(0, 0, 0, 0.06),0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),0 100px 80px rgba(0, 0, 0, 0.12)' }} variant="outlined">
+                      <CardContent style={{ borderLeft: 'solid 15px #C1A162' }}>
+                        <MdArrowDownward size={60} color="#1A2819" style={{ marginLeft: '70%' }} />
+                        <Typography
+                          className={classes.title}
+                          style={{ marginTop: '-67px', marginRight: '90%', color: '#2D6409', fontSize: "2em" }}
+                          color="textSecondary"
+                        >
+                          Total Expenses
+                        </Typography>
+
+                        <Typography
+                         
+                          className={classes.title}
+                          style={{ textAlign:'left',color: '#C1A162', fontSize: "1.2em" }}
+                          color="textSecondary"
+
+                        >
+                          R {formatCurrency(parseFloat(dData.expenses).toFixed(2))}
+                        </Typography>
+                        <Typography className={classes.pos} color="textSecondary" style={{ marginLeft: '70%', marginTop: '5px', color: '#C1A162', fontSize: "0.9em" }}>
+                          Total Expenses Paid
+                        </Typography>
+                      </CardContent>
+                    </Card></Paper>
+                </Grid>
+                <Grid item xs id="dashboard-box-shadow">
+                  <Paper className={classes.paper} style={{ backgroundColor: '#ffffff00' }} >
+                    <Card className={classes.card} style={{ boxShadow: '0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048),0 12.5px 10px rgba(0, 0, 0, 0.06),0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),0 100px 80px rgba(0, 0, 0, 0.12)' }} variant="outlined">
+                      <CardContent style={{ borderLeft: 'solid 15px #729B25' }}>
+                        <MdArrowUpward size={60} color=" #729B25" style={{ marginLeft: '70%' }} />
+                        <Typography
+                          className={classes.title}
+                          style={{ marginTop: '-67px', marginRight: '90%', color: '#2D6409', fontSize: "2em" }}
+                          color="textSecondary"
+                        >
+                          Total Income
+                        </Typography>
+
+                        <Typography
+                          style={{textAlign:'left',color: '#C1A162', fontSize: "1.2em" }}
+                          variant="h5"
+                          component="h2"
+
+                        >
+                          R {formatCurrency(parseFloat(dData.incomes).toFixed(2))}
+                        </Typography>
+      
+                        <Typography className={classes.pos} color="textSecondary" style={{ marginLeft: '70%', marginTop: '5px', color: '#C1A162', fontSize: "0.9em" }}>
+                         total income received
                         </Typography>
                         
                       </CardContent>
@@ -350,10 +390,10 @@ export default function Dashboard() {
                           component="h2"
 
                         >
-                          {12}
+                          {dData.members}
                          </Typography>
                         <Typography className={classes.pos} color="textSecondary" style={{ marginLeft: '70%', marginTop: '5px', color: '#C1A162', fontSize: "0.9em" }}>
-                          number of fundraisers
+                          members in the scheme
                         </Typography>
                       </CardContent>
                     </Card></Paper>

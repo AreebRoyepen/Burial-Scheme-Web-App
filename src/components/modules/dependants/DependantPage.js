@@ -34,8 +34,8 @@ export default function DependantPage() {
     closeType: null,
   });
 
-  const [open, setOpen] = React.useState(false);
-  const [options, setOptions] = React.useState([]);
+  const [open, setOpen] = useState(false);
+  const [options, setOptions] = useState([]);
   const loading = open && options.length === 0;
   const [isSending, setIsSending] = useState(false);
   const isMounted = useRef(true);
@@ -43,16 +43,19 @@ export default function DependantPage() {
   const [dependant, setDependant] = useState({
     child: false,
     // claimed: false,
-    // dob: null,
-    // doe: null,
+     dob: null,
+     doe: new Date(),
     // id: 1,
     // idnumber: "11111111111",
     // name: "Nabeel",
-    // relationship: {name: "child", id: 1},
+     //relationship: null,
     // surname: "Roy"
   });
 
-  const [member, setMember] = useState();
+  //const [dependant, setDependant] = useState()
+
+  const [member, setMember] = useState(location.state.member);
+  
   const [loadMember, setLoadMember] = useState();
   const [editedDependant, seteditedDependant] = useState({});
 
@@ -66,6 +69,8 @@ export default function DependantPage() {
       if (resp.message === "SUCCESS") {
 
           setOptions(resp.data);
+          //if(!location.state.edit)
+          //setDependant({ ...dependant, relationship: resp.data[0].id })
 
       } else if (resp.message === "unauthorized") {
         localStorage.clear();
@@ -83,12 +88,16 @@ export default function DependantPage() {
 
   }, [loading]);
 
+
   useEffect(() => {
-    if (location.state.edit) {
+    if (location.state.edit == true) {
       console.log(location.state.x);
-      setDependant(location.state.x);
+      setDependant({...location.state.x, relationship : location.state.x.relationship.id});
+    }else{
+      //setDependant(...dependant, )
     }
   }, [location]);
+
 
   const successClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -96,7 +105,7 @@ export default function DependantPage() {
     }
 
     if (location.state.last) {
-      history.push(location.state.last, location.state.data);
+      history.push(location.state.last, { edit : true, x : member});
     } else {
       history.push("/dependants");
     }
@@ -182,9 +191,10 @@ export default function DependantPage() {
       var time = 3000;
 
       if (location.state.edit) {
+        console.log({...dependant, relationship : dependant.relationship, member : dependant.member.id})
         let resp = await Api.putRequest(
           "v1/dependants/" + location.state.x.id,
-          {...dependant, relationship : dependant.relationship.id}
+          {...dependant, relationship : dependant.relationship, member : dependant.member.id}
         );
         console.log(resp);
         if (resp.message === "SUCCESS") {
@@ -227,7 +237,14 @@ export default function DependantPage() {
           });
         }
       } else {
-        let resp = await Api.postRequest("v1/dependants", dependant);
+        console.log(
+          {...dependant, 
+            relationship : dependant.relationship, 
+            member : member.id}
+        )
+        let resp = await Api.postRequest("v1/dependants", {...dependant, 
+          relationship : dependant.relationship, 
+          member : member.id});
         console.log(resp);
         if (resp.message === "SUCCESS") {
           setOpenSnackbar({
@@ -306,7 +323,7 @@ export default function DependantPage() {
 
   const back = () => {
     if (location.state.last) {
-      history.push(location.state.last, location.state.data);
+      history.push(location.state.last, { edit : true, x : member});
     } else {
       history.push("/dependants");
     }
@@ -315,7 +332,8 @@ export default function DependantPage() {
   return (
     <div>
       {console.log(dependant)}
-      {console.log(dependant.relationship)}
+      {console.log(member)}
+      {console.log(location)}
       <div className={classes.root}>
         <Snackbar
           open={openSnackbar.open}
@@ -331,7 +349,7 @@ export default function DependantPage() {
         </Snackbar>
       </div>
 
-      <body className="bodyVal htmlVal spanVal">
+      <body className="bodyVal centerInputCard htmlVal spanVal">
         {member ? (
           <h1>
             This dependants member is: {member.name + " " + member.surname}
@@ -386,7 +404,7 @@ export default function DependantPage() {
               className="form__input inputValText"
               name="text"
               placeholder="ID Number"
-              pattern="^\D*$"
+              pattern="[0-9a-zA-Z]{13,}"
               value={dependant.idnumber}
               onChange={(e) =>
                 setDependant({ ...dependant, idnumber: e.target.value })
@@ -493,21 +511,21 @@ export default function DependantPage() {
           <FormControl variant="outlined" className={classes.formControl}>
             <Select
               native
-              value={dependant.relationship}
+              value= {dependant.relationship}
+              defaultValue = ''
               variant = "outlined"
               onChange={(e) =>{
 
-                console.log(e.target)
+                console.log(e.target.value)
                 setDependant({ ...dependant, relationship: e.target.value })
               }
               }
-              inputProps={{
-                name: "Relationship",
-                id: "filled-age-native-simple",
-              }}
+              // inputProps={{
+              //   name: "Relationship",
+              //   id: "filled-age-native-simple",
+              // }}
             >
               {options.map((x) => {
-                console.log(x)
                 return <option key={x.id} value={x.id}>{x.name}</option>;
               })}
             </Select>
