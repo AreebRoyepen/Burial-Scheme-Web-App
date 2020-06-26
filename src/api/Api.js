@@ -1,4 +1,5 @@
 import axios from 'axios';
+import jwt from 'jwt-decode'
 
 axios.defaults.timeout = 20000;
 
@@ -23,9 +24,14 @@ export default class Api {
         console.log(resp)
 
         if(resp.status === 200){
+            
+            let decode = jwt(resp.data.token)
+            let now = new Date().getTime()
+            let exp = new Date(decode.exp * 1000).getTime()
+
             localStorage.setItem("token","Bearer " + resp.data.token)
-            localStorage.setItem("user", JSON.stringify(resp.data.data))
-            localStorage.setItem("expiration", resp.data.expiration)
+            localStorage.setItem("user", JSON.stringify(decode.user))
+            localStorage.setItem("expiration", (exp - now))
             return {"message" : "SUCCESS"}
         }
    })
@@ -35,7 +41,7 @@ export default class Api {
         if(e.response){
 
             if(e.response.status === 400){
-                return {"message" : "error"}
+                return e.response.data
             }else if(e.response.status === 401){
                 return {"message" : "unauthorized"}
             }
