@@ -56,7 +56,7 @@ export default function MemberPageV2() {
     // area: "",
     // cellNumber: "",
     // claimed: null,
-    // dob: "",
+     dob: null,
     // doe: "",
     // email: "",
     // homeNumber: "",
@@ -374,7 +374,7 @@ export default function MemberPageV2() {
               className="form__input inputValText"
               name="text"
               placeholder="ID Number"
-              pattern="^\D*$"
+              pattern="[0-9a-zA-Z]{13,}"
               value={member.idnumber}
               onChange={(e) =>
                 setMember({ ...member, idnumber: e.target.value })
@@ -392,7 +392,7 @@ export default function MemberPageV2() {
               className="form__input inputValText"
               name="text"
               placeholder="Address"
-              pattern="^\D*$"
+              //pattern="^\D*$"
               value={member.address}
               onChange={(e) =>
                 setMember({ ...member, address: e.target.value })
@@ -426,7 +426,7 @@ export default function MemberPageV2() {
               className="form__input inputValText"
               name="text"
               placeholder="Postal Code"
-              pattern="^\D*$"
+              pattern="[0-9a-zA-Z]{4,}"
               value={member.postalCode}
               onChange={(e) =>
                 setMember({ ...member, postalCode: e.target.value })
@@ -565,7 +565,7 @@ export default function MemberPageV2() {
             <div className="form__requirements">DOE is required</div>
           </div>          
 
-          <div role="row-sections">
+          <div >
           <label htmlFor="text" className="form__label ">
           Joining Fee
             </label>
@@ -606,6 +606,7 @@ export default function MemberPageV2() {
   >
     Add New
   </button>
+  
 </div>
 </section>
 :
@@ -617,7 +618,7 @@ export default function MemberPageV2() {
 
 
 
-      <body className="bodyVal htmlVal spanVal">
+      <body className="bodyVal ">
       
          <div className="btn-group">
           {location.state.edit ? (

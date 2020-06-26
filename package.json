@@ -16,6 +16,7 @@
     "date-fns": "^2.14.0",
     "focus-trap-react": "^6.0.0",
     "history": "^4.10.1",
+    "jwt-decode": "^2.2.0",
     "material-table": "^1.62.0",
     "notistack": "^0.9.17",
     "react": "^16.13.0",

@@ -214,7 +214,7 @@ export default function Premiums() {
         </Snackbar>
       </div>
 
-      <body className="bodyVal htmlVal spanVal">
+      <body className="bodyVal centerInputCard htmlVal spanVal">
         <form className="form">
           <h1 className="h1Dashboard">Premiums</h1>
           <div>

@@ -344,7 +344,7 @@ export default function Payments() {
       </div>
 
       {console.log(person)}
-      <body className="bodyVal htmlVal spanVal">
+      <body className="bodyVal centerInputCard htmlVal spanVal">
         <form className="form">
         <h1 className="h1Dashboard">Payments</h1>
           <div>

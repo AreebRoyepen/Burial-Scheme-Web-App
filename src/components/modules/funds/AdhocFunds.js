@@ -8,7 +8,8 @@ import Switch from "@material-ui/core/Switch";
 import Grid from "@material-ui/core/Grid";
 import Alert from "../shared/Alert";
 import Api from "../../../api/Api";
-import "../../../styles/validationForm.css";
+import "../../../styles/memberPage.css";
+//import "../../../styles/validationForm.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -266,7 +267,7 @@ export default function AdhocFunds() {
         </Snackbar>
       </div>
 
-      <body className="bodyVal htmlVal spanVal">
+      <body className="bodyVal centerInputCard htmlVal spanVal">
         <form className="form">
           <h1 className="h1Dashboard">ADHOC Funds</h1>
           <div>

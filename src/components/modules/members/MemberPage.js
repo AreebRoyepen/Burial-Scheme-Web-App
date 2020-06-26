@@ -306,7 +306,7 @@ export default function MembersPage() {
         </Snackbar>
       </div>
 
-      <body className="bodyVal htmlVal spanVal">
+      <body className="bodyVal centerInputCard htmlVal spanVal">
       {dependants ? <h1>This members dependants are: (insert list of dependants wwith buttons)</h1> : <div />}
         <form className="form ">
           <div>

@@ -221,7 +221,7 @@ export default function Claims() {
         </Snackbar>
       </div>
 
-      <div className="bodyVal htmlVal spanVal">
+      <div className="bodyVal centerInputCard htmlVal spanVal">
         <form className="form">
           <h1 className="h1Dashboard">Claims</h1>
           <div>

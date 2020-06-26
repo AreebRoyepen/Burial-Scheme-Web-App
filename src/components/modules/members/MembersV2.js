@@ -122,7 +122,7 @@ export default function MembersV2() {
             }}
             className="funButton headerButtons"
           >
-            ADD MEMBER
+            Add Member
           </button>
           <MaterialTable
             title="Members"
