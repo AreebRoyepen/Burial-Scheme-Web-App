@@ -230,7 +230,7 @@ export default function Claims() {
               <br />
             </h3>
             <h4>
-              words here
+              Use the switch to choose claimant type
               <br />
             </h4>
             Select Option

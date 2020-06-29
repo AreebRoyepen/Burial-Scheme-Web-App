@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Switch from "@material-ui/core/Switch";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel"
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { KeyboardDatePicker } from "@material-ui/pickers";
@@ -18,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     "& > * + *": {
       marginTop: theme.spacing(2),
+    },
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
     },
   },
 }));
@@ -307,15 +312,12 @@ export default function DependantPage() {
 
   // const validateForm=() =>
   // {
-  //   var x = {
-  //     "name": name,
-  //     "surname": surname,
-  //     "number": number,
-  //     "email": email
+  //   let x = {
+  //     dependant
   //   };
   //   var emailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   //   console.log(x)
-  //   if((/^\D*$/.test(x.name)) && (/^\D*$/.test(x.surname)) && x.cellNumber.length >9
+  //   if((/^\D*$/.test(x.name)) && (/^\D*$/.test(x.surname))
   //    && emailRegex.test(x.email) && !(/(null|undefined|^$|^\d+$)/).test(x.name) && !(/(null|undefined|^$|^\d+$)/).test(x.surname))
   //    return "trueValid";
   //  return "falseValid";
@@ -330,7 +332,7 @@ export default function DependantPage() {
   };
 
   return (
-    <div>
+    <div className="App">
       {console.log(dependant)}
       {console.log(member)}
       {console.log(location)}
@@ -350,22 +352,30 @@ export default function DependantPage() {
       </div>
 
       <body className="bodyVal centerInputCard htmlVal spanVal">
+        
+        <form className="form ">
+        <h1 className="h1Dashboard">{location.state.edit ?
+              "Edit dependant"
+              :
+              "Add Dependant"
+                } 
+        </h1>
+        <h3>
         {member ? (
-          <h1>
-            This dependants member is: {member.name + " " + member.surname}
-          </h1>
+           " Member is: " + member.name + " " + member.surname
         ) : (
           <div />
         )}
-        <form className="form ">
+              <br />
+            </h3>
           <div>
-            <label htmlFor="text" className="form__label">
-              First Name
-            </label>
-            <input
+            <TextField
+            variant = "outlined"
               required
+              fullWidth
+              label = "First Name"
               type="text"
-              className="form__input inputValText"
+              className="inputValText"
               name="text"
               placeholder="Name"
               pattern="^\D*$"
@@ -377,13 +387,14 @@ export default function DependantPage() {
             <div className="form__requirements">First name is required</div>
           </div>
           <div>
-            <label htmlFor="text" className="form__label ">
-              Last Name
-            </label>
-            <input
+
+            <TextField
+              variant = "outlined"
+              label = "Last Name"
+              fullWidth
               required
               type="text"
-              className="form__input inputValText"
+              className="inputValText"
               name="text"
               placeholder="Surname"
               pattern="^\D*$"
@@ -395,13 +406,14 @@ export default function DependantPage() {
             <div className="form__requirements">Last name is required</div>
           </div>
           <div>
-            <label htmlFor="text" className="form__label ">
-              ID Number
-            </label>
-            <input
+
+            <TextField
+            variant = "outlined"
+            label = "ID Number"
+            fullWidth
               required
               type="text"
-              className="form__input inputValText"
+              className="inputValText"
               name="text"
               placeholder="ID Number"
               pattern="[0-9a-zA-Z]{13,}"
@@ -413,22 +425,11 @@ export default function DependantPage() {
             <div className="form__requirements">ID Number is required</div>
           </div>
           <div>
-            <label htmlFor="text" className="form__label ">
-              DOB
-            </label>
-            {/* <input
-              required
-              type="text"
-              className="form__input inputValText"
-              name="text"
-              placeholder=""
-              pattern="^\D*$"
-              
-              
-            /> */}
+
             <KeyboardDatePicker
               fullWidth
               //disableToolbar
+              label = " DOB"
               inputVariant="outlined"
               //variant="inline"
               autoOk
@@ -448,11 +449,12 @@ export default function DependantPage() {
           </div>
           <div>
             <label htmlFor="text" className="form__label ">
-              DOE
+              
             </label>
             <KeyboardDatePicker
               fullWidth
               //disableToolbar
+              label = "DOE"
               inputVariant="outlined"
               //variant="inline"
               autoOk
@@ -468,16 +470,6 @@ export default function DependantPage() {
                 "aria-label": "change date",
               }}
             />
-            {/* <input
-              required
-              type="text"
-              className="form__input inputValText"
-              name="text"
-              placeholder=""
-              pattern="^\D*$"
-
-
-            /> */}
             <div className="form__requirements">DOE is required</div>
           </div>
           <center>
@@ -505,25 +497,28 @@ export default function DependantPage() {
             />
           </center>
 
-          <label htmlFor="text" className="form__label ">
-              Relationship
-            </label>
+<br/>
+
           <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel shrink >
+          Relationship
+        </InputLabel>
             <Select
               native
+              displayEmpty
               value= {dependant.relationship}
+              label = "Relationship"
               defaultValue = ''
-              variant = "outlined"
               onChange={(e) =>{
 
                 console.log(e.target.value)
                 setDependant({ ...dependant, relationship: e.target.value })
               }
               }
-              // inputProps={{
-              //   name: "Relationship",
-              //   id: "filled-age-native-simple",
-              // }}
+              inputProps={{
+                name: "Relationship",
+                id: "filled-age-native-simple",
+              }}
             >
               {options.map((x) => {
                 return <option key={x.id} value={x.id}>{x.name}</option>;
@@ -533,7 +528,7 @@ export default function DependantPage() {
         </form>
 
         <div className="btn-group">
-          {location.state.edit ? (
+          
             <button
               //id = {validateForm()}
               className="button"
@@ -541,22 +536,15 @@ export default function DependantPage() {
               disabled={isSending}
               onClick={sendRequest}
             >
-              {" "}
-              Edit dependant
+              {location.state.edit ?
+              "Edit dependant"
+              :
+              "Add"
+                } 
             </button>
-          ) : (
-            <button
-              //id = {validateForm()}
-              className="button"
-              type="button"
-              disabled={isSending}
-              onClick={sendRequest}
-            >
-              Add
-            </button>
-          )}
+        
           <button className="button" type="button" onClick={back}>
-            {" "}
+        
             Cancel
           </button>
         </div>
