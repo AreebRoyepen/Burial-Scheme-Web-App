@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import MaterialTable from "material-table";
 import { makeStyles } from "@material-ui/core/styles";
@@ -169,7 +169,6 @@ export default function MembersV2() {
               //   }),
               onRowDelete: (oldData) =>
                 new Promise((resolve, reject) => {
-                  let x = oldData;
                   // don't send again while we are sending
                   if (isSending) return;
 

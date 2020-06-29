@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import React, { useState, useRef } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
 import MaterialTable from "material-table";
 import { makeStyles } from "@material-ui/core/styles";
-import LoadingIcon from "../shared/LoadingIcon";
 import Alert from "../shared/Alert";
-import { ErrorPage } from "../shared/ErrorPage";
 import { tableIcons } from "../shared/MaterialTableIcons";
 import Api from "../../../api/Api";
 
@@ -110,7 +108,6 @@ export default function DependantsTable(props) {
           //   }),
           onRowDelete: (oldData) =>
             new Promise((resolve, reject) => {
-              let x = oldData;
               // don't send again while we are sending
               if (isSending) return;
 

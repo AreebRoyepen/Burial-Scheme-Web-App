@@ -39,7 +39,7 @@ export default function DependantForm() {
     closeType: null,
   });
 
-  const [open, setOpen] = useState(false);
+  const [open] = useState(false);
   const [options, setOptions] = useState([]);
   const loading = open && options.length === 0;
   const [isSending, setIsSending] = useState(false);
@@ -62,9 +62,6 @@ export default function DependantForm() {
   const [member, setMember] = useState(location.state.member);
   
   const [loadMember, setLoadMember] = useState();
-  const [editedDependant, seteditedDependant] = useState({});
-
-  const [close, setClose] = useState(false);
 
   useEffect(() => {
 
@@ -95,7 +92,7 @@ export default function DependantForm() {
 
 
   useEffect(() => {
-    if (location.state.edit == true) {
+    if (location.state.edit === true) {
       console.log(location.state.x);
       setDependant({...location.state.x, relationship : location.state.x.relationship.id});
     }else{
