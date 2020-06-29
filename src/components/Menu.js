@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link , useHistory, useLocation} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -22,9 +22,9 @@ const useStyles = makeStyles(theme =>({
   list: {
     width: 300,
   },
-  fullList: {
-    width: 'auto',
-  },
+  // fullList: {
+  //   width: 'auto',
+  // },
   root: {
     flexGrow: 1,
   },
@@ -38,15 +38,15 @@ const useStyles = makeStyles(theme =>({
 
 export default function Menu({children}) {
   const classes = useStyles();
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     top: false,
     left: false,
     bottom: false,
     right: false,
   });
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const [user, setUser] = React.useState(null)
+  const [user, setUser] = useState(null)
   
   const isMounted = useRef(true)
 
@@ -175,7 +175,8 @@ export default function Menu({children}) {
       {localStorage.user ?
 
           <div className={classes.root}>
-          <AppBar id= "appBarColor" position="fixed">
+          <AppBar id= "appBarColor" position="static"
+          >
             <Toolbar>
             <Button onClick={toggleDrawer('left', true)}><DehazeIcon id ="menuIcon"/></Button>
           <Drawer open={state.left} onClose={toggleDrawer('left', false)} children={sideList('left')}>

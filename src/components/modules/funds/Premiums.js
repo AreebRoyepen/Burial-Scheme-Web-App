@@ -223,7 +223,7 @@ export default function Premiums() {
               <br />
             </h3>
             <h4>
-              words here
+              Select member to assign premium to
               <br />
             </h4>
             <Autocomplete

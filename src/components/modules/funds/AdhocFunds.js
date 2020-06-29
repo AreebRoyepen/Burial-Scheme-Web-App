@@ -276,7 +276,7 @@ export default function AdhocFunds() {
               <br />
             </h3>
             <h4>
-              words here
+              For income and expenses
               <br />
             </h4>
             Select Option
