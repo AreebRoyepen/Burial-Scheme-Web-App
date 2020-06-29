@@ -294,10 +294,35 @@ static async refresh(endpoint){
         console.log(errors)
         
       })
-    
-    
-    
-    
+
+   }
+
+
+   static async reportEmailAllRequest(list){
+
+    list.forEach(function (part, index) {
+        
+        this[index] = 
+        axios(API_BASE_ADDRESS + "/" + part, {
+            method: 'GET',
+            timeout : 100000,
+            headers : {"Authorization" : localStorage.getItem("token")}
+        })
+
+      }, list);
+
+      return axios.all(list).then(axios.spread((...responses) => {
+        
+        console.log(responses)
+
+        return {"message" : "SUCCESS", "data":responses}
+
+        // use/access the results 
+      })).catch(errors => {
+        
+        console.log(errors)
+        
+      })
 
    }
 
