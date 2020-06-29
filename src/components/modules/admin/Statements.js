@@ -122,15 +122,51 @@ export default function Statements() {
           document.body.appendChild(link);
           link.click();
         } else {
-          resp = { message: "SUCCESS" };
-          console.log("else");
+          var list = Object.assign([], checked);
+
+      var list2 = Object.assign([], checked);
+
+        var time = 3000;
+
+        console.log(list);
+        let req = "v1/reports/memberStatement/";
+       
+        list.forEach(function (part, index) {
+          console.log(part);
+          this[index] = req + part.id;
+        }, list);
+
+        console.log(list);
+
+        resp = await Api.reportDownloadAllRequest(list);
+        console.log(resp)
+
+        resp.data.forEach(function (part, index) {
+          console.log(part);
+          const url = window.URL.createObjectURL(new Blob([part.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          let date = new Date();
+          let filename =
+            "GIS Burial Scheme Statement: " +
+            list2[index].name +
+            " " +
+            list2[index].surname +
+            " " +
+            date.toDateString() +
+            ".pdf";
+          link.setAttribute("download", filename);
+          document.body.appendChild(link);
+          link.click();
+        }, resp.data);
+
         }
 
         console.log(resp);
         if (resp.message === "SUCCESS") {
           setOpenSnackbar({
             severity: "success",
-            message: "Successfully edited",
+            message: "Success",
             open: true,
             time: time,
             closeType: close,
@@ -197,8 +233,7 @@ export default function Statements() {
         let resp;
         console.log(list);
         let req = "v1/reports/memberStatement/";
-        resp = { message: "SUCCESS" };
-
+       
         list.forEach(function (part, index) {
           console.log(part);
           this[index] = req + part.id;
@@ -231,7 +266,177 @@ export default function Statements() {
         if (resp.message === "SUCCESS") {
           setOpenSnackbar({
             severity: "success",
-            message: "Successfully edited",
+            message: "Success",
+            open: true,
+            time: time,
+            closeType: close,
+          });
+        } else if (resp.message === "unauthorized") {
+          localStorage.clear();
+          history.push("/", { last: location.pathname, data: location.state });
+        } else if (resp.message === "error") {
+          time = 6000;
+          setOpenSnackbar({
+            severity: "error",
+            message: "unknown error",
+            open: true,
+            time: time,
+            closeType: close,
+          });
+        } else if (resp.message === "no connection") {
+          time = 6000;
+          setOpenSnackbar({
+            severity: "error",
+            message: "Check your internet connection",
+            open: true,
+            time: time,
+            closeType: close,
+          });
+        } else if (resp.message === "timeout") {
+          time = 6000;
+          setOpenSnackbar({
+            severity: "error",
+            message: "Request timed out. Please Try Again",
+            open: true,
+            time: time,
+            closeType: close,
+          });
+        }
+      }
+
+      getStatements();
+
+      // once the request is sent, update state again
+      if (isMounted.current)
+        // only update if we are still mounted
+        setIsSending(false);
+    },
+    [isSending, location, history]
+  ); // update the callback if the state changes
+
+  const emailStatements = useCallback(
+    async (checked) => {
+      // don't send again while we are sending
+      if (isSending) return;
+
+      // update state
+      setIsSending(true);
+      // send the actual request
+
+      async function getStatements() {
+        var time = 3000;
+
+        let resp;
+        console.log(checked);
+        if (checked.length == 1) {
+          resp = await Api.reportDownloadRequest(
+            "v1/reports/memberStatement/" + checked[0].id +"/" + checked[0].email 
+          );
+          
+        } else {
+          var list = Object.assign([], checked);
+
+        var time = 3000;
+
+        console.log(list);
+        let req = "v1/reports/memberStatement/";
+       
+        list.forEach(function (part, index) {
+          console.log(part);
+          this[index] = req + part.id +"/"+part.email;
+        }, list);
+
+        console.log(list);
+
+        resp = await Api.reportEmailAllRequest(list);
+        console.log(resp)
+
+        }
+
+        console.log(resp);
+        if (resp.message === "SUCCESS") {
+          setOpenSnackbar({
+            severity: "success",
+            message: "Success",
+            open: true,
+            time: time,
+            closeType: close,
+          });
+        } else if (resp.message === "unauthorized") {
+          localStorage.clear();
+          history.push("/", { last: location.pathname, data: location.state });
+        } else if (resp.message === "error") {
+          time = 6000;
+          setOpenSnackbar({
+            severity: "error",
+            message: "unknown error",
+            open: true,
+            time: time,
+            closeType: close,
+          });
+        } else if (resp.message === "no connection") {
+          time = 6000;
+          setOpenSnackbar({
+            severity: "error",
+            message: "Check your internet connection",
+            open: true,
+            time: time,
+            closeType: close,
+          });
+        } else if (resp.message === "timeout") {
+          time = 6000;
+          setOpenSnackbar({
+            severity: "error",
+            message: "Request timed out. Please Try Again",
+            open: true,
+            time: time,
+            closeType: close,
+          });
+        }
+      }
+
+      getStatements();
+
+      // once the request is sent, update state again
+      if (isMounted.current)
+        // only update if we are still mounted
+        setIsSending(false);
+    },
+    [isSending, location, history]
+  ); // update the callback if the state changes
+
+  const emailAllStatements = useCallback(
+    async (x) => {
+      // don't send again while we are sending
+      if (isSending) return;
+
+      // update state
+      setIsSending(true);
+      // send the actual request
+
+      var list = Object.assign([], x);
+
+      async function getStatements() {
+        var time = 3000;
+
+        let resp;
+        console.log(list);
+        let req = "v1/reports/memberStatement/";
+       
+        list.forEach(function (part, index) {
+          console.log(part);
+          this[index] = req + part.id +"/"+ part.email;
+        }, list);
+
+        console.log(list);
+
+        resp = await Api.reportEmailAllRequest(list);
+
+        console.log(resp);
+        if (resp.message === "SUCCESS") {
+          setOpenSnackbar({
+            severity: "success",
+            message: "Success",
             open: true,
             time: time,
             closeType: close,
@@ -327,30 +532,25 @@ export default function Statements() {
             {"Download All"}
           </button>
 
+          <button
+            onClick={() => emailStatements(checked)}
+            //style={{ opacity: 0 }}
+            className="funButton headerButtons"
+            //disabled
+          >
+            {checked.length > 1 ? "Email Statements" : "Email Statement"}
+          </button>
+
+          <button
+            onClick={() => emailAllStatements(data)}
+            //style={{ opacity: 0 }}
+            className="funButton headerButtons"
+            //disabled
+          >
+            {"Email All"}
+          </button>
+
           <List className={classes.root}>
-            <ListItem
-              key="all"
-              role={undefined}
-              dense
-              button
-              onClick={handleToggle("all")}
-            >
-              <ListItemIcon>
-                <Checkbox
-                  edge="start"
-                  checked={checked.indexOf("all") !== -1}
-                  tabIndex={-1}
-                  disableRipple
-                  //inputProps={{ "aria-labelledby": labelId }}
-                />
-              </ListItemIcon>
-              <ListItemText id="all" primary="All" />
-              {/* <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="comments">
-                <CommentIcon />
-              </IconButton>
-            </ListItemSecondaryAction> */}
-            </ListItem>
             {data.map((value) => {
               //const labelId = `checkbox-list-label-${value}`;
 
