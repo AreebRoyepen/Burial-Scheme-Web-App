@@ -238,7 +238,7 @@ export default function Dashboard() {
                         <Typography
                          
                           className={classes.title}
-                          style={{ textAlign:'left',color: '#C1A162', fontSize: "1.2em" }}
+                          style={{ textAlign:'left',color: '#C1A162', fontSize: "2em" }}
                           color="textSecondary"
 
                         >
@@ -264,7 +264,7 @@ export default function Dashboard() {
                         </Typography>
 
                         <Typography
-                          style={{textAlign:'left',color: '#C1A162', fontSize: "1.2em" }}
+                          style={{textAlign:'left',color: '#C1A162', fontSize: "2em" }}
                           variant="h5"
                           component="h2"
 
@@ -294,7 +294,7 @@ export default function Dashboard() {
                         </Typography>
 
                         <Typography
-                          style={{textAlign:'left',color: '#C1A162', fontSize: "1.2em" }}
+                          style={{textAlign:'left',color: '#C1A162', fontSize: "2em" }}
                           variant="h5"
                           component="h2"
 
@@ -329,7 +329,7 @@ export default function Dashboard() {
                         <Typography
                          
                           className={classes.title}
-                          style={{ textAlign:'left',color: '#C1A162', fontSize: "1.2em" }}
+                          style={{ textAlign:'left',color: '#C1A162', fontSize: "2em" }}
                           color="textSecondary"
 
                         >
@@ -355,7 +355,7 @@ export default function Dashboard() {
                         </Typography>
 
                         <Typography
-                          style={{textAlign:'left',color: '#C1A162', fontSize: "1.2em" }}
+                          style={{textAlign:'left',color: '#C1A162', fontSize: "2em" }}
                           variant="h5"
                           component="h2"
 
@@ -385,7 +385,7 @@ export default function Dashboard() {
                         </Typography>
 
                         <Typography
-                         style={{textAlign:'left',color: '#C1A162', fontSize: "1.2em" }}
+                         style={{textAlign:'left',color: '#C1A162', fontSize: "2em" }}
                           variant="h5"
                           component="h2"
 

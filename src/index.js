@@ -10,23 +10,22 @@ import DateFnsUtils from '@date-io/date-fns';
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 
-import MemberPage from "./components/modules/members/MemberPage";
-import MemberPageV2 from "./components/modules/members/MemberPageV2";
-import Members from "./components/modules/members/Members";
-import MembersV2 from "./components/modules/members/MembersV2";
-
 import Menu from "./components/Menu";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
-
 import Reports from "./components/modules/admin/Reports";
-import DependantPage from "./components/modules/dependants/DependantPage";
-import Dependants from "./components/modules/dependants/Dependants";
+
+import MemberForm from "./components/modules/members/MemberForm";
+import MembersV2 from "./components/modules/members/MembersV2";
+
+import DependantForm from "./components/modules/dependants/DependantForm";
+import DependantsV2 from "./components/modules/dependants/DependantsV2";
+
 import AdhocFunds from "./components/modules/funds/AdhocFunds";
 import Claims from "./components/modules/funds/Claims";
 import Premiums from "./components/modules/funds/Premiums";
-import Statements from "./components/modules/admin/Statements"
-import DependantsV2 from "./components/modules/dependants/DependantsV2";
+import Statements from "./components/modules/admin/Statements";
+
 
 const history = createBrowserHistory();
 
@@ -54,13 +53,13 @@ ReactDOM.render(
 
       {/* <Route path="/MemberPage" render={() => ( <Menu> <MemberPage /> </Menu> )}/> */}
 
-      <Route path="/MemberPage" render={() => ( <Menu> <MemberPageV2 /> </Menu> )}/>
+      <Route path="/MemberPage" render={() => ( <Menu> <MemberForm /> </Menu> )}/>
 
       {/* <Route path="/Members" render={() => ( <Menu> <Members /> </Menu> )}/> */}
 
       <Route path="/Members" render={() => ( <Menu> <MembersV2 /> </Menu> )}/>
 
-      <Route path="/DependantPage" render={() => ( <Menu> <DependantPage /> </Menu> )}/>
+      <Route path="/DependantPage" render={() => ( <Menu> <DependantForm /> </Menu> )}/>
 
       <Route path="/Dependants" render={() => ( <Menu> <DependantsV2 /> </Menu> )}/>
 
