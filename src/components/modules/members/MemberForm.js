@@ -10,7 +10,7 @@ import { KeyboardDatePicker } from "@material-ui/pickers";
 import Alert from "../shared/Alert";
 import Api from "../../../api/Api";
 import "../../../styles/memberPage.css";
-import DependantPage from "../dependants/DependantPage";
+import DependantPage from "../dependants/DependantForm";
 import DependantsTable from "../dependants/DependantsTable";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MemberPageV2() {
+export default function MemberForm() {
   let history = useHistory();
   let location = useLocation();
 
