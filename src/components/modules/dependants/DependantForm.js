@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DependantPage() {
+export default function DependantForm() {
   let history = useHistory();
   let location = useLocation();
 
@@ -355,7 +355,7 @@ export default function DependantPage() {
         
         <form className="form ">
         <h1 className="h1Dashboard">{location.state.edit ?
-              "Edit dependant"
+              "Edit Dependant"
               :
               "Add Dependant"
                 } 
@@ -537,7 +537,7 @@ export default function DependantPage() {
               onClick={sendRequest}
             >
               {location.state.edit ?
-              "Edit dependant"
+              "Save Change"
               :
               "Add"
                 } 
