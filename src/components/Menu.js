@@ -13,7 +13,7 @@ import MenuUI from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItem from '@material-ui/core/ListItem';
 import { TiTicket } from "react-icons/ti";
-import {MdEvent, MdDashboard,MdPeople, MdAssignment, MdContacts, MdVerifiedUser} from "react-icons/md";
+import {MdMonetizationOn, MdArrowUpward, MdArrowDownward,MdDashboard,MdPeople, MdPeopleOutline, MdAssignment, MdContacts, MdVerifiedUser} from "react-icons/md";
 import Api from "../api/Api";
 
 import "../styles/menu.css";
@@ -129,21 +129,28 @@ export default function Menu({children}) {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        <ListItem className="menuHeader" ><TiTicket/>&nbsp;GIS Burial Scheme</ListItem>
+        {/* <ListItem className="menuHeader" ><TiTicket/>&nbsp;GIS Burial Scheme</ListItem> */}
         <List>
           <ListItem> <MdDashboard className="iconStyling"/><Link className="menuText" to="/Dashboard">&nbsp;&nbsp;&nbsp;Dashboard</Link></ListItem>
         </List>
         <Divider/>
         <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/Members">&nbsp;&nbsp;&nbsp;Members</Link></ListItem>
 
+        <ListItem> <MdPeopleOutline  className="iconStyling"/><Link className="menuText" to="/Dependants">&nbsp;&nbsp;&nbsp;Dependants</Link></ListItem>
 
-        <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/Dependants">&nbsp;&nbsp;&nbsp;Dependants</Link></ListItem>
-        <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/AdhocFunds">&nbsp;&nbsp;&nbsp;AdhocFunds</Link></ListItem>
-        <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/Claims">&nbsp;&nbsp;&nbsp;Claims</Link></ListItem>
-        <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/Premiums">&nbsp;&nbsp;&nbsp;Premiums</Link></ListItem>
+        <hr style={{height: '14px',boxShadow: 'inset 0 4px 4px -4px  #1A2819'}}/>
 
-        <ListItem> <MdPeople  className="iconStyling"/><Link className="menuText" to="/Statements">&nbsp;&nbsp;&nbsp;Statements</Link></ListItem>
+        <ListItem> <MdArrowUpward  className="iconStyling"/><Link className="menuText" to="/Premiums">&nbsp;&nbsp;&nbsp;Premiums</Link></ListItem>
+
+        <ListItem><MdArrowDownward className="iconStyling"/><Link className="menuText" to="/Claims">&nbsp;&nbsp;&nbsp;Claims</Link></ListItem>
+
+        <ListItem> <MdMonetizationOn  className="iconStyling"/><Link className="menuText" to="/AdhocFunds">&nbsp;&nbsp;&nbsp;AdhocFunds</Link></ListItem>        
         
+        <hr style={{height: '14px',boxShadow: 'inset 0 4px 4px -4px  #1A2819'}}/>
+        
+        <ListItem> <MdAssignment  className="iconStyling"/><Link className="menuText" to="/Statements">&nbsp;&nbsp;&nbsp;Statements</Link></ListItem>
+        
+        {/* <hr style={{height: '14px',boxShadow: 'inset 0 4px 4px -4px  #1A2819'}}/> */}
         {/* {user ?        
         adminPanel()
         :
