@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback }  from "react";
+import React, { useState, useEffect, useRef }  from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import Snackbar from '@material-ui/core/Snackbar';
 import { makeStyles } from '@material-ui/core/styles';
@@ -54,7 +54,7 @@ export default function ReportEndpoints(props) {
         async function fetchData(){
             var time = 6000
 
-            if(x.param2 == "download"){
+            if(x.param2 === "download"){
                 setOpenSnackbar({...openSnackbar, [openSnackbar.open]:false})
                 setOpenSnackbar({severity: "success", message : "Report to download shortly", open : true, time : time, closeType : closeSnack})
 
@@ -106,7 +106,7 @@ export default function ReportEndpoints(props) {
                 }
                 
 
-            }else if (x.param2 == "email"){
+            }else if (x.param2 === "email"){
 
                 setOpenSnackbar({...openSnackbar, [openSnackbar.open]:false})
                 setOpenSnackbar({severity: "success", message : "Email to be sent shortly", open : true, time : time, closeType : closeSnack})

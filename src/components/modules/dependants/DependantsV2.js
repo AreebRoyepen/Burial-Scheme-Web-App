@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
-import MaterialTable from "material-table";
 import DependantsTable from "./DependantsTable"
 import { makeStyles } from "@material-ui/core/styles";
 import LoadingIcon from "../shared/LoadingIcon";
 import Alert from "../shared/Alert";
 import Tooltip from '@material-ui/core/Tooltip';
 import { ErrorPage } from "../shared/ErrorPage";
-import { tableIcons } from "../shared/MaterialTableIcons";
 import Api from "../../../api/Api";
 import "../../../styles/eventCard.css";
 

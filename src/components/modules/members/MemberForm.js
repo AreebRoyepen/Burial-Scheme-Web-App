@@ -4,14 +4,12 @@ import Snackbar from "@material-ui/core/Snackbar";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import Switch from "@material-ui/core/Switch";
-import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from "@material-ui/core/styles";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import Alert from "../shared/Alert";
+import DependantsTable from "../dependants/DependantsTable";
 import Api from "../../../api/Api";
 import "../../../styles/memberPage.css";
-import DependantPage from "../dependants/DependantForm";
-import DependantsTable from "../dependants/DependantsTable";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,8 +68,6 @@ export default function MemberForm() {
   });
   const [dependants, setDependants] = useState();
   const [loadDependants, setLoadDependants] = useState()
-
-  const [editedMember, setEditedMember] = useState({});
 
   useEffect(() => {
     if (location.state.edit) {
@@ -159,7 +155,6 @@ export default function MemberForm() {
         });
       }
     }
-
 
   }, [loadDependants, location,history]);
 
