@@ -57,8 +57,6 @@ export default function DependantForm() {
     // surname: "Roy"
   });
 
-  //const [dependant, setDependant] = useState()
-
   const [member, setMember] = useState(location.state.member);
   
   const [loadMember, setLoadMember] = useState();
@@ -71,8 +69,6 @@ export default function DependantForm() {
       if (resp.message === "SUCCESS") {
 
           setOptions(resp.data);
-          //if(!location.state.edit)
-          //setDependant({ ...dependant, relationship: resp.data[0].id })
 
       } else if (resp.message === "unauthorized") {
         //localStorage.clear();
@@ -95,8 +91,6 @@ export default function DependantForm() {
     if (location.state.edit === true) {
       console.log(location.state.x);
       setDependant({...location.state.x, relationship : location.state.x.relationship.id});
-    }else{
-      //setDependant(...dependant, )
     }
   }, [location]);
 
@@ -149,15 +143,6 @@ export default function DependantForm() {
       } else if (resp.message === "unauthorized") {
         //localStorage.clear();
         history.push("/", { last: location.pathname, data: location.state });
-      } else if (resp.message === "error") {
-        time = 6000;
-        setOpenSnackbar({
-          severity: "error",
-          message: "unknown error",
-          open: true,
-          time: time,
-          closeType: errorClose,
-        });
       } else if (resp.message === "no connection") {
         time = 6000;
         setOpenSnackbar({
@@ -210,15 +195,6 @@ export default function DependantForm() {
         } else if (resp.message === "unauthorized") {
           //localStorage.clear();
           history.push("/", { last: location.pathname, data: location.state });
-        } else if (resp.message === "error") {
-          time = 6000;
-          setOpenSnackbar({
-            severity: "error",
-            message: "unknown error",
-            open: true,
-            time: time,
-            closeType: errorClose,
-          });
         } else if (resp.message === "no connection") {
           time = 6000;
           setOpenSnackbar({
@@ -259,15 +235,6 @@ export default function DependantForm() {
         } else if (resp.message === "unauthorized") {
           //localStorage.clear();
           history.push("/", { last: location.pathname });
-        } else if (resp.message === "error") {
-          time = 6000;
-          setOpenSnackbar({
-            severity: "error",
-            message: "unknown error",
-            open: true,
-            time: time,
-            closeType: errorClose,
-          });
         } else if (resp.message === "no connection") {
           time = 6000;
           setOpenSnackbar({

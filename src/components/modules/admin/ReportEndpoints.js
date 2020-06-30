@@ -41,9 +41,7 @@ export default function ReportEndpoints(props) {
     setOpenSnackbar({...openSnackbar, [openSnackbar.open]:false})
     };
 
-    useEffect(() => {
-
-        
+    useEffect(() => {       
 
         if (isSending) return
   
@@ -87,10 +85,6 @@ export default function ReportEndpoints(props) {
                     //localStorage.clear();
                     history.push("/", {last : location.pathname, data : location.state})
         
-                }else if(t.message === "error"){
-                    time = 6000
-                    setOpenSnackbar({severity : "error", message : "Unknown Error", open : true, time : time, closeType : closeSnack})
-        
                 }else if(t.message === "no connection"){
                     time = 6000
                     setOpenSnackbar({severity : "error", message : "Check your internet connection", open : true, time : time, closeType : closeSnack})
@@ -130,10 +124,6 @@ export default function ReportEndpoints(props) {
                         //localStorage.clear();
                         history.push("/", {last : location.pathname, data : location.state})
             
-                    }else if(t.message === "error"){
-                        time = 6000
-                        setOpenSnackbar({severity : "error", message : "Unknown Error", open : true, time : time, closeType : closeSnack})
-            
                     }else if(t.message === "no connection"){
                         time = 6000
                         setOpenSnackbar({severity : "error", message : "Check your internet connection", open : true, time : time, closeType : closeSnack})
@@ -172,7 +162,6 @@ export default function ReportEndpoints(props) {
             </Alert>
           </Snackbar>
         </div>
-
 
       </div>
 

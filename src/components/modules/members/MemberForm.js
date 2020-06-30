@@ -126,15 +126,6 @@ export default function MemberForm() {
       } else if (resp.message === "unauthorized") {
         //localStorage.clear();
         history.push("/", { last: location.pathname, data: location.state });
-      } else if (resp.message === "error") {
-        time = 6000;
-        setOpenSnackbar({
-          severity: "error",
-          message: "unknown error",
-          open: true,
-          time: time,
-          closeType: errorClose,
-        });
       } else if (resp.message === "no connection") {
         time = 6000;
         setOpenSnackbar({
@@ -186,15 +177,6 @@ export default function MemberForm() {
         } else if (resp.message === "unauthorized") {
           //localStorage.clear();
           history.push("/", { last: location.pathname, data: location.state });
-        } else if (resp.message === "error") {
-          time = 6000;
-          setOpenSnackbar({
-            severity: "error",
-            message: "unknown error",
-            open: true,
-            time: time,
-            closeType: errorClose,
-          });
         } else if (resp.message === "no connection") {
           time = 6000;
           setOpenSnackbar({
@@ -228,15 +210,6 @@ export default function MemberForm() {
         } else if (resp.message === "unauthorized") {
           //localStorage.clear();
           history.push("/", { last: location.pathname });
-        } else if (resp.message === "error") {
-          time = 6000;
-          setOpenSnackbar({
-            severity: "error",
-            message: "unknown error",
-            open: true,
-            time: time,
-            closeType: errorClose,
-          });
         } else if (resp.message === "no connection") {
           time = 6000;
           setOpenSnackbar({
