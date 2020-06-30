@@ -1,25 +1,81 @@
 import axios from 'axios';
 import jwt from 'jwt-decode'
 
-axios.defaults.timeout = 20000;
 
-let API_BASE_ADDRESS = 'http://localhost:8080';
+let API_BASE_ADDRESS = 'http://localhost:8080/';
 // if(process.env.NODE_ENV == "development"){
 //     API_BASE_ADDRESS = ""
 // }
 
-export default class Api {
+let axiosInstance = axios.create({
+    baseURL : API_BASE_ADDRESS,
+    timeout: 20000
+});
 
-    static PREMIUM = 1;
-    static CLAIM = 2;
-    static INCOME = 3;
-    static EXPENSE = 4;
-   
-   static async login(endpoint, payload){
 
-    const uri = API_BASE_ADDRESS + "/" + endpoint;
+
+axiosInstance.interceptors.response.use((response) => {
     
-    return axios.post(uri,payload)
+    return response
+
+ }, async (error) => {
+    const originalRequest = error.config;
+    console.log(originalRequest)
+    console.log(error)
+ 
+    console.log("In the interceptor error")
+    if (error.response.status === 401 && originalRequest.url === 'refresh') {
+        //router.push('/login');
+        console.log("cant refresh if")
+        return Promise.reject(error);
+    }
+ 
+    if (error.response.status === 401 && !originalRequest._retry) {
+ 
+        originalRequest._retry = true;
+        const refreshToken = localStorage.refreshToken;
+        const user = JSON.parse(localStorage.user);
+        
+        return await axiosInstance.post('refresh',
+            {
+                "refreshToken": refreshToken,
+                "username" : user.username
+            },
+            {headers : {}}
+            )
+            .then(resp => {
+                if (resp.status === 200) {
+                                        
+                    let decode = jwt(resp.data.token)
+                    let now = new Date().getTime()
+                    let exp = new Date(decode.exp * 1000).getTime()
+                    localStorage.clear()
+                    localStorage.setItem("token","Bearer " + resp.data.token)
+                    localStorage.setItem("refreshToken", resp.data.refreshToken)
+                    localStorage.setItem("user", JSON.stringify(decode.user))
+                    localStorage.setItem("expiration", (exp - now))
+
+                    originalRequest.headers['Authorization'] = localStorage.token
+                    axiosInstance.defaults.headers.common['Authorization'] = localStorage.token;
+                    return axiosInstance(originalRequest);
+                }
+            })
+    }
+    return Promise.reject(error);
+ });
+
+
+    export const PREMIUM = 1;
+    export const CLAIM = 2;
+    export const INCOME = 3;
+    export const EXPENSE = 4;
+   
+
+   export async function login(endpoint, payload){
+
+    const uri = endpoint;
+    
+    return axios.post(API_BASE_ADDRESS + uri,payload)
     .then(resp => {
         console.log(resp)
 
@@ -30,8 +86,11 @@ export default class Api {
             let exp = new Date(decode.exp * 1000).getTime()
 
             localStorage.setItem("token","Bearer " + resp.data.token)
+            localStorage.setItem("refreshToken", resp.data.refreshToken)
             localStorage.setItem("user", JSON.stringify(decode.user))
             localStorage.setItem("expiration", (exp - now))
+            axiosInstance.defaults.headers.common['Authorization'] = localStorage.token;
+
             return {"message" : "SUCCESS"}
         }
    })
@@ -57,46 +116,46 @@ export default class Api {
 )
 }
 
-static async refresh(endpoint){
+// async refresh(endpoint){
 
-    const uri = API_BASE_ADDRESS + "/" + endpoint;
+//     const uri = API_BASE_ADDRESS + "/" + endpoint;
     
-    return axios.get(uri, {headers : {"Authorization" : localStorage.getItem("token")}})
-    .then(resp => {
+//     return instance.get(uri, {headers : {"Authorization" : localStorage.getItem("token")}})
+//     .then(resp => {
         
-        if(resp.status === 200){
-            localStorage.setItem("token","Bearer " + resp.data.token)
-            return {"message" : "SUCCESS"}
-        }
-   })
-   .catch(
-    e =>{
+//         if(resp.status === 200){
+//             localStorage.setItem("token","Bearer " + resp.data.token)
+//             return {"message" : "SUCCESS"}
+//         }
+//    })
+//    .catch(
+//     e =>{
 
-        if(e.response){
+//         if(e.response){
 
-            if(e.response.status === 400){
-                return {"message" : "error"}
-            }else if(e.response.status === 401){
-                return {"message" : "unauthorized"}
-            }
+//             if(e.response.status === 400){
+//                 return {"message" : "error"}
+//             }else if(e.response.status === 401){
+//                 return {"message" : "unauthorized"}
+//             }
 
-        }else{
-            if (e.code === 'ECONNABORTED'){
-                return {"message" : "timeout"}
-            }
+//         }else{
+//             if (e.code === 'ECONNABORTED'){
+//                 return {"message" : "timeout"}
+//             }
 
-            return {"message" : "no connection"}
-        }    
-    }
-)
-}
+//             return {"message" : "no connection"}
+//         }    
+//     }
+// )
+// }
 
 
-   static async getRequest(endpoint){
+   export async function getRequest(endpoint){
 
-    const uri = API_BASE_ADDRESS + "/" + endpoint;
+    const uri = endpoint;
     console.log(uri)
-    return axios.get(uri, {headers : {"Authorization" : localStorage.getItem("token")}})
+    return axiosInstance.get(uri)
     .then(resp => {
         if(resp.status === 200){
             console.log(resp.data)
@@ -127,11 +186,11 @@ static async refresh(endpoint){
 
    }
 
-   static async postRequest(endpoint, payload){
+   export async function postRequest(endpoint, payload){
 
-    const uri = API_BASE_ADDRESS + "/" + endpoint;
+    const uri = endpoint;
     
-    return axios.post(uri,payload, {headers : {"Authorization" : localStorage.token }})
+    return axiosInstance.post(uri,payload)
     .then(resp => {
         if(resp.status === 200){
             console.log(resp)
@@ -161,11 +220,11 @@ static async refresh(endpoint){
 )
 }
 
-   static async putRequest(endpoint, payload){
+   export async function putRequest(endpoint, payload){
 
-    const uri = API_BASE_ADDRESS + "/" + endpoint;
+    const uri = endpoint;
     
-    return axios.put(uri,payload, {headers : {"Authorization" : localStorage.getItem("token")}})
+    return axiosInstance.put(uri,payload)
     .then(resp => {
 
         if(resp.status === 200){
@@ -195,11 +254,11 @@ static async refresh(endpoint){
        
    }
 
-   static async deleteRequest(endpoint, payload){
+   export async function deleteRequest(endpoint, payload){
 
-    const uri = API_BASE_ADDRESS + "/" + endpoint;
+    const uri = endpoint;
     
-    return axios.delete(uri, {headers : {"Authorization" : localStorage.getItem("token")} ,data : payload})
+    return axiosInstance.delete(uri)
     .then(resp => {
 
         if(resp.status === 200){
@@ -230,15 +289,15 @@ static async refresh(endpoint){
 
    }
 
-   static async reportDownloadRequest(endpoint){
+   export async function reportDownloadRequest(endpoint){
     
-    const uri = API_BASE_ADDRESS + "/" + endpoint;
+    const uri = endpoint;
 
-    return axios(uri, {
+    return axiosInstance(uri, {
         method: 'GET',
         responseType: "blob",
-        timeout : 100000,
-        headers : {"Authorization" : localStorage.getItem("token")}
+        timeout : 100000
+        
     })
     .then(response => {
 
@@ -268,21 +327,20 @@ static async refresh(endpoint){
 )
    }
 
-   static async reportDownloadAllRequest(list){
+   export async function reportDownloadAllRequest(list){
 
     list.forEach(function (part, index) {
         
         this[index] = 
-        axios(API_BASE_ADDRESS + "/" + part, {
+        axiosInstance(part, {
             method: 'GET',
             responseType: "blob",
-            timeout : 100000,
-            headers : {"Authorization" : localStorage.getItem("token")}
+            timeout : 100000
         })
 
       }, list);
 
-      return axios.all(list).then(axios.spread((...responses) => {
+      return axiosInstance.all(list).then(axiosInstance.spread((...responses) => {
         
         console.log(responses)
 
@@ -297,21 +355,19 @@ static async refresh(endpoint){
 
    }
 
-
-   static async reportEmailAllRequest(list){
+   export async function reportEmailAllRequest(list){
 
     list.forEach(function (part, index) {
         
         this[index] = 
-        axios(API_BASE_ADDRESS + "/" + part, {
+        axiosInstance(part, {
             method: 'GET',
-            timeout : 100000,
-            headers : {"Authorization" : localStorage.getItem("token")}
+            timeout : 100000
         })
 
       }, list);
 
-      return axios.all(list).then(axios.spread((...responses) => {
+      return axiosInstance.all(list).then(axiosInstance.spread((...responses) => {
         
         console.log(responses)
 
@@ -326,4 +382,3 @@ static async refresh(endpoint){
 
    }
 
-}
