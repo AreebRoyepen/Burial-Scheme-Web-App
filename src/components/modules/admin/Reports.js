@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import jwt from "jwt-decode";
 import ReportEndpoints from "./ReportEndpoints";
 import { MdFileDownload, MdEmail } from "react-icons/md";
 import "../../../styles/validationForm.css";
@@ -8,7 +9,10 @@ export default function Reports() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    setUser(JSON.parse(localStorage.user));
+    let decode = jwt(localStorage.token);
+    
+    setUser(decode.user)  
+    
   }, [setUser]);
 
   const [params, setParams] = useState({

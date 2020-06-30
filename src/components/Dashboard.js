@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import jwt from "jwt-decode";
 import { useHistory, useLocation } from "react-router-dom";
 import { Chart, Doughnut } from 'react-chartjs-2';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -52,23 +53,23 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: '#1A2819',
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
+// const StyledTableCell = withStyles((theme) => ({
+//   head: {
+//     backgroundColor: '#1A2819',
+//     color: theme.palette.common.white,
+//   },
+//   body: {
+//     fontSize: 14,
+//   },
+// }))(TableCell);
 
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.background.default,
-    },
-  },
-}))(TableRow);
+// const StyledTableRow = withStyles((theme) => ({
+//   root: {
+//     '&:nth-of-type(odd)': {
+//       backgroundColor: theme.palette.background.default,
+//     },
+//   },
+// }))(TableRow);
 
 
 export default function Dashboard() {
@@ -89,7 +90,10 @@ export default function Dashboard() {
   const [user, setUser] = useState(null)
 
   useEffect( () => {
-    setUser(JSON.parse(localStorage.user))  
+    
+    let decode = jwt(localStorage.token);
+    
+    setUser(decode.user)  
   },[setUser])
 
   /**Formart String */
@@ -408,66 +412,10 @@ export default function Dashboard() {
           <div id="dashboard-box-shadow">
             <div className={classes.root}>
               <Grid container spacing={2} id="dashboard-box-shadow">
-
-                {/* <Grid item  xs={12} sm={6} id="dashboard-box-shadow" style={{ backgroundColor: '#ffffff00' }}>
-                  <Paper className={classes.paper} style={{ backgroundColor: '#ffffff00' }}>
-                    <Card className={classes.card} style={{ boxShadow: '0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048),0 12.5px 10px rgba(0, 0, 0, 0.06),0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),0 100px 80px rgba(0, 0, 0, 0.12)' }} variant="outlined">
-                      <CardContent>
-                        <div className=" chart-wrapper">
-                          <Doughnut
-                            data={data}
-                            options={{
-                              cutoutPercentage: 80,
-                              responsive: true,
-                              style: {
-                                width: "600px",
-                                height: "300px",
-
-
-                                display: "inline-block"
-                              },
-                              legend: {
-                                display: false,
-                                position: "right"
-                              },
-                              centerText: {
-                                display: true,
-                                text: "Tickets"
-                              }
-                            }}
-                          />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Paper>
-                </Grid>
-                <Grid item  xs={12} sm={6} id="dashboard-box-shadow">
-                  <Paper className={classes.paper} style={{ backgroundColor: '#ffffff00' }}>
-                    <TableContainer component={Paper} >
-                      <Table className={classes.table} aria-label="customized table" >
-
-                        <TableHead>
-                          <TableRow>
-                          <StyledTableCell>Active Events </StyledTableCell>
-                          </TableRow>
-                        </TableHead>
-
-                        <TableBody>
-                          {events.splice(0, 6).map(row => (
-                            <StyledTableRow key={row.name}>
-                              <StyledTableCell component="th" scope="row">
-                                {row.name}
-                              </StyledTableCell>
-                            </StyledTableRow>
-                          ))}
-                        </TableBody>
-
-                      </Table>
-                    </TableContainer>
-                  </Paper>
-                </Grid> */}
                
-                {user.role.id == 1 ? (
+                {user!=null ? 
+                
+                user.role.id == 1 ? (
                 <Grid item xs id="dashboard-box-shadow">
                   <Paper className={classes.paper} style={{ backgroundColor: '#ffffff00' }}>
                   <TableContainer component={Paper} >
@@ -476,6 +424,12 @@ export default function Dashboard() {
                    </TableContainer>
                   </Paper>
                 </Grid>):
+
+                <div/>
+
+                :
+
+
                 (<div/>)}
               </Grid>
              
