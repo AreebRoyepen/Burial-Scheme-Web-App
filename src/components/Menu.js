@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import jwt from "jwt-decode";
 import { Link , useHistory, useLocation} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -63,10 +64,14 @@ export default function Menu({children}) {
 
     //upon setting user to local storage
     //start calling refresh endpoint so session does expire
-    if(localStorage.user){
+    if(localStorage.token){
 
-      setUser(JSON.parse(localStorage.user))
+      let decode = jwt(localStorage.token);
+      console.log(JSON.stringify(decode.user))
+      setUser(decode.user)
       
+      
+
       // var id = setInterval(() =>{
       //   //setOpenModal(openModal);
       //   async function fetchData(){
@@ -178,7 +183,7 @@ export default function Menu({children}) {
 
   return (
     <div>
-      {localStorage.user ?
+      {localStorage.token ?
 
           <div className={classes.root}>
           <AppBar id= "appBarColor" position="static"
