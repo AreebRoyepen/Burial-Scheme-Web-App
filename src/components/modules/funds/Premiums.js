@@ -7,7 +7,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import 'date-fns';
 import Alert from "../shared/Alert";
-import Api from "../../../api/Api";
+import {getRequest, postRequest, PREMIUM} from "../../../api/Api";
 import "../../../styles/validationForm.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -64,7 +64,7 @@ export default function Premiums() {
     }
 
     (async () => {
-      let resp = await Api.getRequest("v1/members");
+      let resp = await getRequest("v1/members");
     
       if (resp.message === "SUCCESS") {
         if (active) {
@@ -74,7 +74,7 @@ export default function Premiums() {
           }
         }
       } else if (resp.message === "unauthorized") {
-        localStorage.clear();
+        //localStorage.clear();
         history.push("/", { last: location.pathname });
       } else {
         setOpenSnackbar({
@@ -112,14 +112,14 @@ export default function Premiums() {
       let body = {
 
         amount : amount,
-        type: Api.PREMIUM,
+        type: PREMIUM,
         id : person.id
 
       }
 
       console.log(body)
 
-      let resp = await Api.postRequest("v1/premiums", body);
+      let resp = await postRequest("v1/premiums", body);
       console.log(resp)
       if (resp.message === "SUCCESS") {
         var message = "Payment Successful";
@@ -131,7 +131,7 @@ export default function Premiums() {
           closeType: successClose,
         });
       } else if (resp.message === "unauthorized") {
-        localStorage.clear();
+        //localStorage.clear();
         history.push("/", { last: location.pathname });
       } else if (resp.message === "error") {
         time = 6000;

@@ -3,7 +3,7 @@ import { useLocation, useHistory } from "react-router-dom";
 import Snackbar from '@material-ui/core/Snackbar';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from "../shared/Alert"
-import Api from "../../../api/Api";
+import {reportDownloadRequest} from "../../../api/Api";
 import "../../../styles/validationForm.css";
 
 const useStyles = makeStyles(theme => ({
@@ -62,11 +62,11 @@ export default function ReportEndpoints(props) {
                 var filename
                 var date = new Date()
                 if(x.endpoint === "deaths"){
-                    t = await Api.reportDownloadRequest("v1/reports/deaths") 
+                    t = await reportDownloadRequest("v1/reports/deaths") 
                     filename = "REPORT Deaths " + date.toDateString() +".csv"
                 }
                 if(x.endpoint === "memberDump"){
-                    t = await Api.reportDownloadRequest("v1/reports/memberDump")
+                    t = await reportDownloadRequest("v1/reports/memberDump")
                     filename = "REPORT Member Dump " + date.toDateString() +".csv"
                 }
                 
@@ -84,7 +84,7 @@ export default function ReportEndpoints(props) {
                     link.click();
         
                 }else if (t.message === "unauthorized"){
-                    localStorage.clear();
+                    //localStorage.clear();
                     history.push("/", {last : location.pathname, data : location.state})
         
                 }else if(t.message === "error"){
@@ -113,13 +113,13 @@ export default function ReportEndpoints(props) {
 
                 let t
                 if(x.endpoint === "deaths"){
-                    t = await Api.reportDownloadRequest("v1/reports/deaths/"+x.email) 
+                    t = await reportDownloadRequest("v1/reports/deaths/"+x.email) 
                 }
                 if(x.endpoint === "memberDump"){
-                    t = await Api.reportDownloadRequest("v1/reports/memberDump/"+x.email)
+                    t = await reportDownloadRequest("v1/reports/memberDump/"+x.email)
                 }
 
-                //let t = await Api.reportEmailRequest(x.endpoint,x.param1, x.param2, x.email) 
+                //let t = await reportEmailRequest(x.endpoint,x.param1, x.param2, x.email) 
                 
                     console.log(t)
                     if(t.message === "SUCCESS"){
@@ -127,7 +127,7 @@ export default function ReportEndpoints(props) {
                         setOpenSnackbar({severity: "success", message : "Report Emailed Successfully", open : true, time : time, closeType : closeSnack})
             
                     }else if (t.message === "unauthorized"){
-                        localStorage.clear();
+                        //localStorage.clear();
                         history.push("/", {last : location.pathname, data : location.state})
             
                     }else if(t.message === "error"){

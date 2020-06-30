@@ -80,7 +80,7 @@ export default function CardList(props) {
         var time = 5000;
 
         if (type === "Member") {
-          let resp = await Api.deleteRequest("v1/members/" + x.id);
+          let resp = await deleteRequest("v1/members/" + x.id);
           console.log(resp);
           if (resp.message === "SUCCESS") {
             setItems(items.filter((currentItem) => { if (currentItem != x) return (JSON.stringify(currentItem))}))
@@ -92,7 +92,7 @@ export default function CardList(props) {
               closeType: closeSnack,
             });
           } else if (resp.message === "unauthorized") {
-            localStorage.clear();
+            //localStorage.clear();
             history.push("/", {
               last: location.pathname,
               data: location.state,
@@ -126,7 +126,7 @@ export default function CardList(props) {
             });
           }
         } else if (type === "Dependant") {
-          let resp = await Api.deleteRequest("v1/dependants/" + x.id);
+          let resp = await deleteRequest("v1/dependants/" + x.id);
           console.log(resp);
           if (resp.message === "SUCCESS") {
             setItems(items.filter((currentItem) => { if (currentItem != x) return (JSON.stringify(currentItem))}))
@@ -138,7 +138,7 @@ export default function CardList(props) {
               closeType: closeSnack,
             });
           } else if (resp.message === "unauthorized") {
-            localStorage.clear();
+            //localStorage.clear();
             history.push("/", { last: location.pathname });
           } else if (resp.message === "error") {
             time = 6000;

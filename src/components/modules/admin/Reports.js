@@ -40,7 +40,7 @@ export default function Reports() {
       {params.send ? toEndpoints() : <div />}
 
       <div id="demo makeRow">
-        <table id="table" class="table table-hover table-mc-light-blue makeRow">
+        <table id="table" className="table table-hover table-mc-light-blue makeRow">
           <thead>
             <tr>
               <th

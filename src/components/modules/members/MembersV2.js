@@ -7,7 +7,7 @@ import LoadingIcon from "../shared/LoadingIcon";
 import Alert from "../shared/Alert";
 import { ErrorPage } from "../shared/ErrorPage";
 import { tableIcons } from "../shared/MaterialTableIcons";
-import Api from "../../../api/Api";
+import {getRequest, deleteRequest} from "../../../api/Api";
 import "../../../styles/eventCard.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -68,13 +68,13 @@ export default function MembersV2() {
           // send the actual request
 
     async function fetchData() {
-      let x = await Api.getRequest("v1/members");
+      let x = await getRequest("v1/members");
       console.log(x);
       if (x.message === "SUCCESS") {
         setData(x.data);
         setConnection(true);
       } else if (x.message === "unauthorized") {
-        localStorage.clear();
+        //localStorage.clear();
         history.push("/", { last: location.pathname });
       } else {
         setOpenSnackbar({
@@ -178,7 +178,7 @@ export default function MembersV2() {
 
                   fetchData(oldData);
                   async function fetchData(x) {
-                    let resp = await Api.deleteRequest("v1/members/" + x.id);
+                    let resp = await deleteRequest("v1/members/" + x.id);
                     var time = 5000;
                     console.log(resp);
                     if (resp.message === "SUCCESS") {
@@ -203,7 +203,7 @@ export default function MembersV2() {
                           closeType: close,
                         });
                       } else if (resp.message === "unauthorized") {
-                        localStorage.clear();
+                        //localStorage.clear();
                         history.push("/", {
                           last: location.pathname,
                           data: location.state,

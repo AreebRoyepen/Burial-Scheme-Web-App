@@ -72,7 +72,7 @@ export default function SimplePopover(content) {
         active: !var3.active,
       };
 
-      let resp = await Api.putRequest("updateEvent/" + var3.id, x);
+      let resp = await putRequest("updateEvent/" + var3.id, x);
       console.log(resp);
       if (resp.message === "SUCCESS") {
         if (x.active)
@@ -92,7 +92,7 @@ export default function SimplePopover(content) {
             closeType: close,
           });
       } else if (resp.message === "unauthorized") {
-        localStorage.clear();
+        //localStorage.clear();
         history.push("/", { last: location.pathname, data: location.state });
       } else if (resp.message === "error") {
         time = 6000;

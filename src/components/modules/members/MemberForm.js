@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import Alert from "../shared/Alert";
 import DependantsTable from "../dependants/DependantsTable";
-import Api from "../../../api/Api";
+import {getRequest, postRequest, putRequest} from "../../../api/Api";
 import "../../../styles/memberPage.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -115,7 +115,7 @@ export default function MemberForm() {
     async function getDependants() {
       var time = 3000;
 
-      let resp = await Api.getRequest(
+      let resp = await getRequest(
         "v1/members/dependants/" + location.state.x.id
       );
 
@@ -124,7 +124,7 @@ export default function MemberForm() {
       if (resp.message === "SUCCESS") {
         setDependants(resp.data);
       } else if (resp.message === "unauthorized") {
-        localStorage.clear();
+        //localStorage.clear();
         history.push("/", { last: location.pathname, data: location.state });
       } else if (resp.message === "error") {
         time = 6000;
@@ -170,7 +170,7 @@ export default function MemberForm() {
       var time = 3000;
 
       if (location.state.edit) {
-        let resp = await Api.putRequest(
+        let resp = await putRequest(
           "v1/members/" + location.state.x.id,
           member
         );
@@ -184,7 +184,7 @@ export default function MemberForm() {
             closeType: successClose,
           });
         } else if (resp.message === "unauthorized") {
-          localStorage.clear();
+          //localStorage.clear();
           history.push("/", { last: location.pathname, data: location.state });
         } else if (resp.message === "error") {
           time = 6000;
@@ -215,7 +215,7 @@ export default function MemberForm() {
           });
         }
       } else {
-        let resp = await Api.postRequest("v1/members", member);
+        let resp = await postRequest("v1/members", member);
         console.log(resp);
         if (resp.message === "SUCCESS") {
           setOpenSnackbar({
@@ -226,7 +226,7 @@ export default function MemberForm() {
             closeType: successClose,
           });
         } else if (resp.message === "unauthorized") {
-          localStorage.clear();
+          //localStorage.clear();
           history.push("/", { last: location.pathname });
         } else if (resp.message === "error") {
           time = 6000;
@@ -324,7 +324,7 @@ export default function MemberForm() {
 <body >
 <form id="submit-form" className="input-form" data-form-layout="flex" data-seed-formvalidation>
   <section>
-    <h3 class="h3-formheader">{location.state.edit ? "Edit Member" : "Add Member"}</h3>
+    <h3 className="h3-formheader">{location.state.edit ? "Edit Member" : "Add Member"}</h3>
     <div role="row-sections">
             <label htmlFor="text" className="form__label">
               First Name

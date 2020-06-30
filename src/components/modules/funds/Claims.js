@@ -11,7 +11,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import "date-fns";
 import Alert from "../shared/Alert";
-import Api from "../../../api/Api";
+import {CLAIM, getRequest, postRequest} from "../../../api/Api";
 import "../../../styles/validationForm.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -44,7 +44,7 @@ export default function Claims() {
   const [person, setPerson] = useState()
 
   const [data, setData] = useState({
-    transactionType: Api.CLAIM,
+    transactionType: CLAIM,
     buriedDate: new Date(),
     deathDate: new Date(),
   });
@@ -77,9 +77,9 @@ export default function Claims() {
       let resp;
       if (type) {
         console.log(resp);
-        resp = await Api.getRequest("v1/members");
+        resp = await getRequest("v1/members");
       } else {
-        resp = await Api.getRequest("v1/dependants");
+        resp = await getRequest("v1/dependants");
       }
       if (resp.message === "SUCCESS") {
         if (active) {
@@ -89,7 +89,7 @@ export default function Claims() {
           }
         }
       } else if (resp.message === "unauthorized") {
-        localStorage.clear();
+        //localStorage.clear();
         history.push("/", { last: location.pathname });
       } else {
         setOpenSnackbar({
@@ -126,14 +126,14 @@ export default function Claims() {
       let resp;
 
       if (type) {
-        resp = await Api.postRequest("v1/claims", {...data, id : person.id});
+        resp = await postRequest("v1/claims", {...data, id : person.id});
       } else {
-        resp = await Api.postRequest("v1/claims/dependantClaim", {...data, id : person.id});
+        resp = await postRequest("v1/claims/dependantClaim", {...data, id : person.id});
       }
       console.log(resp);
       if (resp.message === "SUCCESS") {
         var message = "Payment Successful";
-        setData({ transactionType: Api.CLAIM });
+        setData({ transactionType: CLAIM });
         setOpenSnackbar({
           severity: "success",
           message: message,
@@ -142,7 +142,7 @@ export default function Claims() {
           closeType: successClose,
         });
       } else if (resp.message === "unauthorized") {
-        localStorage.clear();
+        //localStorage.clear();
         history.push("/", { last: location.pathname });
       } else if (resp.message === "error") {
         time = 6000;

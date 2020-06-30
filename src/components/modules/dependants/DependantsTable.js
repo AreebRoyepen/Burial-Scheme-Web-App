@@ -5,7 +5,7 @@ import MaterialTable from "material-table";
 import { makeStyles } from "@material-ui/core/styles";
 import Alert from "../shared/Alert";
 import { tableIcons } from "../shared/MaterialTableIcons";
-import Api from "../../../api/Api";
+import {deleteRequest} from "../../../api/Api";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -117,7 +117,7 @@ export default function DependantsTable(props) {
 
               fetchData(oldData);
               async function fetchData(x) {
-                let resp = await Api.deleteRequest("v1/dependants/" + x.id);
+                let resp = await deleteRequest("v1/dependants/" + x.id);
                 var time = 5000;
                 console.log(resp);
                 if (resp.message === "SUCCESS") {
@@ -142,7 +142,7 @@ export default function DependantsTable(props) {
                       closeType: close,
                     });
                   } else if (resp.message === "unauthorized") {
-                    localStorage.clear();
+                    //localStorage.clear();
                     history.push("/", {
                       last: location.pathname,
                       data: location.state,
