@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Alert from "./modules/shared/Alert";
 import { purple } from "@material-ui/core/colors";
 import {login} from "../api/Api";
+import logo from "../logoImage.jpg"
 import "../styles/login.css";
 
 const useStyles = makeStyles(theme => ({
@@ -64,12 +65,6 @@ export default function Login ()  {
       
       if(x.message === "SUCCESS"){
         
-        
-        console.log(localStorage.token)
-        //user in local storage is an string and must be parsed to an object to use in a component
-        //user has all details to deal with authorization between pages
-        console.log(JSON.parse(localStorage.user))
-
         //if they have been logged out this pushes them back to last page with state data to fill page
         if(location.state){
           history.push(location.state.last, location.state.data)
@@ -119,7 +114,7 @@ export default function Login ()  {
           <div className="profile-bio">
             <div>
               <img
-                src="http://www.goodwoodmosque.org.za/images/logoImage.JPG"
+                src={logo}
                 alt="logo"
                 width="100"
                 height="100"
