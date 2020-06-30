@@ -4,7 +4,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from "./modules/shared/Alert";
 import { purple } from "@material-ui/core/colors";
-import Api from "../api/Api";
+import {login} from "../api/Api";
 import "../styles/login.css";
 
 const useStyles = makeStyles(theme => ({
@@ -58,7 +58,7 @@ export default function Login ()  {
 
       console.log(body)
 
-      let x = await Api.login("login", body)
+      let x = await login("login", body)
       var time = 6000
       console.log(x)
       

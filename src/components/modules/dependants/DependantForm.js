@@ -11,7 +11,7 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import Alert from "../shared/Alert";
-import Api from "../../../api/Api";
+import {getRequest, putRequest, postRequest} from "../../../api/Api";
 import "../../../styles/validationForm.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -66,7 +66,7 @@ export default function DependantForm() {
   useEffect(() => {
 
     (async () => {
-      let resp = await Api.getRequest("v1/relationships");
+      let resp = await getRequest("v1/relationships");
 
       if (resp.message === "SUCCESS") {
 
@@ -75,7 +75,7 @@ export default function DependantForm() {
           //setDependant({ ...dependant, relationship: resp.data[0].id })
 
       } else if (resp.message === "unauthorized") {
-        localStorage.clear();
+        //localStorage.clear();
         history.push("/", { last: location.pathname });
       } else {
         setOpenSnackbar({
@@ -140,14 +140,14 @@ export default function DependantForm() {
     async function getMember() {
       var time = 3000;
 
-      let resp = await Api.getRequest(
+      let resp = await getRequest(
         "v1/dependants/member/" + location.state.x.id
       );
 
       if (resp.message === "SUCCESS") {
         setMember(resp.data);
       } else if (resp.message === "unauthorized") {
-        localStorage.clear();
+        //localStorage.clear();
         history.push("/", { last: location.pathname, data: location.state });
       } else if (resp.message === "error") {
         time = 6000;
@@ -194,7 +194,7 @@ export default function DependantForm() {
 
       if (location.state.edit) {
         console.log({...dependant, relationship : dependant.relationship, member : dependant.member.id})
-        let resp = await Api.putRequest(
+        let resp = await putRequest(
           "v1/dependants/" + location.state.x.id,
           {...dependant, relationship : dependant.relationship, member : dependant.member.id}
         );
@@ -208,7 +208,7 @@ export default function DependantForm() {
             closeType: successClose,
           });
         } else if (resp.message === "unauthorized") {
-          localStorage.clear();
+          //localStorage.clear();
           history.push("/", { last: location.pathname, data: location.state });
         } else if (resp.message === "error") {
           time = 6000;
@@ -244,7 +244,7 @@ export default function DependantForm() {
             relationship : dependant.relationship, 
             member : member.id}
         )
-        let resp = await Api.postRequest("v1/dependants", {...dependant, 
+        let resp = await postRequest("v1/dependants", {...dependant, 
           relationship : dependant.relationship, 
           member : member.id});
         console.log(resp);
@@ -257,7 +257,7 @@ export default function DependantForm() {
             closeType: successClose,
           });
         } else if (resp.message === "unauthorized") {
-          localStorage.clear();
+          //localStorage.clear();
           history.push("/", { last: location.pathname });
         } else if (resp.message === "error") {
           time = 6000;

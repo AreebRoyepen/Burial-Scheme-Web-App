@@ -17,7 +17,7 @@ import Reports from "./modules/admin/Reports"
 import LoadingIcon from "./modules/shared/LoadingIcon";
 import { MdAccountBalance, MdAttachMoney, MdSupervisorAccount, MdArrowUpward, MdArrowDownward } from "react-icons/md";
 import { ErrorPage } from "./modules/shared/ErrorPage";
-import Api from "../api/Api"
+import {getRequest} from "../api/Api"
 import "../styles/dashboard.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -128,7 +128,7 @@ export default function Dashboard() {
 
     async function fetchData() {
 
-      let x = await Api.getRequest("v1/dashboard")
+      let x = await getRequest("v1/dashboard")
       console.log(x)
 
       
@@ -138,7 +138,7 @@ export default function Dashboard() {
         setConnection(true)
 
       } else if (x.message === "unauthorized") {
-        localStorage.clear();
+        //localStorage.clear();
         history.push("/", { last: location.pathname })
       } else if (x.message === "error") {
         console.log("error")

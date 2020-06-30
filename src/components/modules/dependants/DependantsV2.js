@@ -7,7 +7,7 @@ import LoadingIcon from "../shared/LoadingIcon";
 import Alert from "../shared/Alert";
 import Tooltip from '@material-ui/core/Tooltip';
 import { ErrorPage } from "../shared/ErrorPage";
-import Api from "../../../api/Api";
+import {getRequest} from "../../../api/Api";
 import "../../../styles/eventCard.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -78,13 +78,13 @@ export default function DependantsV2() {
           // send the actual request
 
     async function fetchData() {
-      let x = await Api.getRequest("v1/dependants");
+      let x = await getRequest("v1/dependants");
       console.log(x);
       if (x.message === "SUCCESS") {
         setData(x.data);
         setConnection(true);
       } else if (x.message === "unauthorized") {
-        localStorage.clear();
+        //localStorage.clear();
         history.push("/", { last: location.pathname });
       } else {
         setOpenSnackbar({

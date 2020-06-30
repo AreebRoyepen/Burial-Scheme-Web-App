@@ -7,7 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Switch from "@material-ui/core/Switch";
 import Grid from "@material-ui/core/Grid";
 import Alert from "../shared/Alert";
-import Api from "../../../api/Api";
+import {INCOME, EXPENSE, getRequest, postRequest} from "../../../api/Api";
 import "../../../styles/memberPage.css";
 //import "../../../styles/validationForm.css";
 
@@ -69,8 +69,8 @@ export default function AdhocFunds() {
 
       if (type) {
 
-        let resp = await Api.getRequest(
-          "v1/incomes/" + amount + "/" + Api.INCOME
+        let resp = await getRequest(
+          "v1/incomes/" + amount + "/" + INCOME
         );
 
         if (resp.message === "SUCCESS") {
@@ -85,7 +85,7 @@ export default function AdhocFunds() {
             closeType: successClose,
           });
         } else if (resp.message === "unauthorized") {
-          localStorage.clear();
+          //localStorage.clear();
           history.push("/", { last: location.pathname });
         } else if (resp.message === "error") {
           time = 6000;
@@ -120,12 +120,12 @@ export default function AdhocFunds() {
         let pay = {
           "amount": parseFloat(amount),
           "reason": reason,
-          "type": Api.EXPENSE,
+          "type": EXPENSE,
         };
 
         console.log(pay);
 
-        let resp = await Api.postRequest("v1/expenses", pay);
+        let resp = await postRequest("v1/expenses", pay);
         console.log(resp);
 
         if (resp.message === "SUCCESS") {
@@ -167,7 +167,7 @@ export default function AdhocFunds() {
               closeType: successClose,
             });
         } else if (resp.message === "unauthorized") {
-          localStorage.clear();
+          //localStorage.clear();
           history.push("/", { last: location.pathname });
         } else if (resp.message === "error") {
           time = 6000;

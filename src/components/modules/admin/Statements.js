@@ -13,7 +13,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import CommentIcon from "@material-ui/icons/Comment";
-import Api from "../../../api/Api";
+import {getRequest, reportDownloadAllRequest, reportDownloadRequest, reportEmailAllRequest} from "../../../api/Api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,13 +65,13 @@ export default function Statements() {
 
   useEffect(() => {
     async function fetchData() {
-      let x = await Api.getRequest("v1/members");
+      let x = await getRequest("v1/members");
       console.log(x);
       if (x.message === "SUCCESS") {
         setData(x.data);
         setConnection(true);
       } else if (x.message === "unauthorized") {
-        localStorage.clear();
+        //localStorage.clear();
         history.push("/", { last: location.pathname });
       } else {
         setOpenSnackbar({
@@ -103,7 +103,7 @@ export default function Statements() {
         let resp;
         console.log(checked);
         if (checked.length == 1) {
-          resp = await Api.reportDownloadRequest(
+          resp = await reportDownloadRequest(
             "v1/reports/memberStatement/" + checked[0].id
           );
           const url = window.URL.createObjectURL(new Blob([resp.data]));
@@ -138,7 +138,7 @@ export default function Statements() {
 
         console.log(list);
 
-        resp = await Api.reportDownloadAllRequest(list);
+        resp = await reportDownloadAllRequest(list);
         console.log(resp)
 
         resp.data.forEach(function (part, index) {
@@ -172,7 +172,7 @@ export default function Statements() {
             closeType: close,
           });
         } else if (resp.message === "unauthorized") {
-          localStorage.clear();
+          //localStorage.clear();
           history.push("/", { last: location.pathname, data: location.state });
         } else if (resp.message === "error") {
           time = 6000;
@@ -241,7 +241,7 @@ export default function Statements() {
 
         console.log(list);
 
-        resp = await Api.reportDownloadAllRequest(list);
+        resp = await reportDownloadAllRequest(list);
 
         resp.data.forEach(function (part, index) {
           console.log(part);
@@ -272,7 +272,7 @@ export default function Statements() {
             closeType: close,
           });
         } else if (resp.message === "unauthorized") {
-          localStorage.clear();
+          //localStorage.clear();
           history.push("/", { last: location.pathname, data: location.state });
         } else if (resp.message === "error") {
           time = 6000;
@@ -329,7 +329,7 @@ export default function Statements() {
         let resp;
         console.log(checked);
         if (checked.length == 1) {
-          resp = await Api.reportDownloadRequest(
+          resp = await reportDownloadRequest(
             "v1/reports/memberStatement/" + checked[0].id +"/" + checked[0].email 
           );
           
@@ -348,7 +348,7 @@ export default function Statements() {
 
         console.log(list);
 
-        resp = await Api.reportEmailAllRequest(list);
+        resp = await reportEmailAllRequest(list);
         console.log(resp)
 
         }
@@ -363,7 +363,7 @@ export default function Statements() {
             closeType: close,
           });
         } else if (resp.message === "unauthorized") {
-          localStorage.clear();
+          //localStorage.clear();
           history.push("/", { last: location.pathname, data: location.state });
         } else if (resp.message === "error") {
           time = 6000;
@@ -430,7 +430,7 @@ export default function Statements() {
 
         console.log(list);
 
-        resp = await Api.reportEmailAllRequest(list);
+        resp = await reportEmailAllRequest(list);
 
         console.log(resp);
         if (resp.message === "SUCCESS") {
@@ -442,7 +442,7 @@ export default function Statements() {
             closeType: close,
           });
         } else if (resp.message === "unauthorized") {
-          localStorage.clear();
+          //localStorage.clear();
           history.push("/", { last: location.pathname, data: location.state });
         } else if (resp.message === "error") {
           time = 6000;

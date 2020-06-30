@@ -12,7 +12,6 @@ import Typography from '@material-ui/core/Typography';
 import MenuUI from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItem from '@material-ui/core/ListItem';
-import { TiTicket } from "react-icons/ti";
 import {MdMonetizationOn, MdArrowUpward, MdArrowDownward,MdDashboard,MdPeople, MdPeopleOutline, MdAssignment, MdContacts, MdVerifiedUser} from "react-icons/md";
 import Api from "../api/Api";
 
@@ -72,7 +71,7 @@ export default function Menu({children}) {
       //   //setOpenModal(openModal);
       //   async function fetchData(){
                         
-      //     let x = await Api.refresh("refresh")
+      //     let x = await refresh("refresh")
       //     console.log(x)
           
       //     if(x.message === "SUCCESS"){
@@ -80,7 +79,7 @@ export default function Menu({children}) {
       //       console.log("refreshed")
                                     
       //     }else if (x.message === "unauthorized"){
-      //       localStorage.clear();
+      //       //localStorage.clear();
       //       history.push("/")
 
       //     }
@@ -209,7 +208,8 @@ export default function Menu({children}) {
                     open={open}
                     onClose={handleClose}
                   >
-                    <MenuItem onClick = {() => { history.push("/", {last : location.pathname});   localStorage.clear(); }}> Log Out</MenuItem>
+                    <MenuItem onClick = {() => { history.push("/", {last : location.pathname});   //localStorage.clear(); 
+                    }}> Log Out</MenuItem>
                   </MenuUI>
 
             </Toolbar>
