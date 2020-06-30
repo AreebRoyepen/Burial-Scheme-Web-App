@@ -82,7 +82,7 @@ export default function Reports() {
           <tbody>
             <tr>
               <td style={{ textAlign: "center" }} data-title="Name">
-                Claim Dump{" "}
+                Claim Dump
               </td>
               <td data-title="Link" style={{ textAlign: "center" }}>
                 <button
@@ -94,7 +94,6 @@ export default function Reports() {
                 </button>
               </td>
               <td data-title="Status" style={{ textAlign: "center" }}>
-                {" "}
                 <button
                   className=" reportsButton makeRow"
                   style={{
@@ -120,7 +119,6 @@ export default function Reports() {
                 </button>
               </td>
               <td data-title="Status" style={{ textAlign: "center" }}>
-                {" "}
                 <button
                   className="reportsButton"
                   style={{
@@ -133,32 +131,7 @@ export default function Reports() {
                 </button>
               </td>
             </tr>
-            {/* <tr>
-              <td data-title="Name" style={{ textAlign: "center" }}>
-                Returned Tickets Totals
-              </td>
-              <td data-title="Link" style={{ textAlign: "center" }}>
-                <button
-                  className="reportsButton"
-                  onClick={() => getOptions("download", "returnedTickets")}
-                >
-                  <MdFileDownload size={20} />
-                </button>
-              </td>
-              <td data-title="Status" style={{ textAlign: "center" }}>
-                {" "}
-                <button
-                  className="reportsButton"
-                  style={{
-                    color: "rgb(114, 155, 37)",
-                    borderColor: "rgb(114, 155, 37) !important",
-                  }}
-                  onClick={() => getOptions("email", "returnedTickets")}
-                >
-                  <MdEmail size={20} />
-                </button>
-              </td>
-            </tr> */}
+
           </tbody>
         </table>
       </div>

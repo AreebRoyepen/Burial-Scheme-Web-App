@@ -24,22 +24,27 @@ export default function DependantsV2() {
     columns: [
       { title: "Name", field: "name" },
       { title: "Surname", field: "surname" },
-      { title: "Member", 
-      render: rowData =>
-                        <Tooltip title="Click to Edit Member" aria-label="add">
-                        <div style = {{color: "#1A2819", textDecoration: "underline"}}
-                          onClick = {() => history.push("/MemberPage", { x: rowData.member, edit: true })}
-                          >
-                              {rowData.member.name + " " + rowData.member.surname}
-                             </div>
-                             </Tooltip>
-                             },
+      {
+        title: "Member",
+        render: (rowData) => (
+          <Tooltip title="Click to Edit Member" aria-label="add">
+            <div
+              style={{ color: "#1A2819", textDecoration: "underline" }}
+              onClick={() =>
+                history.push("/MemberPage", { x: rowData.member, edit: true })
+              }
+            >
+              {rowData.member.name + " " + rowData.member.surname}
+            </div>
+          </Tooltip>
+        ),
+      },
       { title: "Relationship", field: "relationship.name" },
-      { title: "Child", field: "child", type : "boolean" },
-      { title: "Claimed", field: "claimed", type:"boolean" },
+      { title: "Child", field: "child", type: "boolean" },
+      { title: "Claimed", field: "claimed", type: "boolean" },
       { title: "ID Number", field: "idnumber" },
-      { title: "DOB", field: "dob"},       
-      { title: "DOE", field: "doe"}              
+      { title: "DOB", field: "dob" },
+      { title: "DOE", field: "doe" },
     ],
   });
 

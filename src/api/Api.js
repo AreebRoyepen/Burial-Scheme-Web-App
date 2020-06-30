@@ -26,7 +26,7 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
       const refreshToken = localStorage.refreshToken;
       let decode = jwt(localStorage.token)
-      const user = JSON.parse(decode.user);
+      const user = decode.user;
 
       return await axiosInstance
         .post(

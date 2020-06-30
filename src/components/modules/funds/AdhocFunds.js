@@ -87,15 +87,6 @@ export default function AdhocFunds() {
         } else if (resp.message === "unauthorized") {
           //localStorage.clear();
           history.push("/", { last: location.pathname });
-        } else if (resp.message === "error") {
-          time = 6000;
-          setOpenSnackbar({
-            severity: "error",
-            message: "unknown error",
-            open: true,
-            time: time,
-            closeType: errorClose,
-          });
         } else if (resp.message === "no connection") {
           time = 6000;
           setOpenSnackbar({
@@ -134,50 +125,17 @@ export default function AdhocFunds() {
           time = 3000;
           var message = "Payment Successful";
 
-          if (resp.short)
-            setOpenSnackbar({
-              severity: "warning",
-              message:
-                message +
-                " R" +
-                parseFloat(resp.amount).toFixed(2) +
-                " outstanding",
-              open: true,
-              time: time,
-              closeType: successClose,
-            });
-          else if (resp.surplus)
-            setOpenSnackbar({
-              severity: "success",
-              message:
-                message +
-                " R" +
-                parseFloat(resp.amount).toFixed(2) +
-                " surplus given",
-              open: true,
-              time: time,
-              closeType: successClose,
-            });
-          else
-            setOpenSnackbar({
-              severity: "success",
-              message: message,
-              open: true,
-              time: time,
-              closeType: successClose,
-            });
+          setOpenSnackbar({
+            severity: "success",
+            message: message,
+            open: true,
+            time: time,
+            closeType: successClose,
+          });
+          
         } else if (resp.message === "unauthorized") {
           //localStorage.clear();
           history.push("/", { last: location.pathname });
-        } else if (resp.message === "error") {
-          time = 6000;
-          setOpenSnackbar({
-            severity: "error",
-            message: "unknown error",
-            open: true,
-            time: time,
-            closeType: errorClose,
-          });
         } else if (resp.message === "no connection") {
           time = 6000;
           setOpenSnackbar({

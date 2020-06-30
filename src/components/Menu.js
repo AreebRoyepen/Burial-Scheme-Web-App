@@ -14,7 +14,6 @@ import MenuUI from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItem from '@material-ui/core/ListItem';
 import {MdMonetizationOn, MdArrowUpward, MdArrowDownward,MdDashboard,MdPeople, MdPeopleOutline, MdAssignment, MdContacts, MdVerifiedUser} from "react-icons/md";
-import Api from "../api/Api";
 
 import "../styles/menu.css";
 
@@ -68,43 +67,11 @@ export default function Menu({children}) {
 
       let decode = jwt(localStorage.token);
       console.log(JSON.stringify(decode.user))
-      setUser(decode.user)
-      
-      
-
-      // var id = setInterval(() =>{
-      //   //setOpenModal(openModal);
-      //   async function fetchData(){
-                        
-      //     let x = await refresh("refresh")
-      //     console.log(x)
-          
-      //     if(x.message === "SUCCESS"){
-
-      //       console.log("refreshed")
-                                    
-      //     }else if (x.message === "unauthorized"){
-      //       //localStorage.clear();
-      //       history.push("/")
-
-      //     }
-      // }
-          
-      
-
-      // fetchData() 
-      // if(!isMounted.current) return clearInterval(id)
-      
-
-      // }
-      // , ((parseInt(localStorage.expiration) -(1/2 * parseInt(localStorage.expiration)))* 1000));      
-
-      
+      setUser(decode.user)    
 
     }else{
       return
     }
-
 
   },[setUser, isMounted])
 

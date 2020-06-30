@@ -131,9 +131,7 @@ export default function DependantsTable(props) {
                   });
                   resolve();
                 } else {
-                  console.log("else")
                   if (resp.message == "FAILURE") {
-                    console.log("bob")
                     setOpenSnackbar({
                       severity: "error",
                       message: "Could Not Delete Dependant",
