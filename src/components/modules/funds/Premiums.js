@@ -225,7 +225,7 @@ export default function Premiums() {
                 setOpen(false);
               }}
               getOptionSelected={(option, value) => option.name === value.name}
-              getOptionLabel={(option) => option.name + " " + option.surname}
+              getOptionLabel={(option) =>  option.id + ". " + option.name + " " + option.surname}
               options={options}
               loading={loading}
               value={person}
