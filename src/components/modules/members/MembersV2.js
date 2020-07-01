@@ -272,16 +272,17 @@ export default function MembersV2() {
                         backgroundColor: "#43A047",
                       }}
                     >
-                      address 
-                      area 
-                      postalCode                       
+                      <ul>address</ul> 
+                      <ul>area</ul> 
+                      <ul>postalCode</ul>                       
+                      <ul>list of dependants</ul>                       
                        
                        
-                      doe 
-                      dob
-                      idnumber
-                      work
-                      home
+                       <ul>doe </ul>
+                       <ul>dob</ul>
+                       <ul>idnumber</ul>
+                       <ul>work</ul>
+                       <ul>home</ul>
 
                     </p>
                   );
