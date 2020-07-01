@@ -78,7 +78,7 @@ export default function DependantsTable(props) {
             icon: tableIcons.Edit,
             tooltip: "Edit Dependant",
             onClick: (event, rowData) =>
-              history.push("/DependantPage", { last : props.last, x: rowData, edit: true }),
+              history.push("/DependantPage", { last : props.last, dependant: rowData, edit: true }),
           },
         ]}
         editable={{
@@ -202,7 +202,10 @@ export default function DependantsTable(props) {
             tooltip: "Show Details",
             render: (rowData) => {
               return (
-                <div
+                
+                props.showDropDown ?
+
+                  <div
                   style={{
                     fontSize: 20,
                     textAlign: "center",
@@ -221,6 +224,11 @@ export default function DependantsTable(props) {
                   
 
                 </div>
+
+                  :
+                <div/>
+                
+                
               );
             },
           },
