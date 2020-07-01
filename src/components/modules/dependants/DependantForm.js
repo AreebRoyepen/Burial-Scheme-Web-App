@@ -89,8 +89,8 @@ export default function DependantForm() {
 
   useEffect(() => {
     if (location.state.edit === true) {
-      console.log(location.state.x);
-      setDependant({...location.state.x, relationship : location.state.x.relationship.id});
+      console.log(location.state.dependant);
+      setDependant({...location.state.dependant, relationship : location.state.dependant.relationship.id});
     }
   }, [location]);
 
@@ -135,7 +135,7 @@ export default function DependantForm() {
       var time = 3000;
 
       let resp = await getRequest(
-        "v1/dependants/member/" + location.state.x.id
+        "v1/dependants/member/" + location.state.dependant.id
       );
 
       if (resp.message === "SUCCESS") {
@@ -180,7 +180,7 @@ export default function DependantForm() {
       if (location.state.edit) {
         console.log({...dependant, relationship : dependant.relationship, member : dependant.member.id})
         let resp = await putRequest(
-          "v1/dependants/" + location.state.x.id,
+          "v1/dependants/" + location.state.dependant.id,
           {...dependant, relationship : dependant.relationship, member : dependant.member.id}
         );
         console.log(resp);
