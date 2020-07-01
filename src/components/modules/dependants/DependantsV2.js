@@ -141,7 +141,7 @@ export default function DependantsV2() {
           >
           </button>
 
-          <DependantsTable last = "/Dependants" data = {data} tableHeaders = {tableHeaders}/>
+          <DependantsTable last = "/Dependants" showDropDown data = {data} tableHeaders = {tableHeaders}/>
 
         </div>
       ) : (
