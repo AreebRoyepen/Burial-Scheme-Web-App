@@ -59,12 +59,12 @@ export default function ReportEndpoints(props) {
                 let t
                 var filename
                 var date = new Date()
-                if(x.endpoint === "deaths"){
-                    t = await reportDownloadRequest("v1/reports/deaths") 
-                    filename = "REPORT Deaths " + date.toDateString() +".csv"
+                if(x.endpoint === "claims"){
+                    t = await reportDownloadRequest("v1/reports/claims") 
+                    filename = "REPORT Claims " + date.toDateString() +".csv"
                 }
-                if(x.endpoint === "memberDump"){
-                    t = await reportDownloadRequest("v1/reports/memberDump")
+                if(x.endpoint === "memberDetails"){
+                    t = await reportDownloadRequest("v1/reports/memberDetails")
                     filename = "REPORT Member Dump " + date.toDateString() +".csv"
                 }
                 
@@ -106,11 +106,11 @@ export default function ReportEndpoints(props) {
                 setOpenSnackbar({severity: "success", message : "Email to be sent shortly", open : true, time : time, closeType : closeSnack})
 
                 let t
-                if(x.endpoint === "deaths"){
-                    t = await reportDownloadRequest("v1/reports/deaths/"+x.email) 
+                if(x.endpoint === "claims"){
+                    t = await reportDownloadRequest("v1/reports/claims/"+x.email) 
                 }
-                if(x.endpoint === "memberDump"){
-                    t = await reportDownloadRequest("v1/reports/memberDump/"+x.email)
+                if(x.endpoint === "memberDetails"){
+                    t = await reportDownloadRequest("v1/reports/memberDetails/"+x.email)
                 }
 
                 //let t = await reportEmailRequest(x.endpoint,x.param1, x.param2, x.email) 

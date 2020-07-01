@@ -88,7 +88,7 @@ export default function Reports() {
                 <button
                   style={{ textAlign: "center" }}
                   className="reportsButton makeRow"
-                  onClick={() => getOptions("download", "deaths")}
+                  onClick={() => getOptions("download", "claims")}
                 >
                   <MdFileDownload size={20} />
                 </button>
@@ -100,7 +100,7 @@ export default function Reports() {
                     color: "rgb(114, 155, 37)",
                     borderColor: "rgb(114, 155, 37) !important",
                   }}
-                  onClick={() => getOptions("email", "deaths")}
+                  onClick={() => getOptions("email", "claims")}
                 >
                   <MdEmail size={20} />
                 </button>
@@ -113,7 +113,7 @@ export default function Reports() {
               <td data-title="Link" style={{ textAlign: "center" }}>
                 <button
                   className="reportsButton"
-                  onClick={() => getOptions("download", "memberDump")}
+                  onClick={() => getOptions("download", "memberDetails")}
                 >
                   <MdFileDownload size={20} />
                 </button>
@@ -125,7 +125,7 @@ export default function Reports() {
                     color: "rgb(114, 155, 37)",
                     borderColor: "rgb(114, 155, 37) !important",
                   }}
-                  onClick={() => getOptions("email", "memberDump")}
+                  onClick={() => getOptions("email", "memberDetails")}
                 >
                   <MdEmail size={20} />
                 </button>
