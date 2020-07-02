@@ -469,10 +469,8 @@ export default function DependantForm() {
         </InputLabel>
             <Select
               native
-              displayEmpty
               value= {dependant.relationship}
               label = "Relationship"
-              defaultValue = ''
               onChange={(e) =>{
 
                 console.log(e.target.value)
@@ -484,6 +482,7 @@ export default function DependantForm() {
                 id: "filled-age-native-simple",
               }}
             >
+              <option aria-label="None" value="" />
               {options.map((x) => {
                 return <option key={x.id} value={x.id}>{x.name}</option>;
               })}
