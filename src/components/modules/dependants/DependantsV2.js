@@ -31,7 +31,7 @@ export default function DependantsV2() {
             <div
               style={{ color: "#1A2819", textDecoration: "underline" }}
               onClick={() =>
-                history.push("/MemberPage", { x: rowData.member, edit: true })
+                history.push("/MemberPage", { last : "/Dependants", x: rowData.member, edit: true })
               }
             >
               {rowData.member.name + " " + rowData.member.surname}
