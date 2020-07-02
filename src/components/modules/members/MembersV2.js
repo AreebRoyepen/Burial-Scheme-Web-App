@@ -258,6 +258,7 @@ export default function MembersV2() {
                 backgroundColor: "#1A2819",
                 color: "#FFF",
               },
+              actionsColumnIndex: -1
             }}
             detailPanel={[
               {
