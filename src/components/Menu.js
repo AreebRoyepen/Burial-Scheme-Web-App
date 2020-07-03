@@ -3,7 +3,6 @@ import jwt from "jwt-decode";
 import { Link , useHistory, useLocation} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import DehazeIcon from '@material-ui/icons/Dehaze';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -13,7 +12,18 @@ import Typography from '@material-ui/core/Typography';
 import MenuUI from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItem from '@material-ui/core/ListItem';
-import {MdMonetizationOn, MdArrowUpward, MdArrowDownward,MdDashboard,MdPeople, MdPeopleOutline, MdAssignment, MdContacts, MdVerifiedUser} from "react-icons/md";
+import {
+  MdMonetizationOn,
+  MdArrowUpward,
+  MdArrowDownward,
+  MdDashboard,
+  MdPeople,
+  MdPeopleOutline,
+  MdAssignment,
+  MdContacts,
+  MdVerifiedUser,
+  MdDehaze
+} from "react-icons/md";
 
 import "../styles/menu.css";
 
@@ -156,7 +166,7 @@ export default function Menu({children}) {
           <AppBar id= "appBarColor" position="static"
           >
             <Toolbar>
-            <Button onClick={toggleDrawer('left', true)}><DehazeIcon id ="menuIcon"/></Button>
+            <Button onClick={toggleDrawer('left', true)}><MdDehaze id ="menuIcon"/></Button>
           <Drawer open={state.left} onClose={toggleDrawer('left', false)} children={sideList('left')}>
           </Drawer>
             <Typography variant="h6" align = "center" className={classes.title}>
