@@ -5,6 +5,7 @@ import MaterialTable from "material-table";
 import { makeStyles } from "@material-ui/core/styles";
 import Alert from "../shared/Alert";
 import { tableIcons } from "../shared/MaterialTableIcons";
+import "../../../styles/detailPanel.css"
 import {deleteRequest} from "../../../api/Api";
 
 
@@ -205,23 +206,43 @@ export default function DependantsTable(props) {
                 
                 props.showDropDown ?
 
-                  <div
-                  style={{
-                    fontSize: 20,
-                    textAlign: "center",
-                    color: "white",
-                    backgroundColor: "#43A047",
-                  }}
-                >
-                  <ul>Member: {rowData.member.name + " " + rowData.member.surname}</ul>
-                  <ul>Membership No: {rowData.member.id}</ul>
-                  <ul>Address:x </ul>
-                  <ul>Contact Details: </ul>
-                  <ul>Address: </ul>
-                  <ul></ul>
-                  <ul></ul>
-                  <ul></ul>
+                  <div className = "centerDiv">
+
+                  <div className = "sectionforDetailPanelLeftHeader">
+                    <ul><strong>Member</strong></ul>
+                    <ul><strong>Membership Number</strong></ul>
+                  </div>
+
+                  <div className = "sectionforDetailPanelLeft">
+                    <ul>{rowData.member.name + " " + rowData.member.surname}</ul>
+                    <ul>{rowData.member.id}</ul>
+                  </div>
+
+                  <div className = "sectionforDetailPanelRight">  
+                    <ul><strong>Address</strong></ul>
+                    <ul>{rowData.member.address}</ul> 
+                    <ul>{rowData.member.area}</ul> 
+                    <ul>{rowData.member.postalCode}</ul>
+                  </div>
                   
+                  <div className = "sectionforDetailPanelRight"> 
+                    <ul><strong>Contact Details</strong></ul>
+
+                    <div className = "sectionforDetailPanelRight">
+                      <ul><strong>Cell</strong></ul>
+                      <ul><strong>Work</strong></ul>
+                      <ul><strong>Home</strong></ul>
+                      <ul><strong>Email</strong></ul>
+                    </div>
+
+                    <div className = "sectionforDetailPanelRight">
+                      <ul>{rowData.member.cellNumber}</ul>
+                      <ul>{rowData.member.workNumber}</ul>
+                      <ul>{rowData.member.homeNumber}</ul>
+                      <ul>{rowData.member.email}</ul>
+                    </div>
+                   
+                  </div>
 
                 </div>
 

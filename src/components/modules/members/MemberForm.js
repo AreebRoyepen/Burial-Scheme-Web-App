@@ -163,7 +163,7 @@ export default function MemberForm() {
       if (location.state.edit) {
         let resp = await putRequest(
           "v1/members/" + location.state.x.id,
-          member
+          {...member, dependants : null}
         );
         console.log(resp);
         if (resp.message === "SUCCESS") {

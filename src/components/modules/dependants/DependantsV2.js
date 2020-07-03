@@ -27,11 +27,15 @@ export default function DependantsV2() {
       {
         title: "Member",
         render: (rowData) => (
-          <Tooltip title="Click to Edit Member" aria-label="add">
+          <Tooltip title="Click to Edit Member">
             <div
               style={{ color: "#1A2819", textDecoration: "underline" }}
               onClick={() =>
-                history.push("/MemberPage", { last : "/Dependants", x: rowData.member, edit: true })
+                history.push("/MemberPage", {
+                  last: "/Dependants",
+                  x: rowData.member,
+                  edit: true,
+                })
               }
             >
               {rowData.member.name + " " + rowData.member.surname}
@@ -43,8 +47,14 @@ export default function DependantsV2() {
       { title: "Child", field: "child", type: "boolean" },
       { title: "Claimed", field: "claimed", type: "boolean" },
       { title: "ID Number", field: "idnumber" },
-      { title: "DOB", field: "dob" },
-      { title: "DOE", field: "doe" },
+      {
+        title: "DOB",
+        render: (rowData) => <div>{formatDate(rowData.dob)}</div>,
+      },
+      {
+        title: "DOE",
+        render: (rowData) => <div>{formatDate(rowData.doe)}</div>,
+      },
     ],
   });
 
@@ -65,6 +75,26 @@ export default function DependantsV2() {
     time: 0,
     closeType: null,
   });
+
+  function formatDate(x) {
+
+    if(x ===null)return x
+    
+    let date = new Date(x);
+
+    var dd = date.getDate();
+    var mm = date.getMonth() + 1;
+
+    var yyyy = date.getFullYear();
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+    return dd + "/" + mm + "/" + yyyy;
+
+  }
 
   const close = (event, reason) => {
     if (reason === "clickaway") {
