@@ -5,21 +5,34 @@ import Snackbar from "@material-ui/core/Snackbar";
 import LoadingIcon from "../shared/LoadingIcon";
 import Alert from "../shared/Alert";
 import { ErrorPage } from "../shared/ErrorPage";
+import Button from "@material-ui/core/Button";
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import List from "@material-ui/core/List";
+import Tooltip from "@material-ui/core/Tooltip";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import { MdClear, MdFileDownload, MdEmail } from "react-icons/md";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
-import CommentIcon from "@material-ui/icons/Comment";
-import {getRequest, reportDownloadAllRequest, reportDownloadRequest, reportEmailAllRequest} from "../../../api/Api";
+import {
+  getRequest,
+  reportDownloadAllRequest,
+  reportDownloadRequest,
+  reportEmailAllRequest,
+} from "../../../api/Api";
+import "../../../styles/validationForm.css";
+import "../../../styles/statements.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
+    flexGrow:1,
+  },
+  button: {
+    margin: theme.spacing(1),
   },
 }));
 
@@ -124,42 +137,41 @@ export default function Statements() {
         } else {
           var list = Object.assign([], checked);
 
-      var list2 = Object.assign([], checked);
+          var list2 = Object.assign([], checked);
 
-        var time = 3000;
+          var time = 3000;
 
-        console.log(list);
-        let req = "v1/reports/memberStatement/";
-       
-        list.forEach(function (part, index) {
-          console.log(part);
-          this[index] = req + part.id;
-        }, list);
+          console.log(list);
+          let req = "v1/reports/memberStatement/";
 
-        console.log(list);
+          list.forEach(function (part, index) {
+            console.log(part);
+            this[index] = req + part.id;
+          }, list);
 
-        resp = await reportDownloadAllRequest(list);
-        console.log(resp)
+          console.log(list);
 
-        resp.data.forEach(function (part, index) {
-          console.log(part);
-          const url = window.URL.createObjectURL(new Blob([part.data]));
-          const link = document.createElement("a");
-          link.href = url;
-          let date = new Date();
-          let filename =
-            "GIS Burial Scheme Statement: " +
-            list2[index].name +
-            " " +
-            list2[index].surname +
-            " " +
-            date.toDateString() +
-            ".pdf";
-          link.setAttribute("download", filename);
-          document.body.appendChild(link);
-          link.click();
-        }, resp.data);
+          resp = await reportDownloadAllRequest(list);
+          console.log(resp);
 
+          resp.data.forEach(function (part, index) {
+            console.log(part);
+            const url = window.URL.createObjectURL(new Blob([part.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            let date = new Date();
+            let filename =
+              "GIS Burial Scheme Statement: " +
+              list2[index].name +
+              " " +
+              list2[index].surname +
+              " " +
+              date.toDateString() +
+              ".pdf";
+            link.setAttribute("download", filename);
+            document.body.appendChild(link);
+            link.click();
+          }, resp.data);
         }
 
         console.log(resp);
@@ -224,7 +236,7 @@ export default function Statements() {
         let resp;
         console.log(list);
         let req = "v1/reports/memberStatement/";
-       
+
         list.forEach(function (part, index) {
           console.log(part);
           this[index] = req + part.id;
@@ -312,27 +324,28 @@ export default function Statements() {
         console.log(checked);
         if (checked.length == 1) {
           resp = await reportDownloadRequest(
-            "v1/reports/memberStatement/" + checked[0].id +"/" + checked[0].email 
+            "v1/reports/memberStatement/" +
+              checked[0].id +
+              "/" +
+              checked[0].email
           );
-          
         } else {
           var list = Object.assign([], checked);
 
-        var time = 3000;
+          var time = 3000;
 
-        console.log(list);
-        let req = "v1/reports/memberStatement/";
-       
-        list.forEach(function (part, index) {
-          console.log(part);
-          this[index] = req + part.id +"/"+part.email;
-        }, list);
+          console.log(list);
+          let req = "v1/reports/memberStatement/";
 
-        console.log(list);
+          list.forEach(function (part, index) {
+            console.log(part);
+            this[index] = req + part.id + "/" + part.email;
+          }, list);
 
-        resp = await reportEmailAllRequest(list);
-        console.log(resp)
+          console.log(list);
 
+          resp = await reportEmailAllRequest(list);
+          console.log(resp);
         }
 
         console.log(resp);
@@ -395,10 +408,10 @@ export default function Statements() {
         let resp;
         console.log(list);
         let req = "v1/reports/memberStatement/";
-       
+
         list.forEach(function (part, index) {
           console.log(part);
-          this[index] = req + part.id +"/"+ part.email;
+          this[index] = req + part.id + "/" + part.email;
         }, list);
 
         console.log(list);
@@ -467,87 +480,122 @@ export default function Statements() {
               </Alert>
             </Snackbar>
           </div>
-          <button
-            onClick={() => {
-              setChecked([]);
-            }}
-            //style={{ opacity: 0 }}
-            className="funButton headerButtons"
-            //disabled
-          >
-            Clear Selection
-          </button>
 
-          <button
-            onClick={() => downloadStatements(checked)}
-            //style={{ opacity: 0 }}
-            className="funButton headerButtons"
-            //disabled
-          >
-            {checked.length > 1 ? "Download Statements" : "Download Statement"}
-          </button>
+          <Grid container spacing={3} style = {{marginTop : "40px"}}>
 
-          <button
-            onClick={() => downloadAllStatements(data)}
-            //style={{ opacity: 0 }}
-            className="funButton headerButtons"
-            //disabled
-          >
-            {"Download All"}
-          </button>
+            <Grid item xs style = {{minWidth: "200px"}}>
 
-          <button
-            onClick={() => emailStatements(checked)}
-            //style={{ opacity: 0 }}
-            className="funButton headerButtons"
-            //disabled
-          >
-            {checked.length > 1 ? "Email Statements" : "Email Statement"}
-          </button>
 
-          <button
-            onClick={() => emailAllStatements(data)}
-            //style={{ opacity: 0 }}
-            className="funButton headerButtons"
-            //disabled
-          >
-            {"Email All"}
-          </button>
+              Selected Members:
+              {checked.map(x => {
 
-          <List className={classes.root}>
-            {data.map((value) => {
-              //const labelId = `checkbox-list-label-${value}`;
+                return <ul>{x.name + " " + x.surname}</ul>
 
-              return (
-                <ListItem
-                  key={value.id}
-                  role={undefined}
-                  dense
-                  button
-                  onClick={handleToggle(value)}
-                >
-                  <ListItemIcon>
-                    <Checkbox
-                      edge="start"
-                      checked={checked.indexOf(value) !== -1}
-                      tabIndex={-1}
-                      disableRipple
-                      //inputProps={{ "aria-labelledby": labelId }}
-                    />
-                  </ListItemIcon>
-                  <ListItemText
-                    id={value.id}
-                    primary={value.name + " " + value.surname}
-                  />
-                  {/* <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="comments">
-                <CommentIcon />
-              </IconButton>
-            </ListItemSecondaryAction> */}
-                </ListItem>
-              );
-            })}
-          </List>
+              })}
+            </Grid>
+
+            <Grid item xs style = {{minWidth: "400px"}}>
+
+              <form className="statementForm App ">
+                <h1 className="h1Dashboard">Statements</h1>
+                <h4>choose members and then select an option below</h4>
+                <div style={{ textAlign: "center", float: "right" }}>
+                  <Tooltip title="Clear Selection">
+                    <IconButton
+                      onClick={() => {
+                        setChecked([]);
+                      }}
+                    >
+                      <MdClear size={20} color="#1A2819" />
+                    </IconButton>
+                  </Tooltip>
+
+                  <Tooltip
+                    title={
+                      checked.length > 1
+                        ? "Download Statements"
+                        : "Download Statement"
+                    }
+                  >
+                    <IconButton onClick={() => downloadStatements(checked)}>
+                      <MdFileDownload size={20} color="#1A2819" />
+                    </IconButton>
+                  </Tooltip>
+
+                  <Tooltip
+                    title={
+                      checked.length > 1
+                        ? "Email Statements"
+                        : "Email Statement"
+                    }
+                  >
+                    <IconButton onClick={() => emailStatements(checked)}>
+                      <MdEmail size={20} color="#1A2819" />
+                    </IconButton>
+                  </Tooltip>
+                </div>
+
+                <List className={classes.root}>
+                  {data.map((value) => {
+                    //const labelId = `checkbox-list-label-${value}`;
+
+                    return (
+                      <ListItem
+                        key={value.id}
+                        role={undefined}
+                        dense
+                        button
+                        onClick={handleToggle(value)}
+                      >
+                        <ListItemIcon>
+                          <Checkbox
+                            edge="start"
+                            checked={checked.indexOf(value) !== -1}
+                            tabIndex={-1}
+                            disableRipple
+                            //inputProps={{ "aria-labelledby": labelId }}
+                          />
+                        </ListItemIcon>
+                        <ListItemText
+                          id={value.id}
+                          primary={value.name + " " + value.surname}
+                        />
+                      </ListItem>
+                    );
+                  })}
+                </List>
+              </form>
+
+            </Grid>
+
+            <Grid item xs style ={{textAlign:"right",  minWidth: "400px"}}>
+
+              <Button
+                color="primary"
+                // size="large"
+                onClick={() => downloadAllStatements(data)}
+                variant="contained"
+                startIcon={<MdFileDownload />}
+                className={classes.button}
+              >
+                All
+              </Button>
+
+              <Button
+                color="primary"
+                // size="large"
+                onClick={() => emailAllStatements(data)}
+                variant="contained"
+                startIcon={<MdEmail />}
+                className={classes.button}
+              >
+                All
+              </Button>
+          
+            </Grid>
+
+          </Grid>
+
         </div>
       ) : (
         <div>{error ? <ErrorPage /> : <LoadingIcon />}</div>
