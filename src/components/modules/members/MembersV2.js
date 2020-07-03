@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import MaterialTable from "material-table";
+import Tooltip from "@material-ui/core/Tooltip"
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory, useLocation } from "react-router-dom";
 import LoadingIcon from "../shared/LoadingIcon";
@@ -9,7 +10,7 @@ import { ErrorPage } from "../shared/ErrorPage";
 import { tableIcons } from "../shared/MaterialTableIcons";
 import {getRequest, deleteRequest} from "../../../api/Api";
 import "../../../styles/eventCard.css";
-
+import "../../../styles/detailPanel.css"
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -50,6 +51,26 @@ export default function MembersV2() {
     time: 0,
     closeType: null,
   });
+
+  function formatDate(x) {
+
+    if(x ===null)return x
+    
+    let date = new Date(x);
+
+    var dd = date.getDate();
+    var mm = date.getMonth() + 1;
+
+    var yyyy = date.getFullYear();
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+    return dd + "/" + mm + "/" + yyyy;
+
+  }
 
   const close = (event, reason) => {
     if (reason === "clickaway") {
@@ -138,8 +159,9 @@ export default function MembersV2() {
               {
                 icon: tableIcons.Edit,
                 tooltip: "Edit Member",
-                onClick: (event, rowData) =>
-                  history.push("/MemberPage", { x: rowData, edit: true }),
+                onClick: (event, rowData) =>{
+                  history.push("/MemberPage", { x: {...rowData, tableData: null}, edit: true })
+                },
               },
             ]}
             editable={{
@@ -265,27 +287,50 @@ export default function MembersV2() {
                 tooltip: "Show Details",
                 render: (rowData) => {
                   return (
-                    <p
-                      style={{
-                        fontSize: 20,
-                        textAlign: "center",
-                        color: "white",
-                        backgroundColor: "#43A047",
-                      }}
-                    >
-                      <ul>address</ul> 
-                      <ul>area</ul> 
-                      <ul>postalCode</ul>                       
-                      <ul>list of dependants</ul>                       
-                       
-                       
-                       <ul>doe </ul>
-                       <ul>dob</ul>
-                       <ul>idnumber</ul>
-                       <ul>work</ul>
-                       <ul>home</ul>
+                    <div className = "centerDiv">
+                      <section className = "sectionforDetailPanelLeftHeader">
+                      <ul><strong>Date of Birth</strong></ul>
+                       <ul><strong>Entry Date</strong></ul>
+                       <ul><strong>ID Number</strong></ul>
+                       <ul><strong>Work Number</strong></ul>
+                       <ul><strong>Home Number</strong></ul>
+                      </section>
 
-                    </p>
+                      <section className = "sectionforDetailPanelLeft">
+                      <ul>{formatDate(rowData.dob)} </ul>
+                       <ul>{formatDate(rowData.doe)}</ul>
+                       <ul> {rowData.idnumber}</ul>
+                       <ul>{rowData.workNumber}</ul>
+                       <ul>{rowData.homeNumber}</ul>
+                      </section>
+
+                      <section className = "sectionforDetailPanelRight">
+                        <ul><strong>Address</strong></ul>
+                      <ul>{rowData.address}</ul> 
+                      <ul>{rowData.area}</ul> 
+                      <ul>{rowData.postalCode}</ul>  
+                      </section>
+
+                      <section className = "sectionforDetailPanelRight">
+                      <ul><strong>  {rowData.dependants.length >0 ? "Dependants" : "No Dependants" }</strong></ul>                       
+                      
+                      {rowData.dependants.map(x=>{
+                        return (
+                          <Tooltip key={x} title="Click to Edit Dependant">
+                        <div 
+                        style={{ color: "#1A2819", textDecoration: "underline" }}>
+                          <ul
+                          onClick = {()=>{
+                            history.push("/DependantPage", { last : location.pathname , dependant: x, edit: true })
+                          }}
+                          >{x.id + ". " + x.name + " " + x.surname}</ul>
+                        </div>
+                        </Tooltip>
+                        )
+                      })                      
+                      }
+                      </section>
+                    </div>
                   );
                 },
               },

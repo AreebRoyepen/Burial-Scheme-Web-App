@@ -1,0 +1,24 @@
+.centerDiv {
+  margin: auto;
+  width: 70%;
+  padding: 10px;
+  min-width: 600px;
+}
+
+.sectionforDetailPanelLeftHeader {
+    float: left;
+    width: 20%;
+    text-align: right;
+  }
+
+  .sectionforDetailPanelLeft {
+    float: left;
+    width: 20%;
+    
+  }
+
+  .sectionforDetailPanelRight {
+    float: left;
+    width: 30%;
+    
+  }
