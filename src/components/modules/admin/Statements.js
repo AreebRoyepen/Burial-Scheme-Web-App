@@ -12,10 +12,12 @@ import List from "@material-ui/core/List";
 import Tooltip from "@material-ui/core/Tooltip";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import { MdClear, MdFileDownload, MdEmail } from "react-icons/md";
+import { MdClear, MdFileDownload, MdEmail, MdSearch } from "react-icons/md";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from '@material-ui/core/InputAdornment';
+import TextField from '@material-ui/core/TextField';
 import {
   getRequest,
   reportDownloadAllRequest,
@@ -28,17 +30,29 @@ import "../../../styles/statements.css";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    maxWidth: 360,
-    flexGrow:1,
+    "& > * + *": {
+      marginTop: theme.spacing(2),
+    },
+    
   },
   button: {
     margin: theme.spacing(1),
+    marginRight: "10px"
+  },
+  list: {
+    width: "100%",
+    flexGrow:1,
+    position: "relative",
+    //maxHeight:700,
+    overflowX: "hidden",
+    overflowY:"auto"
   },
 }));
 
 export default function Statements() {
   const [checked, setChecked] = useState([]);
   const [data, setData] = useState([]);
+  const [initialData, setInitialData] = useState([])
   const [connection, setConnection] = useState(false);
   const [error, setError] = useState(false);
 
@@ -76,12 +90,26 @@ export default function Statements() {
     setChecked(newChecked);
   };
 
+  function filterList(event) {
+    let items = initialData;
+    items = items.filter((item) => {
+      return (
+        JSON.stringify(item)
+          .toLowerCase()
+          .search(event.target.value.toLowerCase()) !== -1
+      );
+    });
+    setData(items);
+  }
+
+
   useEffect(() => {
     async function fetchData() {
       let x = await getRequest("v1/members");
       console.log(x);
       if (x.message === "SUCCESS") {
         setData(x.data);
+        setInitialData(x.data)
         setConnection(true);
       } else if (x.message === "unauthorized") {
         //localStorage.clear();
@@ -481,21 +509,17 @@ export default function Statements() {
             </Snackbar>
           </div>
 
-          <Grid container spacing={3} style = {{marginTop : "40px"}}>
-
-            <Grid item xs style = {{minWidth: "200px"}}>
-
-
-              Selected Members:
-              {checked.map(x => {
-
-                return <ul>{x.name + " " + x.surname}</ul>
-
-              })}
+          <Grid container spacing={3} style={{ marginTop: "40px" }}>
+            <Grid item xs style={{ minWidth: "200px" }}>
+              <div className="App">
+                Selected Members:
+                {checked.map((x) => {
+                  return <ul key={x.id}>{x.name + " " + x.surname}</ul>;
+                })}
+              </div>
             </Grid>
 
-            <Grid item xs style = {{minWidth: "400px"}}>
-
+            <Grid item xs style={{ minWidth: "400px" }}>
               <form className="statementForm App ">
                 <h1 className="h1Dashboard">Statements</h1>
                 <h4>choose members and then select an option below</h4>
@@ -517,7 +541,10 @@ export default function Statements() {
                         : "Download Statement"
                     }
                   >
-                    <IconButton onClick={() => downloadStatements(checked)}>
+                    <IconButton 
+                    onClick={() =>{if(checked.length>0)downloadStatements(checked) }}
+                    disabled={isSending == true}
+                    >
                       <MdFileDownload size={20} color="#1A2819" />
                     </IconButton>
                   </Tooltip>
@@ -529,13 +556,30 @@ export default function Statements() {
                         : "Email Statement"
                     }
                   >
-                    <IconButton onClick={() => emailStatements(checked)}>
+                    <IconButton 
+                    onClick={() => {if(checked.length>0)emailStatements(checked) }}
+                    disabled={isSending == true}
+                    >
                       <MdEmail size={20} color="#1A2819" />
                     </IconButton>
                   </Tooltip>
                 </div>
 
-                <List className={classes.root}>
+                <div style={{ textAlign: "center", float: "right" }}>
+                  <TextField
+                    id="input-with-icon-textfield"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <MdSearch size={20} color="#1A2819" />
+                        </InputAdornment>
+                      )
+                    }}
+                    onChange = {(e) => filterList(e)}
+                  />
+                </div>
+
+                <List className={classes.list}>
                   {data.map((value) => {
                     //const labelId = `checkbox-list-label-${value}`;
 
@@ -543,7 +587,7 @@ export default function Statements() {
                       <ListItem
                         key={value.id}
                         role={undefined}
-                        dense
+                        //dense
                         button
                         onClick={handleToggle(value)}
                       >
@@ -558,44 +602,49 @@ export default function Statements() {
                         </ListItemIcon>
                         <ListItemText
                           id={value.id}
-                          primary={value.name + " " + value.surname}
+                          primary={ value.id +". " + value.name + " " + value.surname}
                         />
                       </ListItem>
                     );
                   })}
                 </List>
               </form>
-
             </Grid>
 
-            <Grid item xs style ={{textAlign:"right",  minWidth: "400px"}}>
+            <Grid
+              item
+              xs
+              style={{ padding: 1, textAlign: "right", minWidth: "400px" }}
+            >
+              <div>
+                <Button
+                  color="primary"
+                  // size="large"
+                  onClick={() => downloadAllStatements(data)}
+                  variant="contained"
+                  startIcon={<MdFileDownload />}
+                  //className={classes.button}
+                  style={{ margin: "5px" }}
+                  disabled={isSending == true}
+                >
+                  All
+                </Button>
 
-              <Button
-                color="primary"
-                // size="large"
-                onClick={() => downloadAllStatements(data)}
-                variant="contained"
-                startIcon={<MdFileDownload />}
-                className={classes.button}
-              >
-                All
-              </Button>
-
-              <Button
-                color="primary"
-                // size="large"
-                onClick={() => emailAllStatements(data)}
-                variant="contained"
-                startIcon={<MdEmail />}
-                className={classes.button}
-              >
-                All
-              </Button>
-          
+                <Button
+                  color="primary"
+                  // size="large"
+                  onClick={() => emailAllStatements(data)}
+                  variant="contained"
+                  startIcon={<MdEmail />}
+                  //className={classes.button}
+                  style={{ marginRight: "10%" }}
+                  disabled={isSending == true}
+                >
+                  All
+                </Button>
+              </div>
             </Grid>
-
           </Grid>
-
         </div>
       ) : (
         <div>{error ? <ErrorPage /> : <LoadingIcon />}</div>

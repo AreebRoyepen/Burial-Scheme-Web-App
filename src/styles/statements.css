@@ -27,6 +27,7 @@
     min-width: 400px;
     display: -webkit-box;
     display: flex;
+    max-height: 600px;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
             flex-direction: column;
