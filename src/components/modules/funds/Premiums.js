@@ -151,6 +151,15 @@ export default function Premiums() {
           time: time,
           closeType: errorClose,
         });
+      }else{
+        time = 6000;
+        setOpenSnackbar({
+          severity: "error",
+          message: resp.error,
+          open: true,
+          time: time,
+          closeType: errorClose,
+        });
       }
     }
 
