@@ -79,7 +79,7 @@ export default function DependantsTable(props) {
             icon: tableIcons.Edit,
             tooltip: "Edit Dependant",
             onClick: (event, rowData) =>
-              history.push("/DependantPage", { last : props.last, dependant: rowData, edit: true }),
+              history.push("/DependantPage", { last : props.last, dependant: {...rowData, tableData: null}, edit: true }),
           },
         ]}
         editable={{
