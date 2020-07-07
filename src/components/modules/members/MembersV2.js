@@ -248,6 +248,15 @@ export default function MembersV2() {
                           time: time,
                           closeType: close,
                         });
+                      }else{
+                        time = 6000;
+                        setOpenSnackbar({
+                          severity: "error",
+                          message: resp.error,
+                          open: true,
+                          time: time,
+                          closeType: close,
+                        });
                       }
                       reject();
                     }
@@ -316,7 +325,7 @@ export default function MembersV2() {
                       
                       {rowData.dependants.map(x=>{
                         return (
-                          <Tooltip key={x} title="Click to Edit Dependant">
+                          <Tooltip key={x.id} title="Click to Edit Dependant">
                         <div 
                         style={{ color: "#1A2819", textDecoration: "underline" }}>
                           <ul

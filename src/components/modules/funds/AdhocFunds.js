@@ -105,6 +105,15 @@ export default function AdhocFunds() {
             time: time,
             closeType: errorClose,
           });
+        }else{
+          time = 6000;
+          setOpenSnackbar({
+            severity: "error",
+            message: resp.error,
+            open: true,
+            time: time,
+            closeType: errorClose,
+          });
         }
       } else {
 
@@ -158,7 +167,7 @@ export default function AdhocFunds() {
           time = 6000;
           setOpenSnackbar({
             severity: "warning",
-            message: resp.message,
+            message: resp.error,
             open: true,
             time: time,
             closeType: errorClose,

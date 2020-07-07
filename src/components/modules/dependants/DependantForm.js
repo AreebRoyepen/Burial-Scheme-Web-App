@@ -213,6 +213,15 @@ export default function DependantForm() {
             time: time,
             closeType: errorClose,
           });
+        }else{
+          time = 6000;
+          setOpenSnackbar({
+            severity: "error",
+            message: resp.error,
+            open: true,
+            time: time,
+            closeType: errorClose,
+          });
         }
       } else {
         console.log(
@@ -257,7 +266,7 @@ export default function DependantForm() {
           time = 6000;
           setOpenSnackbar({
             severity: "warning",
-            message: resp.message,
+            message: resp.error,
             open: true,
             time: time,
             closeType: errorClose,

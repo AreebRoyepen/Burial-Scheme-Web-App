@@ -95,7 +95,7 @@ export default function ReportEndpoints(props) {
                     
                 }else{
                     time = 6000
-                    setOpenSnackbar({severity : "warning", message : t.message, open : true, time : time, closeType : closeSnack})
+                    setOpenSnackbar({severity : "warning", message : t.error, open : true, time : time, closeType : closeSnack})
         
                 }
                 
@@ -134,7 +134,7 @@ export default function ReportEndpoints(props) {
                         
                     }else{
                         time = 6000
-                        setOpenSnackbar({severity : "warning", message : t.message, open : true, time : time, closeType : closeSnack})
+                        setOpenSnackbar({severity : "warning", message : t.error, open : true, time : time, closeType : closeSnack})
             
                     }
 
