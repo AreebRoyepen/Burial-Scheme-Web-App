@@ -283,18 +283,17 @@ export default function DependantForm() {
       setIsSending(false);
   }, [isSending, dependant, location, history]); // update the callback if the state changes
 
-  // const validateForm=() =>
-  // {
-  //   let x = {
-  //     dependant
-  //   };
-  //   var emailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  //   console.log(x)
-  //   if((/^\D*$/.test(x.name)) && (/^\D*$/.test(x.surname))
-  //    && emailRegex.test(x.email) && !(/(null|undefined|^$|^\d+$)/).test(x.name) && !(/(null|undefined|^$|^\d+$)/).test(x.surname))
-  //    return "trueValid";
-  //  return "falseValid";
-  // }
+  const validateForm=() =>
+  {
+    let x = dependant;
+    //var emailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    //console.log(x)
+    if((/^\D*$/.test(x.name)) && (/^\D*$/.test(x.surname)) && !(/(null|undefined)/).test(x.relationship)
+    && !(/(null|undefined)/).test(x.idnumber)
+     && !(/(null|undefined|^$|^\d+$)/).test(x.name) && !(/(null|undefined|^$|^\d+$)/).test(x.surname))
+     return "trueValid";
+   return "falseValid";
+  }
 
   const back = () => {
     if (location.state.last) {
@@ -502,7 +501,7 @@ export default function DependantForm() {
         <div className="btn-group">
           
             <button
-              //id = {validateForm()}
+              id = {validateForm()}
               className="button"
               type="button"
               disabled={isSending}

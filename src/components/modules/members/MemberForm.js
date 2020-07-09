@@ -55,7 +55,7 @@ export default function MemberForm() {
     // cellNumber: "",
     // claimed: null,
      dob: null,
-    // doe: "",
+     doe: new Date(),
     // email: "",
     // homeNumber: "",
     // id: null,
@@ -207,6 +207,7 @@ export default function MemberForm() {
         }
       } else {
         let resp = await postRequest("v1/members", member);
+        console.log(member)
         console.log(resp);
         if (resp.message === "SUCCESS") {
           setOpenSnackbar({

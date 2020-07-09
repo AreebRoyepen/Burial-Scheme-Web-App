@@ -1,10 +1,13 @@
 import axios from "axios";
 import jwt from "jwt-decode";
 
-let API_BASE_ADDRESS = "http://localhost:8080/";
-// if(process.env.NODE_ENV == "development"){
-//     API_BASE_ADDRESS = ""
-// }
+let API_BASE_ADDRESS
+if(process.env.NODE_ENV == "development"){
+    API_BASE_ADDRESS = "http://localhost:8080/"
+}
+else if (process.env.NODE_ENV == "production"){
+  API_BASE_ADDRESS = "http://51.132.147.5:8080/"
+}
 
 let axiosInstance = axios.create({
   baseURL: API_BASE_ADDRESS,
