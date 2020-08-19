@@ -90,7 +90,7 @@ export default function MembersV2() {
 
     async function fetchData() {
       let x = await getRequest("v1/members");
-      console.log(x);
+      //console.log(x);
       if (x.message === "SUCCESS") {
         setData(x.data);
         setConnection(true);
@@ -119,7 +119,6 @@ export default function MembersV2() {
 
   return (
     <div>
-      {console.log(data)}
       <div className={classes.root}>
         <Snackbar
           open={openSnackbar.open}
@@ -154,7 +153,7 @@ export default function MembersV2() {
               // {
               //   icon: tableIcons.Delete,
               //   tooltip: 'Delete Member',
-              //   onClick: (event, rowData) => console.log(rowData)
+              //   onClick: (event, rowData) => //console.log(rowData)
               // },
               {
                 icon: tableIcons.Edit,
@@ -202,7 +201,7 @@ export default function MembersV2() {
                   async function fetchData(x) {
                     let resp = await deleteRequest("v1/members/" + x.id);
                     var time = 5000;
-                    console.log(resp);
+                    //console.log(resp);
                     if (resp.message === "SUCCESS") {
 
                       setOpenSnackbar({
@@ -214,9 +213,9 @@ export default function MembersV2() {
                       });
                       resolve();
                     } else {
-                      console.log("else")
+                      //console.log("else")
                       if (resp.message == "FAILURE") {
-                        console.log("bob")
+                        //console.log("bob")
                         setOpenSnackbar({
                           severity: "error",
                           message: "Could Not Delete Member",
@@ -264,7 +263,7 @@ export default function MembersV2() {
                     //throw new Error(resp);
                   }
 
-                  console.log(data);
+                  //console.log(data);
                 })
                   .then(() => {
                     // once the request is sent, update state again
@@ -281,7 +280,7 @@ export default function MembersV2() {
                     // }, 1000)
                   })
                   .catch((error) => {
-                    console.log(error.data);
+                    //console.log(error.data);
                   }),
             }}
             options={{

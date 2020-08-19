@@ -57,11 +57,11 @@ export default function Login ()  {
         "password" : password
       }
 
-      console.log(body)
+      //console.log(body)
 
       let x = await login("login", body)
       var time = 6000
-      console.log(x)
+      //console.log(x)
       
       if(x.message === "SUCCESS"){
         
@@ -77,7 +77,7 @@ export default function Login ()  {
 
         // here user feedback if username / password is wrong or does not exist (no differentiation for security)
       }else if (x.message === "unauthorized"){
-          console.log(x.message)
+          //console.log(x.message)
           setValidPassword("validate-password-true");
 
       // below is other http errors

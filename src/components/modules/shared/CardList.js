@@ -81,7 +81,7 @@ export default function CardList(props) {
 
         if (type === "Member") {
           let resp = await deleteRequest("v1/members/" + x.id);
-          console.log(resp);
+          //console.log(resp);
           if (resp.message === "SUCCESS") {
             setItems(items.filter((currentItem) => { if (currentItem != x) return (JSON.stringify(currentItem))}))
             openSnackbar({
@@ -127,7 +127,7 @@ export default function CardList(props) {
           }
         } else if (type === "Dependant") {
           let resp = await deleteRequest("v1/dependants/" + x.id);
-          console.log(resp);
+          //console.log(resp);
           if (resp.message === "SUCCESS") {
             setItems(items.filter((currentItem) => { if (currentItem != x) return (JSON.stringify(currentItem))}))
             openSnackbar({
@@ -234,7 +234,7 @@ export default function CardList(props) {
                     <div className="card-sub-botton card-sub-show">
                       <input
                         onClick={() => {
-                          console.log(x.id);
+                          //console.log(x.id);
                           history.push(page, { x: x, edit: true });
                         }}
                         type="submit"

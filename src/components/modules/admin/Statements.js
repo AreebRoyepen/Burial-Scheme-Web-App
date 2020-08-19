@@ -80,7 +80,7 @@ export default function Statements() {
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
-    console.log(value);
+    //console.log(value);
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
@@ -106,7 +106,7 @@ export default function Statements() {
   useEffect(() => {
     async function fetchData() {
       let x = await getRequest("v1/members");
-      console.log(x);
+      //console.log(x);
       if (x.message === "SUCCESS") {
         setData(x.data);
         setInitialData(x.data)
@@ -142,7 +142,7 @@ export default function Statements() {
         var time = 3000;
 
         let resp;
-        console.log(checked);
+        //console.log(checked);
         if (checked.length == 1) {
           resp = await reportDownloadRequest(
             "v1/reports/memberStatement/" + checked[0].id
@@ -169,21 +169,21 @@ export default function Statements() {
 
           var time = 3000;
 
-          console.log(list);
+          //console.log(list);
           let req = "v1/reports/memberStatement/";
 
           list.forEach(function (part, index) {
-            console.log(part);
+            //console.log(part);
             this[index] = req + part.id;
           }, list);
 
-          console.log(list);
+          //console.log(list);
 
           resp = await reportDownloadAllRequest(list);
-          console.log(resp);
+          //console.log(resp);
 
           resp.data.forEach(function (part, index) {
-            console.log(part);
+            //console.log(part);
             const url = window.URL.createObjectURL(new Blob([part.data]));
             const link = document.createElement("a");
             link.href = url;
@@ -202,7 +202,7 @@ export default function Statements() {
           }, resp.data);
         }
 
-        console.log(resp);
+        //console.log(resp);
         if (resp.message === "SUCCESS") {
           setOpenSnackbar({
             severity: "success",
@@ -262,20 +262,20 @@ export default function Statements() {
         var time = 3000;
 
         let resp;
-        console.log(list);
+        //console.log(list);
         let req = "v1/reports/memberStatement/";
 
         list.forEach(function (part, index) {
-          console.log(part);
+          //console.log(part);
           this[index] = req + part.id;
         }, list);
 
-        console.log(list);
+        //console.log(list);
 
         resp = await reportDownloadAllRequest(list);
 
         resp.data.forEach(function (part, index) {
-          console.log(part);
+          //console.log(part);
           const url = window.URL.createObjectURL(new Blob([part.data]));
           const link = document.createElement("a");
           link.href = url;
@@ -293,7 +293,7 @@ export default function Statements() {
           link.click();
         }, resp.data);
 
-        console.log(resp);
+        //console.log(resp);
         if (resp.message === "SUCCESS") {
           setOpenSnackbar({
             severity: "success",
@@ -349,7 +349,7 @@ export default function Statements() {
         var time = 3000;
 
         let resp;
-        console.log(checked);
+        //console.log(checked);
         if (checked.length == 1) {
           resp = await reportDownloadRequest(
             "v1/reports/memberStatement/" +
@@ -362,21 +362,21 @@ export default function Statements() {
 
           var time = 3000;
 
-          console.log(list);
+          //console.log(list);
           let req = "v1/reports/memberStatement/";
 
           list.forEach(function (part, index) {
-            console.log(part);
+            //console.log(part);
             this[index] = req + part.id + "/" + part.email;
           }, list);
 
-          console.log(list);
+          //console.log(list);
 
           resp = await reportEmailAllRequest(list);
-          console.log(resp);
+          //console.log(resp);
         }
 
-        console.log(resp);
+        //console.log(resp);
         if (resp.message === "SUCCESS") {
           setOpenSnackbar({
             severity: "success",
@@ -434,19 +434,19 @@ export default function Statements() {
         var time = 3000;
 
         let resp;
-        console.log(list);
+        //console.log(list);
         let req = "v1/reports/memberStatement/";
 
         list.forEach(function (part, index) {
-          console.log(part);
+          //console.log(part);
           this[index] = req + part.id + "/" + part.email;
         }, list);
 
-        console.log(list);
+        //console.log(list);
 
         resp = await reportEmailAllRequest(list);
 
-        console.log(resp);
+        //console.log(resp);
         if (resp.message === "SUCCESS") {
           setOpenSnackbar({
             severity: "success",
@@ -493,7 +493,7 @@ export default function Statements() {
     <div>
       {connection ? (
         <div>
-          {console.log(checked)}
+          {//console.log(checked)}
           <div className={classes.root}>
             <Snackbar
               open={openSnackbar.open}

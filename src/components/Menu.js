@@ -76,7 +76,7 @@ export default function Menu({children}) {
     if(localStorage.token){
 
       let decode = jwt(localStorage.token);
-      console.log(JSON.stringify(decode.user))
+      //console.log(JSON.stringify(decode.user))
       setUser(decode.user)    
 
     }else{

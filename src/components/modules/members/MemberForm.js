@@ -71,7 +71,7 @@ export default function MemberForm() {
 
   useEffect(() => {
     if (location.state.edit) {
-      console.log(location.state.x);
+      //console.log(location.state.x);
       setMember(location.state.x);
     }
   }, [location]);
@@ -119,7 +119,7 @@ export default function MemberForm() {
         "v1/members/dependants/" + location.state.x.id
       );
 
-      console.log(resp.data)
+      //console.log(resp.data)
 
       if (resp.message === "SUCCESS") {
         setDependants(resp.data);
@@ -165,7 +165,7 @@ export default function MemberForm() {
           "v1/members/" + location.state.x.id,
           {...member, dependants : null}
         );
-        console.log(resp);
+        //console.log(resp);
         if (resp.message === "SUCCESS") {
           setOpenSnackbar({
             severity: "success",
@@ -207,8 +207,8 @@ export default function MemberForm() {
         }
       } else {
         let resp = await postRequest("v1/members", member);
-        console.log(member)
-        console.log(resp);
+        //console.log(member)
+        //console.log(resp);
         if (resp.message === "SUCCESS") {
           setOpenSnackbar({
             severity: "success",
@@ -268,7 +268,7 @@ export default function MemberForm() {
   //     "email": email
   //   };
   //   var emailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  //   console.log(x)
+  //   //console.log(x)
   //   if((/^\D*$/.test(x.name)) && (/^\D*$/.test(x.surname)) && x.cellNumber.length >9
   //    && emailRegex.test(x.email) && !(/(null|undefined|^$|^\d+$)/).test(x.name) && !(/(null|undefined|^$|^\d+$)/).test(x.surname))
   //    return "trueValid";
@@ -285,8 +285,8 @@ export default function MemberForm() {
 
   return (
     <div>
-      {console.log(member)}
-    {console.log(location.state)}
+      {//console.log(member)}
+    {//console.log(location.state)}
 
       <div className={classes.root}>
         <Snackbar

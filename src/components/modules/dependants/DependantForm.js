@@ -89,7 +89,7 @@ export default function DependantForm() {
 
   useEffect(() => {
     if (location.state.edit === true) {
-      console.log(location.state.dependant);
+      //console.log(location.state.dependant);
       setDependant({...location.state.dependant, relationship : location.state.dependant.relationship.id});
     }
   }, [location]);
@@ -173,17 +173,17 @@ export default function DependantForm() {
     setIsSending(true);
     // send the actual request
 
-    console.log(dependant)
+    //console.log(dependant)
     async function updatedependant() {
       var time = 3000;
 
       if (location.state.edit) {
-        console.log({...dependant, relationship : dependant.relationship, member : dependant.member.id})
+        //console.log({...dependant, relationship : dependant.relationship, member : dependant.member.id})
         let resp = await putRequest(
           "v1/dependants/" + location.state.dependant.id,
           {...dependant, relationship : dependant.relationship, member : dependant.member.id}
         );
-        console.log(resp);
+        //console.log(resp);
         if (resp.message === "SUCCESS") {
           setOpenSnackbar({
             severity: "success",
@@ -224,7 +224,7 @@ export default function DependantForm() {
           });
         }
       } else {
-        console.log(
+        //console.log(
           {...dependant, 
             relationship : dependant.relationship, 
             member : member.id}
@@ -232,7 +232,7 @@ export default function DependantForm() {
         let resp = await postRequest("v1/dependants", {...dependant, 
           relationship : dependant.relationship, 
           member : member.id});
-        console.log(resp);
+        //console.log(resp);
         if (resp.message === "SUCCESS") {
           setOpenSnackbar({
             severity: "success",
@@ -287,7 +287,7 @@ export default function DependantForm() {
   {
     let x = dependant;
     //var emailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    //console.log(x)
+    ////console.log(x)
     if((/^\D*$/.test(x.name)) && (/^\D*$/.test(x.surname)) && !(/(null|undefined)/).test(x.relationship)
     && !(/(null|undefined)/).test(x.idnumber)
      && !(/(null|undefined|^$|^\d+$)/).test(x.name) && !(/(null|undefined|^$|^\d+$)/).test(x.surname))
@@ -305,9 +305,9 @@ export default function DependantForm() {
 
   return (
     <div className="App">
-      {console.log(dependant)}
-      {console.log(member)}
-      {console.log(location)}
+      {//console.log(dependant)}
+      {//console.log(member)}
+      {//console.log(location)}
       <div className={classes.root}>
         <Snackbar
           open={openSnackbar.open}
@@ -481,7 +481,7 @@ export default function DependantForm() {
               label = "Relationship"
               onChange={(e) =>{
 
-                console.log(e.target.value)
+                //console.log(e.target.value)
                 setDependant({ ...dependant, relationship: e.target.value })
               }
               }

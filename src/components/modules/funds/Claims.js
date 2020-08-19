@@ -76,7 +76,7 @@ export default function Claims() {
     (async () => {
       let resp;
       if (type) {
-        console.log(resp);
+        //console.log(resp);
         resp = await getRequest("v1/members");
       } else {
         resp = await getRequest("v1/dependants");
@@ -130,7 +130,7 @@ export default function Claims() {
       } else {
         resp = await postRequest("v1/claims/dependantClaim", {...data, id : person.id});
       }
-      console.log(resp);
+      //console.log(resp);
       if (resp.message === "SUCCESS") {
         var message = "Payment Successful";
         setData({ transactionType: CLAIM });
@@ -205,7 +205,7 @@ export default function Claims() {
 
   return (
     <div className="App">
-      {console.log(data)}
+      {//console.log(data)}
       <div className={classes.root}>
         <Snackbar
           open={openSnackbar.open}

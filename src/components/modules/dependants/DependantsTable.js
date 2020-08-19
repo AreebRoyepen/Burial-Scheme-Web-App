@@ -48,7 +48,7 @@ export default function DependantsTable(props) {
     return (
 
         <div>
-        {console.log(data)}
+        {//console.log(data)}
         <div className={classes.root}>
           <Snackbar
             open={openSnackbar.open}
@@ -73,7 +73,7 @@ export default function DependantsTable(props) {
           // {
           //   icon: tableIcons.Delete,
           //   tooltip: 'Delete Member',
-          //   onClick: (event, rowData) => console.log(rowData)
+          //   onClick: (event, rowData) => //console.log(rowData)
           // },
           {
             icon: tableIcons.Edit,
@@ -120,7 +120,7 @@ export default function DependantsTable(props) {
               async function fetchData(x) {
                 let resp = await deleteRequest("v1/dependants/" + x.id);
                 var time = 5000;
-                console.log(resp);
+                //console.log(resp);
                 if (resp.message === "SUCCESS") {
 
                   setOpenSnackbar({
@@ -171,7 +171,7 @@ export default function DependantsTable(props) {
                 //throw new Error(resp);
               }
 
-              console.log(data);
+              //console.log(data);
             })
               .then(() => {
                 // once the request is sent, update state again
@@ -188,7 +188,7 @@ export default function DependantsTable(props) {
                 // }, 1000)
               })
               .catch((error) => {
-                console.log(error.data);
+                //console.log(error.data);
               }),
         }}
         options={{

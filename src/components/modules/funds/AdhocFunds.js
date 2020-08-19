@@ -123,10 +123,10 @@ export default function AdhocFunds() {
           "type": EXPENSE,
         };
 
-        console.log(pay);
+        //console.log(pay);
 
         let resp = await postRequest("v1/expenses", pay);
-        console.log(resp);
+        //console.log(resp);
 
         if (resp.message === "SUCCESS") {
           setAmount("")

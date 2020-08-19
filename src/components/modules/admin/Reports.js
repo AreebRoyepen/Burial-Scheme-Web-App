@@ -39,7 +39,7 @@ export default function Reports() {
 
   return (
     <div>
-      {console.log(params)}
+      {//console.log(params)}
 
       {params.send ? toEndpoints() : <div />}
 

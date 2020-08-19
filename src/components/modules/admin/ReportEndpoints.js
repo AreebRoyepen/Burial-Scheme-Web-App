@@ -68,7 +68,7 @@ export default function ReportEndpoints(props) {
                     filename = "REPORT Member Dump " + date.toDateString() +".csv"
                 }
                 
-                console.log(t)
+                //console.log(t)
                 if(t.message === "SUCCESS"){
                     setOpenSnackbar({...openSnackbar, [openSnackbar.open]:false})
                     setOpenSnackbar({severity: "success", message : "Report downloaded", open : true, time : time, closeType : closeSnack})
@@ -115,7 +115,7 @@ export default function ReportEndpoints(props) {
 
                 //let t = await reportEmailRequest(x.endpoint,x.param1, x.param2, x.email) 
                 
-                    console.log(t)
+                    //console.log(t)
                     if(t.message === "SUCCESS"){
                         setOpenSnackbar({...openSnackbar, [openSnackbar.open]:false})
                         setOpenSnackbar({severity: "success", message : "Report Emailed Successfully", open : true, time : time, closeType : closeSnack})

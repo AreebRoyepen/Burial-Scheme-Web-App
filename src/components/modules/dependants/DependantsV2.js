@@ -114,7 +114,7 @@ export default function DependantsV2() {
 
     async function fetchData() {
       let x = await getRequest("v1/dependants");
-      console.log(x);
+      //console.log(x);
       if (x.message === "SUCCESS") {
         setData(x.data);
         setConnection(true);
@@ -143,7 +143,7 @@ export default function DependantsV2() {
 
   return (
     <div>
-      {console.log(data)}
+      {//console.log(data)}
       <div className={classes.root}>
         <Snackbar
           open={openSnackbar.open}

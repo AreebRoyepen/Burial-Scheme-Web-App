@@ -117,10 +117,10 @@ export default function Premiums() {
 
       }
 
-      console.log(body)
+      //console.log(body)
 
       let resp = await postRequest("v1/premiums", body);
-      console.log(resp)
+      //console.log(resp)
       if (resp.message === "SUCCESS") {
         var message = "Payment Successful";
         setOpenSnackbar({
@@ -194,8 +194,8 @@ export default function Premiums() {
 
   return (
     <div className="App">
-      {console.log(amount)}
-      {console.log(person)}
+      {//console.log(amount)}
+      {//console.log(person)}
       <div className={classes.root}>
         <Snackbar
           open={openSnackbar.open}

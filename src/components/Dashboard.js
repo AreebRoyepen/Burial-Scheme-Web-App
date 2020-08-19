@@ -133,7 +133,7 @@ export default function Dashboard() {
     async function fetchData() {
 
       let x = await getRequest("v1/dashboard")
-      console.log(x)
+      //console.log(x)
 
       
       if (x.message === "SUCCESS") {
@@ -145,10 +145,10 @@ export default function Dashboard() {
         //localStorage.clear();
         history.push("/", { last: location.pathname })
       } else if (x.message === "error") {
-        console.log("error")
+        //console.log("error")
         setError(true)
       } else if (x.message === "no connection") {
-        console.log("no connection")
+        //console.log("no connection")
         setError(true)
       }
 
