@@ -205,7 +205,7 @@ export default function Claims() {
 
   return (
     <div className="App">
-      {//console.log(data)}
+      {/* {console.log(data)} */}
       <div className={classes.root}>
         <Snackbar
           open={openSnackbar.open}

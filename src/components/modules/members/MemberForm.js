@@ -285,8 +285,8 @@ export default function MemberForm() {
 
   return (
     <div>
-      {//console.log(member)}
-    {//console.log(location.state)}
+      {/* {console.log(member)} */}
+    {/* {console.log(location.state)} */}
 
       <div className={classes.root}>
         <Snackbar

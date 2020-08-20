@@ -194,8 +194,8 @@ export default function Premiums() {
 
   return (
     <div className="App">
-      {//console.log(amount)}
-      {//console.log(person)}
+      {/* {console.log(amount)} */}
+      {/* {console.log(person)} */}
       <div className={classes.root}>
         <Snackbar
           open={openSnackbar.open}

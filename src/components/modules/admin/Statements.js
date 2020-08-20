@@ -493,7 +493,6 @@ export default function Statements() {
     <div>
       {connection ? (
         <div>
-          {//console.log(checked)}
           <div className={classes.root}>
             <Snackbar
               open={openSnackbar.open}

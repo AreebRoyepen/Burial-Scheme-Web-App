@@ -48,7 +48,7 @@ export default function DependantsTable(props) {
     return (
 
         <div>
-        {//console.log(data)}
+        {/* {console.log(data)} */}
         <div className={classes.root}>
           <Snackbar
             open={openSnackbar.open}

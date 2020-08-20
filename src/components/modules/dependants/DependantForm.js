@@ -224,11 +224,11 @@ export default function DependantForm() {
           });
         }
       } else {
-        //console.log(
-          {...dependant, 
-            relationship : dependant.relationship, 
-            member : member.id}
-        )
+        // console.log(
+        //   {...dependant, 
+        //     relationship : dependant.relationship, 
+        //     member : member.id}
+        // )
         let resp = await postRequest("v1/dependants", {...dependant, 
           relationship : dependant.relationship, 
           member : member.id});
@@ -305,9 +305,9 @@ export default function DependantForm() {
 
   return (
     <div className="App">
-      {//console.log(dependant)}
-      {//console.log(member)}
-      {//console.log(location)}
+      {/* {console.log(dependant)} */}
+      {/* {console.log(member)} */}
+      {/* {console.log(location)} */}
       <div className={classes.root}>
         <Snackbar
           open={openSnackbar.open}
