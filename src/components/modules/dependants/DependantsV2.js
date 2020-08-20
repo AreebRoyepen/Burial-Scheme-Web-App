@@ -142,8 +142,7 @@ export default function DependantsV2() {
   }, [history]);
 
   return (
-    <div>
-      {//console.log(data)}
+    <div>      
       <div className={classes.root}>
         <Snackbar
           open={openSnackbar.open}
